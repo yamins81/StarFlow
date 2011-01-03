@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.Update</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;Update
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.Update-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Update</h1><p class="nomargin-top"><span class="codelink"><a href="System.Update-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+Functions for automatic updating of data in the Data Environment by calling 
+scripts indicated by data dependency links. 
+        
+The basic flow of information is that the functions in this module are 
+fed by data produced by the functions from the module 
+System.LinkManagement module.  Specifically, LinkManagement functions
+(like GetLinksBelow) generate sequences of data dependency links 
+representing progations up or downward in the directed acyclic graph
+formed by the set of all Data Dependency links.  These functions 
+can be passed parameters that have them qualify the links they return 
+by timestamps to show only those links that actually _need_ updating, 
+or be unqualified and actually show the full down- or upstream propagations. 
+
+The data dependency link sequences come in the following form:
+
+        [L1, L2, L3 ... , LN]
+
+where each LI is (essentially) a numpy record array of dependency 
+links meant to be called at stage i of an update -- because things at 
+stage i-1 are input dependencies to things at stage i, which are in turn 
+inputs to things at stage i + 1.   Within the LI, the records links 
+represented (essentially) as:
+
+        (Source,Target,Script)
+
+where &quot;Script&quot; is the procedure that needs to be called to produce
+Target from Source. 
+
+Once the sequences of links are returned to functions here, the 
+UpdateLInks function calls the scripts indicated by these links,
+in the rounds indicated by the sequence. 
+
+There are two basic approaches to automatic updating that are 
+supported by the routines provided here.
+
+1) &quot;Downstream Updating,&quot; in which the user asks the system to detect 
+changes have been made, either to data or scripts, since an update was 
+last run, and then propagate the results of these changes downstream 
+through the data dependency graph.  This functionality is implemented
+by the &quot;FullUpdate&quot; function. 
+        
+2) &quot;Upstream Updating,&quot; in which the user specifies a target or set of
+targets that he wishes to remake; then the system determines which 
+upstream elements have been modified since the last creation of the 
+target, and runs those that need updating in the proper order.  This 
+functionality -- which is similar in spirit to the traditional &quot;makefile&quot; 
+commands available for many code-compilation schemes -- is
+implemented by the &quot;MakeUpdated&quot; function. 
+
+The &quot;FindOutWhatWillUpdate&quot; function displays what scripts will be 
+called, given various options to the updater, without actually calling
+any updates. 
+
+The user can blend the two updating styles along a seemless
+continuum.  The is done is via Automatic Updates filtering.  The 
+user specifies in a configuration file (whose path is set at the 
+AutomaticUpdatesPath environment variable) those scripts or 
+script-name patterns that should or should not be updated upon
+downstream propation.  Then, when calling a MakeUpdated command
+to a set of targets, Upstream changes are included, as well as 
+downstream propagations from those upstream changes that are 
+allowed by the Automatic Updates settings.   
+
+The advantage of Downstream Updating is that it does not require 
+the user to think about the implications of the changes he's making: 
+he merely makes changes to data and scripts, and then calls FullUpdate,
+regardless of what the changes were; he does not have to remember 
+which files the changes are bound to affect and then make sure 
+those are updated.  On the other hand, this style of updating means 
+that the user ends up having to modify the &quot;Automatic Updates&quot; 
+settings occasionally to prevent unwanted updates from occuring, 
+as well to enable wanted updates to actual happen.  It also means 
+that he often will want to call &quot;FindOutWhatWillUpdate&quot; before 
+&quot;FullUpdate&quot; to make see ahead of time to see which unwated
+automatic updates (if any) he may have to disable.    Downstream
+Update &quot;purists&quot; will typically want to set the &quot;Automatic Updates&quot;
+file to enable updating of most of what they're working on at any
+given period, and then only call the two commands &quot;FindOutWhatWillUpdate&quot;
+and &quot;FullUpdate&quot; repeatedly. 
+
+The Upstream style has the advantage of being more targeted -- and 
+requiring no interaction (if not wanted) with the automatic update 
+settings.   The Upstream Update &quot;purists&quot; -- those for example who 
+may be familiar with the idea of Makefiles and want to use that style
+in the data analysis work -- will typically want to set the Automatic 
+Updates setting to contain little or nothing, and then call 
+MakeUpdated(Target) for whatever end-point target they ultimately 
+want to keep updated. 
+
+In either case, the user can _force_ updating by setting the Force options
+to True (this is like the &quot;make clean&quot; option in make systems); or have
+the system update just those things that the system thinks really need 
+updating.   
+
+</pre>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Update-module.html#MakeUpdated" class="summary-sig-name">MakeUpdated</a>(<span class="summary-sig-arg">Targets</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../Data/',)</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">EmailWhenDone</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Implements the upstream updating style</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#MakeUpdated">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Update-module.html#FullUpdate" class="summary-sig-name">FullUpdate</a>(<span class="summary-sig-arg">Seed</span>=<span class="summary-sig-default">['../']</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">EmailWhenDone</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Implements the downstream updating style.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#FullUpdate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Update-module.html#FindOutWhatWillUpdate" class="summary-sig-name">FindOutWhatWillUpdate</a>(<span class="summary-sig-arg">Seed</span>=<span class="summary-sig-default">['../']</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Determine and print out readable report indicating which files 
+downstream of a seed will update (without making the actual update).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#FindOutWhatWillUpdate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Update-module.html#LinkUpdate" class="summary-sig-name">LinkUpdate</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../Data/',)</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">EmailWhenDone</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Given a seed and some options, call GetLinksBelow routine from LinkManagement, 
+and feed the result of that to the automatic updater.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#LinkUpdate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Update-module.html#UpdateLinks" class="summary-sig-name">UpdateLinks</a>(<span class="summary-sig-arg">ActivatedLinkListSequence</span>,
+        <span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">EmailWhenDone</span>=<span class="summary-sig-default">None</span>)</span><br />
+      This function is the main driver of automatic updating in the system.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#UpdateLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="printscriptrounds"></a><span class="summary-sig-name">printscriptrounds</span>(<span class="summary-sig-arg">ScriptsToCall</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Update-pysrc.html#printscriptrounds">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="nan"></a><span class="summary-name">nan</span> = <code title="numpy.nan">numpy.nan</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="MakeUpdated"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">MakeUpdated</span>(<span class="sig-arg">Targets</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../Data/',)</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">EmailWhenDone</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Update-pysrc.html#MakeUpdated">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Implements the upstream updating style 
+
+ARGUMENTS:
+--Targets = List of targets to update upstream from
+--Simple = if true, look for changes just at the top level of declared 
+        dependencies (e.g. modifitions to the directories named in the
+        dependency lists);  otherwise, look for changes below (in the 
+        file-system sense of &quot;below&quot;) these top-level dependency path names     
+--Forced = rebuild the entire upstream tree, regardless of what 
+        appears to be need rebuilding to handle changes. 
+--ProtectComputed = rebuilding downstream things that appear to 
+        have changed since their last official build and therefore (might be)
+        corrupted.
+--EmailWhenDone = email address to send report of system update to,
+        upon completion (including error reports of scripts that fail)
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="FullUpdate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">FullUpdate</span>(<span class="sig-arg">Seed</span>=<span class="sig-default">['../']</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">EmailWhenDone</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Update-pysrc.html#FullUpdate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Implements the downstream updating style.
+
+ARGUMENTS:
+--Seed = set of initial targets to go downstream from.  
+--Simple = if true, look for changes just at the top level of declared 
+        dependencies (e.g. modifitions to the directories named in the
+        dependency lists);  otherwise, look for changes below (in the
+        file-system sense of &quot;below&quot;) these top-level dependency path names
+--Forced = rebuild the entire upstream tree, regardless of what appears 
+        to be need rebuilding to handle changes. 
+--ProtectComputed = rebuilding downstream things that appear to 
+        have changed since their last official build and therefore 
+        might be corrupted.
+--EmailWhenDone = email address to send report of system update to,
+        upon completion (including error reports of scripts that fail)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="FindOutWhatWillUpdate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">FindOutWhatWillUpdate</span>(<span class="sig-arg">Seed</span>=<span class="sig-default">['../']</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Update-pysrc.html#FindOutWhatWillUpdate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Determine and print out readable report indicating which files 
+downstream of a seed will update (without making the actual update). 
+
+ARGUMENTS:
+--Seed = set of initial targets to go downstream from.  
+--Simple = if true, look for changes just at the top level 
+        of declared dependencies (e.g. modifitions to the directories named
+        in the dependency lists);  otherwise, look for changes below (in 
+        the file-system sense of &quot;below&quot;) these top-level dependency path names
+--Forced = act as if rebuilding the entire upstream tree, regardless of what 
+        appears to be need rebuilding to handle changes. 
+--ProtectComputed = include downstream things that appear to have 
+        changed since their last official build and therefore might be corrupted.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="LinkUpdate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">LinkUpdate</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../Data/',)</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">EmailWhenDone</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Update-pysrc.html#LinkUpdate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a seed and some options, call GetLinksBelow routine from LinkManagement, 
+and feed the result of that to the automatic updater. 
+
+This function is not usually called directly, but is called with arguments 
+set by either MakeUpdated or FullUpdate. 
+
+ARGUMENTS:
+--Seed = set of initial targets to go downstream from.  
+--Simple = if true, look for changes just at the top level of declared 
+        dependencies (e.g. modifitions to the directories named in the 
+        dependency lists);  otherwise, look for changes below (in the file-system 
+        sense of &quot;below&quot;) these top-level dependency path names
+--Forced = act as if rebuilding the entire upstream tree, regardless of what appears 
+        to be need rebuilding to handle changes. 
+--ProtectComputed = include downstream things that appear to have changed 
+since their last official build and therefore (might be) corrupted.             
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="UpdateLinks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">UpdateLinks</span>(<span class="sig-arg">ActivatedLinkListSequence</span>,
+        <span class="sig-arg">Seed</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">EmailWhenDone</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Update-pysrc.html#UpdateLinks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+This function is the main driver of automatic updating in the system.  It takes in a
+sequence of sets of links, and applies the scripts indicated by those links in the 
+proper order.  If possible, it saves previous outputs of these scripts in a safe 
+place so that if a script fails, the previous output can be reverted to.  It 
+keeps track of success or failure along the way, and if failure occurs,
+downstream updates are cancelled.   It also has a built-in diff-checker, 
+so that if outputs of a given script are not different from previous runs, 
+downstream files are merely touched (i.e., have their timestamps updated) 
+but not recomputed.  
+
+This function is not usually called directly by the user, but instead with its 
+arguments et by LinkUpdate. 
+
+Arguments:
+--ActivatedLinkListSequence -- a sequence of recarrays of 
+        links (as produced, e.g. by GetLinksBelow).  
+--Seed:  the original files updates to which set off the linklist activation.  
+        This is used for recomputing when failure or no difference occurs. 
+                        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

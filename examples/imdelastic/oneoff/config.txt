@@ -1,0 +1,26 @@
+# makecrystal
+x = 2
+y = 2
+z = 2
+
+# imdgetelastic
+r_cut = 0
+lj_epsilon = 1
+lj_sigma = 1
+lindef_inter = 1
+lindef_xx = 1
+lindef_yy = 1
+lindef_zz = 1
+
+# imdgetcommon
+maxsteps = 1
+timestep = 1
+pbc_x = 0
+pbc_y = 0
+pbc_z = 0
+eng_int = 1
+checkpt_int = 1
+startingtemp = 100
+
+# imdanimation
+energyCutoff = 0

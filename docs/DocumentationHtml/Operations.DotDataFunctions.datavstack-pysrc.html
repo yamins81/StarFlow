@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Operations.DotDataFunctions.datavstack</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;Operations ::
+        <a href="Operations.DotDataFunctions-module.html">Package&nbsp;DotDataFunctions</a> ::
+        Module&nbsp;datavstack
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="Operations.DotDataFunctions.datavstack-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="Operations.DotDataFunctions.datavstack-module.html">Module Operations.DotDataFunctions.datavstack</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">"Vertical stacking" of DotDatas, e.g. adding rows. </tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">numpy</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package System=System-module.html"><a title="System" class="py-name" href="#" onclick="return doclink('link-0', 'System', 'link-0');">System</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module System.Utils=System.Utils-module.html"><a title="System.Utils" class="py-name" href="#" onclick="return doclink('link-1', 'Utils', 'link-1');">Utils</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function System.Utils.uniqify()=System.Utils-module.html#uniqify"><a title="System.Utils.uniqify" class="py-name" href="#" onclick="return doclink('link-2', 'uniqify', 'link-2');">uniqify</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function System.Utils.ListUnion()=System.Utils-module.html#ListUnion"><a title="System.Utils.ListUnion" class="py-name" href="#" onclick="return doclink('link-3', 'ListUnion', 'link-3');">ListUnion</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Function System.Utils.SimpleStack1()=System.Utils-module.html#SimpleStack1"><a title="System.Utils.SimpleStack1" class="py-name" href="#" onclick="return doclink('link-4', 'SimpleStack1', 'link-4');">SimpleStack1</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Function System.Utils.ListArrayTranspose()=System.Utils-module.html#ListArrayTranspose"><a title="System.Utils.ListArrayTranspose" class="py-name" href="#" onclick="return doclink('link-5', 'ListArrayTranspose', 'link-5');">ListArrayTranspose</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Package Classes=Classes-module.html"><a title="Classes" class="py-name" href="#" onclick="return doclink('link-6', 'Classes', 'link-6');">Classes</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Module Classes.DotData=Classes.DotData-module.html,Class Classes.DotData.DotData=Classes.DotData.DotData-class.html"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-7', 'DotData', 'link-7');">DotData</a></tt><tt class="py-op">,</tt> <tt class="py-name">cPickle</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="datavstack"></a><div id="datavstack-def"><a name="L8"></a><tt class="py-lineno"> 8</tt> <a class="py-toggle" href="#" id="datavstack-toggle" onclick="return toggle('datavstack');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="Operations.DotDataFunctions.datavstack-module.html#datavstack">datavstack</a><tt class="py-op">(</tt><tt class="py-param">ListOfDatas</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="datavstack-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="datavstack-expanded"><a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment">#if all([isinstance(l,DotData) for l in ListOfDatas]):  </tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#else:</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#       return numpy.vstack(ListOfDatas)</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">CommonAttributes</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">ListOfDatas</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">:</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">                <tt class="py-name">CommonAttributes</tt> <tt class="py-op">=</tt> <tt class="py-name">CommonAttributes</tt><tt class="py-op">.</tt><tt class="py-name">intersection</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">        <tt class="py-name">CommonAttributes</tt> <tt class="py-op">=</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">        <tt class="py-name">CommonAttributes</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt> <tt class="py-keyword">for</tt> <tt class="py-name">j</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">.</tt><tt class="py-name">index</tt><tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt> <tt class="py-keyword">if</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">CommonAttributes</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">         </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">                        <tt class="py-keyword">return</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">row_stack</tt><tt class="py-op">(</tt><tt class="py-name">ListOfDatas</tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">                        <tt class="py-keyword">print</tt> <tt class="py-string">"The data arrays you tried to stack couldn't be stacked."</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                 </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                <tt class="py-name">A</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="System.Utils.SimpleStack1" class="py-name" href="#" onclick="return doclink('link-8', 'SimpleStack1', 'link-4');">SimpleStack1</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">]</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                         </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">'coloring'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dir</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                        <tt class="py-name">restrictedcoloring</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">,</tt><tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">ListOfDatas</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">coloring</tt><tt class="py-op">[</tt><tt class="py-name">a</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">intersection</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">a</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">coloring</tt><tt class="py-op">.</tt><tt class="py-name">keys</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">                                <tt class="py-name">restrictedcoloring</tt><tt class="py-op">.</tt><tt class="py-name">update</tt><tt class="py-op">(</tt><tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">,</tt><tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">coloring</tt><tt class="py-op">[</tt><tt class="py-name">a</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">intersection</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">CommonAttributes</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">a</tt> <tt class="py-keyword">in</tt> <tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">coloring</tt><tt class="py-op">.</tt><tt class="py-name">keys</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                        <tt class="py-name">restrictedcoloring</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">all</tt> <tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">rowdata</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                        <tt class="py-name">rowdata</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name" targets="Function Operations.DotDataFunctions.datavstack.SafeSimpleStack()=Operations.DotDataFunctions.datavstack-module.html#SafeSimpleStack"><a title="Operations.DotDataFunctions.datavstack.SafeSimpleStack" class="py-name" href="#" onclick="return doclink('link-9', 'SafeSimpleStack', 'link-9');">SafeSimpleStack</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">rowdata</tt> <tt class="py-keyword">if</tt> <tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">rowdata</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt> <tt class="py-keyword">else</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">''</tt><tt class="py-op">]</tt><tt class="py-op">*</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ListOfDatas</tt> <tt class="py-op">]</tt><tt class="py-op">)</tt>          </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">                        <tt class="py-name">rowdata</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-10" class="py-name"><a title="Classes" class="py-name" href="#" onclick="return doclink('link-10', 'Classes', 'link-6');">Classes</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-11', 'DotData', 'link-7');">DotData</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-12', 'DotData', 'link-7');">DotData</a></tt><tt class="py-op">(</tt><tt class="py-name">Array</tt> <tt class="py-op">=</tt> <tt class="py-name">A</tt><tt class="py-op">,</tt> <tt class="py-name">dtype</tt> <tt class="py-op">=</tt> <tt class="py-name">A</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">,</tt> <tt class="py-name">coloring</tt> <tt class="py-op">=</tt> <tt class="py-name">restrictedcoloring</tt><tt class="py-op">,</tt><tt class="py-name">rowdata</tt> <tt class="py-op">=</tt> <tt class="py-name">rowdata</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                 </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
+<a name="SafeSimpleStack"></a><div id="SafeSimpleStack-def"><a name="L41"></a><tt class="py-lineno">41</tt> <a class="py-toggle" href="#" id="SafeSimpleStack-toggle" onclick="return toggle('SafeSimpleStack');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="Operations.DotDataFunctions.datavstack-module.html#SafeSimpleStack">SafeSimpleStack</a><tt class="py-op">(</tt><tt class="py-param">seq</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SafeSimpleStack-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="SafeSimpleStack-expanded"><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-docstring">                Vertically stack sequences numpy record arrays. </tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-docstring">                Avoids some of the problems of numpy.v_stack</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-name">names</tt> <tt class="py-op">=</tt>  <tt id="link-13" class="py-name"><a title="System.Utils.uniqify" class="py-name" href="#" onclick="return doclink('link-13', 'uniqify', 'link-2');">uniqify</a></tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="System.Utils.ListUnion" class="py-name" href="#" onclick="return doclink('link-14', 'ListUnion', 'link-3');">ListUnion</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">s</tt> <tt class="py-keyword">in</tt> <tt class="py-name">seq</tt> <tt class="py-keyword">if</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt class="py-name">formats</tt> <tt class="py-op">=</tt>  <tt class="py-op">[</tt><tt class="py-name">max</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">[</tt><tt class="py-name">att</tt><tt class="py-op">]</tt> <tt class="py-keyword">for</tt> <tt class="py-name">s</tt> <tt class="py-keyword">in</tt> <tt class="py-name">seq</tt> <tt class="py-keyword">if</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">att</tt> <tt class="py-keyword">in</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">str</tt> <tt class="py-keyword">for</tt> <tt class="py-name">att</tt> <tt class="py-keyword">in</tt> <tt class="py-name">names</tt><tt class="py-op">]</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-name">D</tt> <tt class="py-op">=</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">rec</tt><tt class="py-op">.</tt><tt class="py-name">fromarrays</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-15" class="py-name"><a title="System.Utils.ListUnion" class="py-name" href="#" onclick="return doclink('link-15', 'ListUnion', 'link-3');">ListUnion</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-name">att</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">tolist</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">att</tt> <tt class="py-keyword">in</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">)</tt> <tt class="py-keyword">else</tt> <tt class="py-op">[</tt><tt id="link-16" class="py-name" targets="Function Classes.DotData.nullvalue()=Classes.DotData-module.html#nullvalue,Function Operations.DotDataFunctions.datavstack.nullvalue()=Operations.DotDataFunctions.datavstack-module.html#nullvalue"><a title="Classes.DotData.nullvalue
+Operations.DotDataFunctions.datavstack.nullvalue" class="py-name" href="#" onclick="return doclink('link-16', 'nullvalue', 'link-16');">nullvalue</a></tt><tt class="py-op">(</tt><tt class="py-name">format</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">s</tt> <tt class="py-keyword">in</tt> <tt class="py-name">seq</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-op">(</tt><tt class="py-name">att</tt><tt class="py-op">,</tt><tt class="py-name">format</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">zip</tt><tt class="py-op">(</tt><tt class="py-name">names</tt><tt class="py-op">,</tt><tt class="py-name">formats</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">names</tt> <tt class="py-op">=</tt> <tt class="py-name">names</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-name">D</tt> <tt class="py-op">=</tt> <tt class="py-name">D</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt class="py-name">D</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">         </tt>
+<a name="nullvalue"></a><div id="nullvalue-def"><a name="L53"></a><tt class="py-lineno">53</tt> <a class="py-toggle" href="#" id="nullvalue-toggle" onclick="return toggle('nullvalue');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="Operations.DotDataFunctions.datavstack-module.html#nullvalue">nullvalue</a><tt class="py-op">(</tt><tt class="py-param">format</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="nullvalue-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="nullvalue-expanded"><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> <tt class="py-keyword">if</tt> <tt class="py-name">format</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-string">'&lt;i'</tt><tt class="py-op">,</tt><tt class="py-string">'|b'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">else</tt> <tt class="py-number">0.0</tt> <tt class="py-keyword">if</tt> <tt class="py-name">format</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-string">'&lt;f'</tt><tt class="py-op">)</tt> <tt class="py-keyword">else</tt> <tt class="py-string">''</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:17 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

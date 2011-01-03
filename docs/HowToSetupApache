@@ -1,0 +1,146 @@
+How To Set Up Apache 2.2 Virtual Hosting and Running CGI Scripts:
+
+
+OS X:
+
+1) edit /private/etc/apache2/httpd.conf:
+	a) change User to account USERNAME, around line 141
+	b) uncomment line about including virtual hosts, around line 460, looks like this:
+		# Virtual hosts
+		Include /private/etc/apache2/extra/httpd-vhosts.conf
+	c) uncomment cgi handler line around 406, like this:
+		    AddHandler cgi-script .cgi
+		    
+2) edit  /private/etc/apache2/extra/httpd-vhosts.conf:  Modify the first <virtual host> directive to:
+
+		<VirtualHost 127.0.0.1:80>
+			DocumentRoot "/Library/WebServer/Documents/"
+			ServerName localhost
+		</VirtualHost>
+
+and then add this one:
+
+	<VirtualHost 127.0.0.1:80>
+		DocumentRoot "[PUT HERE MAINDIRPATH]"
+		ServerName DataEnvironment
+	
+	<Directory [PUTH HERE MAIN DIRPATH]/>
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	<Directory [PUT HERE MAINDIRPATH + /System/CGI-Executables] >
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	</VirtualHost>
+
+where MAINDIRPATH = the absolute path to your Data environment main directory.   
+
+For example:
+
+	<VirtualHost 127.0.0.1:80>
+		DocumentRoot "/Users/danielyamins/DataEnvironment"
+		ServerName DataEnvironment
+
+	<Directory /Users/danielyamins/DataEnvironment/>
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	<Directory /Users/danielyamins/DataEnvironment/System/CGI-Executables>
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	</VirtualHost>
+			
+3) copy the additional virtual host from 2) into /private/etc/apache2/users/[USERNAME].conf
+
+4) edit the file /private/etc/hosts and add the line 
+	127.0.0.1 DataEnvironment 
+	
+5) turn on apache by going to System > Preferences> Sharing, then clicking to check "Web Sharing"
+
+
+
+CYGWIN:
+
+First, add an environmen variable in your Windows environment, with name 'CYGWIN' and value 'server'
+
+Go to your Cygwin prompt.  
+
+Now, try typing in:
+
+>> cygserver-config
+
+If you get something like "command not found" then you
+need to run Cygwin setup, go to Admin and find cygserver. Install it.
+
+Then go here:
+http://www.cygwin.com/cygwin-ug-net/using-cygserver.html
+and follow the directions which start at "How to
+start Cygserver".
+
+Then you just run:
+>> cygserver-config
+
+When it's finished, start the service :
+>> net start cygserver
+
+Then you should be able to start Apache with:
+>> /usr/sbin/apachectl2 start
+
+
+Now, to configure it for use in the DataEnvironment:
+
+1) edit /etc/apache2/httpd.conf:
+	a) change User to account USERNAME, around line 141
+	b) uncomment line about including virtual hosts, around line 460, looks like this:
+		# Virtual hosts
+		Include /etc/apache2/extra/httpd-vhosts.conf
+	c) uncomment cgi handler line around 406, like this:
+		    AddHandler cgi-script .cgi
+		    
+2) edit  /etc/apache2/extra/httpd-vhosts.conf:  Modify the first <virtual host> directive to:
+
+		<VirtualHost 127.0.0.1:80>
+			DocumentRoot "/srv/www/htdocs"
+			ServerName localhost
+		</VirtualHost>
+
+and then add this one:
+	<VirtualHost 127.0.0.1:80>
+		DocumentRoot "[intended directory]"
+		ServerName [INTENDEDNAME]
+	
+	<Directory [intended directory]/>
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	<Directory [intended directory for CGI scripts]>
+		Options FollowSymLinks All MultiViews ExecCGI
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
+	
+	</VirtualHost>
+
+4) add the line 127.0.0.1 [INTENDEDNAME] in /etc/hosts
+
+5) turn on apache2 (by /usr/sbin/apachectl2 start) or restart if it's already started ( '/usr/sbin/apachectl2 stop' then '/usr/sbin/apachectl2 start')
+
+ 

@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Classes.DotData.DotData</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="Classes-module.html">Package&nbsp;Classes</a> ::
+        <a href="Classes.DotData-module.html">Module&nbsp;DotData</a> ::
+        Class&nbsp;DotData
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="Classes.DotData.DotData-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class DotData</h1><p class="nomargin-top"><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+Operations.DotDataFunctions.datahstack.numpy.core.records.recarray --+
+                                                                     |
+                                                                    <strong class="uidshort">DotData</strong>
+</pre>
+
+<hr />
+<p>A numpy recarray (a table with named columns where each column is of a
+  uniform Python type), with added functionality and ability to define 
+  named groups of columns.</p>
+  <p>Invariants:</p>
+  <p>The names of all columns are distinct (unique) within one DotData.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#__new__" class="summary-sig-name">__new__</a>(<span class="summary-sig-arg">subtype</span>,
+        <span class="summary-sig-arg">Array</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Records</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Columns</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">shape</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">dtype</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">formats</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">names</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ToLoad</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">coloring</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Path</span>=<span class="summary-sig-default">''</span>,
+        <span class="summary-sig-arg">PathList</span>=<span class="summary-sig-default">''</span>,
+        <span class="summary-sig-arg">SVPath</span>=<span class="summary-sig-default">''</span>,
+        <span class="summary-sig-arg">SVDelimiter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVDelimiterRegExp</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVLineBreak</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVHeader</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">SVHash</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVLineFixer</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVValueFixer</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Wrap</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">SVSkipFirstLines</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">rowdata</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Construct a new DotData from a copy of the data that's passed in.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__new__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#extract" class="summary-sig-name">extract</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Creates a copy of this DotData in the form of a numpy.ndarray.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.extract">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#selectRowsUsingOneCriterion" class="summary-sig-name">selectRowsUsingOneCriterion</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">expr</span>)</span><br />
+      Return selected rows.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.selectRowsUsingOneCriterion">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#selectRows" class="summary-sig-name">selectRows</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">expr</span>,
+        <span class="summary-sig-arg">*exprs</span>)</span><br />
+      Returns a copy of rows matching all criteria in a list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.selectRows">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#__getitem__" class="summary-sig-name">__getitem__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">attribute</span>)</span><br />
+      Returns a subrectangle of the table.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__getitem__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#__getslice__" class="summary-sig-name">__getslice__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">attribute1</span>,
+        <span class="summary-sig-arg">attribute2</span>)</span><br />
+      Returns a slice into the array: a _contiguous_ range of its rows.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__getslice__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="vstack"></a><span class="summary-sig-name">vstack</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">new</span>)</span><br />
+      Create a new DotData that has rows of self followed by rows of new, 
+      with the headers, colorings and rowdata correctly merged.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.vstack">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#hstack" class="summary-sig-name">hstack</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">new</span>)</span><br />
+      Create a new DotData that has columns of self followed by columns of 
+      new, with the headers and colorings correctly merged.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.hstack">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#addrecords" class="summary-sig-name">addrecords</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">new</span>)</span><br />
+      Append one or more records to the end of the array.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.addrecords">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="copy"></a><span class="summary-sig-name">copy</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.copy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="recordsAsDicts"></a><span class="summary-sig-name">recordsAsDicts</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return an interator over the records, which yields each record as a 
+      dictionary mapping column name to the value of that column in that 
+      record.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.recordsAsDicts">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="view"></a><span class="summary-sig-name">view</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">obj</span>=<span class="summary-sig-default">numpy.core.records.recarray</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.view">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#save" class="summary-sig-name">save</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">TargetFolderName</span>,
+        <span class="summary-sig-arg">HeaderOn</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Save the DotData to a folder, preserving the colorings.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.save">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="AppendToFile"></a><span class="summary-sig-name">AppendToFile</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">Target</span>)</span><br />
+      Like &quot;save&quot; but for appending instead of writing from 
+      scratch.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.AppendToFile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ColIdx"></a><span class="summary-sig-name">ColIdx</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">colName</span>)</span><br />
+      Return the index of the column with the given name</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.ColIdx">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="numCols"></a><span class="summary-sig-name">numCols</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return the number of columns in this DotData</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.numCols">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="numRows"></a><span class="summary-sig-name">numRows</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return the number of rows in this DotData</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.numRows">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#saveToSV" class="summary-sig-name">saveToSV</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">TargetFileName</span>,
+        <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">linesep</span>=<span class="summary-sig-default">'\n'</span>,
+        <span class="summary-sig-arg">UseHeader</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Save the DotData to a single flat file.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.saveToSV">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#saveColumns" class="summary-sig-name">saveColumns</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">TargetFolderName</span>)</span><br />
+      Save the DotData to a set of flat .csv files in .data format (i.e.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.saveColumns">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#isPrimaryKey" class="summary-sig-name">isPrimaryKey</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">columnName</span>)</span><br />
+      Test whether the given column is a primary key, i.e.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.isPrimaryKey">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#aggregate" class="summary-sig-name">aggregate</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">On</span>,
+        <span class="summary-sig-arg">AggFuncDict</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Aggregate a dataset, on specifed columns, using specified aggregation
+      functions.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.aggregate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#pivot" class="summary-sig-name">pivot</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">a</span>,
+        <span class="summary-sig-arg">b</span>,
+        <span class="summary-sig-arg">Keep</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Pivot a DotData table  on columns a,b.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.pivot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#aggregate_in" class="summary-sig-name">aggregate_in</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">On</span>,
+        <span class="summary-sig-arg">AggFuncDict</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">interspersed</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Take aggregate of data set on specified columns, then add the 
+resulting rows back into data set to make a composite object 
+containing both original non-aggregate data rows as well as the 
+aggregate rows.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.aggregate_in">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Static Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-StaticMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="Classes.DotData.DotData-class.html#mergeOnKeyCols" class="summary-sig-name">mergeOnKeyCols</a>(<span class="summary-sig-arg">dotDatas</span>,
+        <span class="summary-sig-arg">primaryKeyCols</span>,
+        <span class="summary-sig-arg">blanks</span>,
+        <span class="summary-sig-arg">suffixes</span>,
+        <span class="summary-sig-arg">verbose</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Merge several dotDatas based on primary key columns.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.mergeOnKeyCols">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__new__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__new__</span>(<span class="sig-arg">subtype</span>,
+        <span class="sig-arg">Array</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Records</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Columns</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">shape</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">dtype</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">formats</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">names</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ToLoad</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">coloring</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Path</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">PathList</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">SVPath</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">SVDelimiter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVDelimiterRegExp</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVLineBreak</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVHeader</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">SVHash</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVLineFixer</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVValueFixer</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Wrap</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">SVSkipFirstLines</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">rowdata</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__new__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Construct a new DotData from a copy of the data that's passed in.   
+     The new DotData is a separate object from all parts of the original data.
+
+     There are several ways of creating a DotData.  You need to specify
+     the table data, and the column headings.
+
+     Specifying the data:
+
+        - from a numpy.ndarray (Array arg)
+        - from list of records (Records arg), where each record is represented
+             as a sequence of elements
+        - from list of columns (Columns arg), by passing each column as 
+             list of uniform Python values.
+        - from a .data directory (Path arg);
+        - from an SV (separated-values) file (SVPath, SVDelimiter,
+             SVDelimiterRegExp, SVLineBreak, SVHeader, SVHash, 
+                     SVSkipFirstLines, SVLineFixer, SVValueFixer args)
+
+     Specifying the column names:
+
+       Column names can be inferred from the input data:
+          - if you're constructing from a numpy.ndarray, the column names 
+             are taken from its dtype attribute
+          - if you're constructing from .data directory, the column names
+             are taken from the names of .csv
+          files in that directory.
+          - if you're constructing from an SV file, the column names 
+             can be taken from the headers in the file
+          (by default they're assumed to be there).
+
+       Or you can specify the column names as arguments:   
+
+          - you can specify column names as the 'names' argument 
+             (list of strings), or as the 'dtype' argument (numpy.dtype object).
+        
+       If you specify your own column names, and you're constructing from a numpy.recarray,
+       they will override any column names from the numpy.recarray.
+        
+     You can specify a _subset_ of the columns to use, by specifying 
+     the list of column names as the ToLoad argument.
+
+     Specifying the colors (named column groups):
+
+Colorings can be inferred from the input data:
+
+       If constructing from a .data directory, colorings will be automaticallly
+       inferred from the directory tree.
+
+Colorings can be passed as argument:
+
+       In the 'coloring' argument, pass a dictionary each color names
+       (a string) to list of column names in that color.
+
+If colorings are passed as argument, they override any colorings
+inferred from the input data.
+
+The Wrap argument adds a color with name Wrap (thus Wrap is a string) 
+listing all column names.
+(When this DotData is saved to a .data directory, all columns will be
+nested in an additional directory, Wrap.data.)
+
+     You can also specify some rowdata:
+     
+     The rowdata argument must either be None (no rowdata) or a record
+     array the same length as the data set.     This rowdata is meant 
+     to represent &quot;row-by-row&quot; metadata.   These are columns that
+     you don't really want to appear in displays of the data set, but which 
+     are meant to &quot;travel with&quot; no matter what subsetting you do on the 
+     &quot;real data&quot; columns -- so that the rowdata columns will still be there 
+     without your explicitly having to remember them.   
+
+     One use of .rowdata columns is for formatting and communicating &quot;side&quot; 
+     information to other DotData methods. For instance, various specially 
+     designated columns in the .rowdata information can be used to tell other 
+     applications that use DotDatas how to interpret the rows in a way that
+     would be tedious for the user to have to remember to supply. Two instances of this are:
+             
+     -- A '__color__' column present in a DotData's rowdata is specially 
+     interpreted by the browser's DotData- Html representation. The '__color__' column
+     is expected in each row to contain a web-safe hex triplet color specification, 
+     e.g a string of the form
+             '#XXXXXX' (see http://en.wikipedia.org/wiki/Web_colors).  
+     -- The 'Aggregates' columns is used to disambiguate rows that 
+     are aggregates of data in other sets of rows for the .aggregate_in method (see comments on that below). 
+     
+     Rowdata information can also be used to specify arbitrary higher-level 
+     groups of rows, in analogy to how the &quot;coloring&quot; attribute 
+     specifies groupings of columns.   This would work either by: 
+             -- storing in a .rowdata column whose name specifies group name,
+                     a boolean in each row as to whether the row belongs to that group, or
+             -- for a &quot;type&quot; of grouping consisting of several nonintersecting row 
+                     groups, a single column specifying by some string or integer code 
+                     which group the row belongs to.  (An example of this is the &quot;Aggregates&quot;
+                     column used by the .aggregate_in method, see below for info about this.) 
+
+     Parameters:
+
+       subtype - the class object for the actual type of the newly created 
+       DotData object.  (will be either type(DotData) or the type of a subclass).
+
+
+        Arguments for recarray: shape, formats (see numpy docs)
+        
+     
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="extract"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">extract</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.extract">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Creates a copy of this DotData in the form of a numpy.ndarray.</p>
+  <p>Useful if you want to do math on array elements, e.g. if you have a 
+  subset of the columns that are all numerical, you can construct a 
+  numerical matrix and do matrix operations.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="selectRowsUsingOneCriterion"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">selectRowsUsingOneCriterion</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">expr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.selectRowsUsingOneCriterion">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return selected rows.</p>
+  <p>If expr is a string or a code object, returns rows for which expr is 
+  True.  Expr is either a string or a code object; if a string, it is 
+  compiled into a code object.  The expression is evaluated for each row, 
+  in an environment in which column names are bound to column values in 
+  that row. A DotData containing copies of rows for which the expression 
+  evaluates to True is returned.</p>
+  <p>If expr is a map of column names to values, returns rows for which the
+  specified columns have the specified values. Column names mapped to None 
+  do not participate in the filtering.</p>
+  <p>You can get the same effect by using self[expr], but the [] operator 
+  is getting very overloaded...</p>
+  <p>See also: selectRows(), which can select rows according to a list of 
+  criteria.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="selectRows"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">selectRows</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">expr</span>,
+        <span class="sig-arg">*exprs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.selectRows">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns a copy of rows matching all criteria in a list.  See 
+  selectRowsAux() for documentation of the criteria.</p>
+  <p>This method takes a variable number of arguments; each argument is a 
+  separate criterion, and rows are returned which match ALL the 
+  criteria.</p>
+  <p>See also: __getitem__().</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__getitem__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getitem__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attribute</span>)</span>
+    <br /><em class="fname">(Indexing operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__getitem__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a subrectangle of the table.
+
+The representation of the subrectangle depends on type(attribute). Also,
+whether the returned object represents a new independent copy of the
+subrectangle, or a &quot;view&quot; into this self object, depends on type(attribute).
+
+- if you pass the name of an existing coloring, you get a DotData consisting of
+copies of columns in that coloring
+
+- if you pass a list of existing coloring names and/or column names, you get a
+DotData consisting of copies of columns in the list (name of coloring is
+equivalent to list of names of columns in that coloring; duplicate columns are
+deleted).
+
+- if you pass a Python expression as a code object (see compile_expr()), where
+columns names are used in the expression as variables, you get subset of rows
+for which the expression is true; more specifically, you get a DotData consisting
+of copies of rows for which the expression evaluates to True, in an environment
+where column names are bound to the corresponding values for each row.
+
+- if you pass a dictionary mapping column names to values, you get back rows
+where the specified columns have the specified values (more specifically, you
+get a new DotData containing copies of these rows). Dictionary entries mapping
+to None are ignored.
+
+- if you pass an ndarray, you get a DotData consisting a subrectangle of the
+table, as handled by recarray's: * if you pass a 1D ndarray of booleans of
+len(DotData), the rectangle contains copies of the rows for which the
+corresponding entry is True. * if you pass a list of row numbers, you get a
+DotData containing copies of these rows.
+
+
+See also: selectRows(), which lets you specify several row-selection criteria at
+once, and lets you pass an expression for selecting the rows as a string rather
+than only as a Python code object.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__getslice__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getslice__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attribute1</span>,
+        <span class="sig-arg">attribute2</span>)</span>
+    <br /><em class="fname">(Slicling operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.__getslice__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns a slice into the array: a _contiguous_ range of its rows. This
+  is not a copy but a mutable reference into the array.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="hstack"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hstack</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">new</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.hstack">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create a new DotData that has columns of self followed by columns of 
+  new, with the headers and colorings correctly merged.  rowdata is merged 
+  by simple SafeColumnStack (if there's repeated column names from 
+  different arrays, no exception is raised and the data from the first 
+  array that has that rowdata is taken)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="addrecords"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">addrecords</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">new</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.addrecords">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Append one or more records to the end of the array. Can take a single 
+  record or tuple, or a list of records/tuples.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="save"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">save</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">TargetFolderName</span>,
+        <span class="sig-arg">HeaderOn</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.save">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save the DotData to a folder, preserving the colorings.  Can later be 
+  loaded back by passing the folder as the Path argument to DotData 
+  constructor.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="mergeOnKeyCols"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">mergeOnKeyCols</span>(<span class="sig-arg">dotDatas</span>,
+        <span class="sig-arg">primaryKeyCols</span>,
+        <span class="sig-arg">blanks</span>,
+        <span class="sig-arg">suffixes</span>,
+        <span class="sig-arg">verbose</span>=<span class="sig-default">False</span>)</span>
+    <br /><em class="fname">Static Method</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.mergeOnKeyCols">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Merge several dotDatas based on primary key columns.</p>
+  <p>Parameters:</p>
+  <p>dotDatas - sequence of DotDatas to join primaryKeyCols - sequence of 
+  column names, one for each DotData in dotDatas. these columns should all 
+  have the same type of data, typically an identifier telling us for what 
+  entity (e.g. for what SNP) that row gives information.</p>
+  <p>If each item in the sequence is a tuple of column names rather than a 
+  single column name, then the primary key from the corresponding DotData 
+  is the tuple of values from these columns, rather than a single value 
+  from one column.</p>
+  <p>blanks - when a DotData does not have a value for a given primary key,
+  this tuple is filled in. suffixes - sequence of suffixes, one for each 
+  DotData, to append to names of columns from that DotData to make them 
+  unique, if needed.</p>
+  <p>For each primary key value existing in at least one DotData, we create
+  one output record in the resulting merged DotData; these records are in 
+  order of primary key.   The columns in the output are obtained by 
+  concatenating column name lists of the input DotDatas; any column names 
+  shared between two or more dotDatas are made unique by appending the 
+  corresponding suffix from 'suffixes'.   The record corresponding to a 
+  given primary key is obtained by concatenating the records of the input 
+  dotDatas; when some input dotData does not have a row with the given 
+  primary key, the corresponding tuple from 'blanks' is used instead.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="saveToSV"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">saveToSV</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">TargetFileName</span>,
+        <span class="sig-arg">sep</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">linesep</span>=<span class="sig-default">'\n'</span>,
+        <span class="sig-arg">UseHeader</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.saveToSV">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save the DotData to a single flat file.  Column headers are kept, but 
+  colorings are lost.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="saveColumns"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">saveColumns</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">TargetFolderName</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.saveColumns">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Save the DotData to a set of flat .csv files in .data format (i.e. 
+  .int.csv, .float.csv, .str.csv). Colorings are lost.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="isPrimaryKey"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">isPrimaryKey</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">columnName</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.isPrimaryKey">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Test whether the given column is a primary key, i.e. that each row has
+  a unique value in this column, different from the value in any other 
+  row.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="aggregate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">aggregate</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">On</span>,
+        <span class="sig-arg">AggFuncDict</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.aggregate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Aggregate a dataset, on specifed columns, using specified aggregation 
+  functions.  See commends for DotDataAggregate function.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="pivot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pivot</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">a</span>,
+        <span class="sig-arg">b</span>,
+        <span class="sig-arg">Keep</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.pivot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Pivot a DotData table  on columns a,b. See comments for Pivot 
+  function, and http://en.wikipedia.org/wiki/Pivot_table.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="aggregate_in"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">aggregate_in</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">On</span>,
+        <span class="sig-arg">AggFuncDict</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">interspersed</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="Classes.DotData-pysrc.html#DotData.aggregate_in">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Take aggregate of data set on specified columns, then add the 
+resulting rows back into data set to make a composite object 
+containing both original non-aggregate data rows as well as the 
+aggregate rows. 
+
+First read commends for aggregate method.  Now:
+ARGUMENTS:
+--On, AggFuncDict -- same as arguments for aggregate method. 
+-- interspersed : boolean, if true aggregate rows are interleaved 
+with the data of which they are aggregates, if false, all aggregate 
+rows placed at the end of the array. 
+
+RETURNS:
+A DotData, with number of rows equaling:
+                len(self) + len(A)
+where A is the the result of self.aggregate(On,AggFuncDict).
+A represents the aggregate rows and the other 
+rows were the original data rows. 
+                
+This function supports _multiple_ aggregation, meaning that one
+can first aggregate on one set of factors, then repeat
+aggregation on the result for another set of factors, without the
+results of the first aggregation interfering the second.  To achieve 
+this, the method adds (or augments, if already present), some
+.rowdata information.  (See comments on __new__ of DotData 
+for more about rowdata information in general).     
+The specific rowdata information added by the aggregate_in 
+method is a column called &quot;Aggregates&quot; specifying on which 
+factors the rows that are aggregate rows were aggregated.  
+Rows added by aggregating on factor 'A' (a column in the original 
+data set) will have 'A' in the 'Aggregates' column of the self.rowdata array.  
+When multiple factors 'A1', 'A2' , ... are aggregated on, the notation
+is a comma-separated list 'A1,A2,...'.    This way, when you call
+.aggregate_in again, the function only aggregates on the columns 
+that have the empty char '' in their &quot;Aggregates&quot; rowdata.   
+
+The function also adds (or adds rows to) a '__color__' column 
+to self.rowdata, specifying Gray-Scale colors for aggregated
+rows that will be used by the Data Environment system's 
+browser for colorizing the  data.   When there are multiple
+levels of aggregation, the coarser aggregate groups 
+(e.g. on fewer factors) get darker gray color then those on
+finer aggregate groups (e.g. more factors).  
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

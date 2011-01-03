@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.LinkManagement</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;LinkManagement
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.LinkManagement-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module LinkManagement</h1><p class="nomargin-top"><span class="codelink"><a href="System.LinkManagement-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+Functions that are used to extract and explore data dependency links.
+
+The basic idea is that:   
+-- Some of these functions _FIND_ user-made python modules 
+(e.g. the scripts written by the user to make data computations
+-- Some of these functions __ANALYZE__ user-made python modules 
+        to determine what data dependency links they contain
+-- Some of these functions allow you to __EXPLORE__ 
+        the dependency network described by these links 
+
+</pre>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#LinksFromOperations" class="summary-sig-name">LinksFromOperations</a>(<span class="summary-sig-arg">FileList</span>,
+        <span class="summary-sig-arg">Aliases</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">AddImplied</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">AddDummies</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">FilterInternal</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../System/StoredLinks/',)</span>,
+        <span class="summary-sig-arg">Recompute</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Parallel</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Analyzes a set of python modules to find data dependency links present in the 
+modules.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#LinksFromOperations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetImpliedLinks"></a><span class="summary-sig-name">GetImpliedLinks</span>(<span class="summary-sig-arg">NewLinks</span>,
+        <span class="summary-sig-arg">LinkList</span>)</span><br />
+      This computes the implied links --- assuming that all implied links 
+      in the &quot;LinkList&quot; argument have already by computed, it 
+      only computes the implied links that will be added by the addition of
+      the NewLinks.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetImpliedLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SameRoot"></a><span class="summary-sig-name">SameRoot</span>(<span class="summary-sig-arg">X</span>,
+        <span class="summary-sig-arg">Y</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#SameRoot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetDummyLinks"></a><span class="summary-sig-name">GetDummyLinks</span>(<span class="summary-sig-arg">NewLinks</span>,
+        <span class="summary-sig-arg">LinkList</span>)</span><br />
+      This computes the dummy links --- assuming that all dummy links in 
+      the &quot;LinkList&quot; argument have already by computed, it only 
+      computes the dummy links that will be added by the addition of the 
+      NewLinks.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetDummyLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#GutsComputeLinks" class="summary-sig-name">GutsComputeLinks</a>(<span class="summary-sig-arg">FileList</span>)</span><br />
+      This function actually computes the links contained
+in the files in FileList</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GutsComputeLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ParallelComputeLinksFromOperations"></a><span class="summary-sig-name">ParallelComputeLinksFromOperations</span>(<span class="summary-sig-arg">FileList</span>,
+        <span class="summary-sig-arg">Parallel</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Parallel wrapper for GutsComputeLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#ParallelComputeLinksFromOperations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#GetStoredDefaultVal" class="summary-sig-name">GetStoredDefaultVal</a>(<span class="summary-sig-arg">op</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">NoVal</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Given a python fnction in the form of a &quot;Stored Operation&quot;, 
+return the function's default value for a given variable name, 
+returning NoVal if the variable doesn't exist for the function or doesn't 
+have a default value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetStoredDefaultVal">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ReduceListOfSetsOfScripts"></a><span class="summary-sig-name">ReduceListOfSetsOfScripts</span>(<span class="summary-sig-arg">ScriptList</span>)</span><br />
+      Given a list of sets of scripts, produces a reduced version retaining
+      only the _last_ call to any given script.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#ReduceListOfSetsOfScripts">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#GetLinksBelow" class="summary-sig-name">GetLinksBelow</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Forced</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Given a Seed list of paths, loads the LinkList of live modules, and 
+      determines dowstream data dependency links by propagating downstream 
+      through the LinkList, from paths that are in Seed.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetLinksBelow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetII"></a><span class="summary-sig-name">GetII</span>(<span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">Seed</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetII">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#UpdateGuts" class="summary-sig-name">UpdateGuts</a>(<span class="summary-sig-arg">UpdateList</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">MtimesDict</span>,
+        <span class="summary-sig-arg">PtimesDict</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>)</span><br />
+      The guts of the downstream propagation through a linklist.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#UpdateGuts">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#PropagateThroughLinkGraphWithTimes" class="summary-sig-name">PropagateThroughLinkGraphWithTimes</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">Pruning</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">HoldTimes</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ProtectComputed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../System/MostRecentTrace.dot',)</span>)</span><br />
+      Given a Seed list of paths, and Linklist propagates downstream 
+through the LinkList from the Seeds, taking into account 
+timestamps along the way.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateThroughLinkGraphWithTimes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#PropagateThroughLinkGraph" class="summary-sig-name">PropagateThroughLinkGraph</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Given a Seed list of paths, and Linklist propagates downstream 
+through the LinkList from the Seeds.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateThroughLinkGraph">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="PropagateUpThroughLinkGraph"></a><span class="summary-sig-name">PropagateUpThroughLinkGraph</span>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Like PropagateThroughLinkGraph, but goes upstream from Seed instead 
+      of downstream.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateUpThroughLinkGraph">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#PropagateSeed" class="summary-sig-name">PropagateSeed</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">N1</span>,
+        <span class="summary-sig-arg">N2</span>,
+        <span class="summary-sig-arg">N3</span>,
+        <span class="summary-sig-arg">Special</span>)</span><br />
+      Does the maing propagation of a seed through a linklist.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateSeed">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetI"></a><span class="summary-sig-name">GetI</span>(<span class="summary-sig-arg">List</span>,
+        <span class="summary-sig-arg">Seed</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetI">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#GetConnected" class="summary-sig-name">GetConnected</a>(<span class="summary-sig-arg">Seed</span>,
+        <span class="summary-sig-arg">level</span>=<span class="summary-sig-default">-1</span>,
+        <span class="summary-sig-arg">Filter</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Convenience function printing out targets at specified level away from seed in
+link depedency network, for the LinkList loaded from live modules.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#GetConnected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#LoadLiveModules" class="summary-sig-name">LoadLiveModules</a>(<span class="summary-sig-arg">LiveModuleFilters</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Makes a a list of live modules in the Data Environment filesystem, to
+      inspect for links.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#LoadLiveModules">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#FilterForAutomaticUpdates" class="summary-sig-name">FilterForAutomaticUpdates</a>(<span class="summary-sig-arg">LList</span>,
+        <span class="summary-sig-arg">Exceptions</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">AutomaticUpdateFilters</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ReturnIndices</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Filters a link links removing links that are not meant to be 
+automatically updated when the system runs downstream 
+updating -- except allows &quot;exceptions&quot; to pass.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#FilterForAutomaticUpdates">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.LinkManagement-module.html#DownstreamFiles" class="summary-sig-name">DownstreamFiles</a>(<span class="summary-sig-arg">Sources</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>,
+        <span class="summary-sig-arg">Filtering</span>=<span class="summary-sig-default">False</span>)</span><br />
+      A convenience function listing file downstream from a specified 
+      source list in the LinkList dependencies in live modules.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#DownstreamFiles">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DownstreamAlongLinks"></a><span class="summary-sig-name">DownstreamAlongLinks</span>(<span class="summary-sig-arg">Sources</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#DownstreamAlongLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UpstreamFiles"></a><span class="summary-sig-name">UpstreamFiles</span>(<span class="summary-sig-arg">Targets</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span><br />
+      Analogous to DownstreamFiles.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#UpstreamFiles">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UpstreamAlongLinks"></a><span class="summary-sig-name">UpstreamAlongLinks</span>(<span class="summary-sig-arg">Targets</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#UpstreamAlongLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UpstreamLinks"></a><span class="summary-sig-name">UpstreamLinks</span>(<span class="summary-sig-arg">Targets</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../',)</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.LinkManagement-pysrc.html#UpstreamLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="isnan"></a><span class="summary-name">isnan</span> = <code title="numpy.isnan">numpy.isnan</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="nan"></a><span class="summary-name">nan</span> = <code title="numpy.nan">numpy.nan</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DefaultValueForAutomaticUpdates"></a><span class="summary-name">DefaultValueForAutomaticUpdates</span> = <code title="['^../(.*)']">['^../(.*)']</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DefaultValueForLiveModuleFilters"></a><span class="summary-name">DefaultValueForLiveModuleFilters</span> = <code title="{'../Operations/': ['../*']}">{'../Operations/': ['../*']}</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="LinksFromOperations"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">LinksFromOperations</span>(<span class="sig-arg">FileList</span>,
+        <span class="sig-arg">Aliases</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">AddImplied</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">AddDummies</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">FilterInternal</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../System/StoredLinks/',)</span>,
+        <span class="sig-arg">Recompute</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Parallel</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#LinksFromOperations">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Analyzes a set of python modules to find data dependency links present in the 
+modules.   Overall, this function does two things:  
+
+1) it writes out files that cache the links computed, and uses these cached 
+        versions to increase speed when the function is called again;
+and
+
+2) it returns the list of links, as a numpy record array.  
+        
+Arguments:
+--FileList = list of python modules to analyze, as a list of path strings. 
+--AddImplied = Boolean, which if True, adds implied links to the numpy array 
+        that is returned 
+--AddDummies = Boolean, which if True, adds Dummy links to the numpy record 
+        array that is returned 
+--FilterInteral = Filter returned list of links so that links between 
+        files and modules that are not in FileList are removed. 
+--Recompute = Boolean which if True causes the system to ignore 
+        cached LinkLists and recompute everything from scratch.
+--Parallel = The algorithm includes the ability to parallelize if the system is
+        being computed on has multiple processors.  If this boolean is True
+        (the default) parallel computation is done. 
+        
+Returns:
+        A
+where A is a numpy array describing the LinkList 
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GutsComputeLinks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GutsComputeLinks</span>(<span class="sig-arg">FileList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#GutsComputeLinks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+This function actually computes the links contained
+in the files in FileList
+
+Argument: 
+FileList == list of modules to analysis
+
+Returns:
+LinkList == list of links computed
+Succeeded List = list of modules in FileList whose links 
+        could be successfully obtained.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetStoredDefaultVal"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetStoredDefaultVal</span>(<span class="sig-arg">op</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">NoVal</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#GetStoredDefaultVal">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a python fnction in the form of a &quot;Stored Operation&quot;, 
+return the function's default value for a given variable name, 
+returning NoVal if the variable doesn't exist for the function or doesn't 
+have a default value. 
+        
+E.g. if the function is 
+                def F(x, y=3): ... 
+Then if op is the &quot;Stored Operation&quot; form of F, 
+        GetStoredDefaultVal(op,y) returns '3' , 
+while 
+        GetStoredDefaultVal(op,x,[]) returns '[]'.
+
+ARGUMENTS:
+op -- a &quot;Stored operation&quot; -- Suppose you have a python function F.  
+Then the &quot;Stored Operation&quot; version of the function is a dictionary with:
+key 'func_code' -- so that 
+        op['func_code'] = F.func_code, 
+the python code object associated with F, and key 'func_defaults'
+-- so that 
+        op['func_defaults'] = F.func_defaults,
+the tuple of default values of F.               
+
+name -- name of variable that you want to determine default value if
+        
+NoVal -- object to substitute in if the named variable does not exist for F 
+or if it that variable does not have a default value
+        
+Returns 
+        The default value when it exists, otherwise NoVal
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetLinksBelow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetLinksBelow</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Forced</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#GetLinksBelow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Given a Seed list of paths, loads the LinkList of live modules, and 
+  determines dowstream data dependency links by propagating downstream 
+  through the LinkList, from paths that are in Seed.</p>
+  <p>ARGUMENTS: Seed = list of paths from which to propagate 
+  downstream.</p>
+  <p>Forced = Boolean : if true, propagates links through LinkList without 
+  regard to timestamps of files, catching _all_ downstream links, even if 
+  the files they represent are up to date. If Forced is False -- which is 
+  the default -- this progates down only through links that are in need of 
+  updating, as determined by time stamps. (e.g. those link targets whose 
+  timestamps are old than their sources -- and all the downstream files -- 
+  are included.)</p>
+  <p>Simple = Boolean : if True, only looks at paths listed explicitly in 
+  Seed; if False, looks at all paths in Seed, as well as those in 
+  directories contained in the filesystem below  paths in Seed</p>
+  <p>ProtectComputed = Boolean : if True, progates through links where 
+  target data files of links have been modified _after_ they were last 
+  created by system update of the link, e.g. as if the data had been 
+  corrupted after computation. Such files have a newer timestamp than their
+  sources, so merely propagating from newer sources to older targets will 
+  not capture these files where computations (may) have been corrupted.
+  Often times, one wishes to make a temporary change in a mid-stream file 
+  and see what its consequnces are, so in this case the ProtectComputed 
+  option should be left at its default value of False.</p>
+  <p>Exceptions = List : Before propagating downstream through the list, 
+  this function first filters out links whose scripts that are not 
+  indicated for Automatic updating (see below for comments in the function 
+  body). Exceptions is a list of scripts whose links should be retained 
+  even if they are not indicated for Automatic updating -- the point of 
+  this is mostly for the function MakeUpdated (see comments in that 
+  function).</p>
+  <p>RETURNS: A = [L0,L1,L2 ...., LF] where A[i]  = Li is sublist of links 
+  in the LinkList, representing those links activated at stage i in the 
+  downstream propagation through the LinkList from the seed links in 
+  L0.</p>
+  <p>In words, this is a trace through the Directred Acyclic Graph 
+  represented by the LinkList. Note that the same link can appear multiple 
+  times in different stages because it might be activated first by itself 
+  (e.g. because its source is in Seed and its target is older than its 
+  source) and then by virtue of downstream propagation from some 
+  independently activated link upstream.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="UpdateGuts"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">UpdateGuts</span>(<span class="sig-arg">UpdateList</span>,
+        <span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">MtimesDict</span>,
+        <span class="sig-arg">PtimesDict</span>,
+        <span class="sig-arg">ProtectComputed</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#UpdateGuts">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+The guts of the downstream propagation through a linklist.   
+Used primarily by the function PropagateThroughLinkGraphWithTimes.
+
+ARGUMENTS:
+LinkList = A numpy record array of data dependency links.
+
+UpdateList = List of the form [(i1,t1),(i2,t2), ... , (in,tn)] where 
+each  i is an index in LinkList, and ti is a time stamp (or a 'numpy.nan')
+
+MtimesDict = Dictionary where:
+-- the keys are some of the elements of LinkList['LinkSource'] 
+        or LinkList['LinkTarget'] 
+   These are paths in filesystem, or subparts of paths. (e.g. functions inside .py 
+   module files)
+-- the values values on key LinkList['LinkSource'][i] is 
+
+FindMtime(Linklist['SourceFile'][i],functionname=LinkList['LinkSource'][i]) 
+
+these are the timestamps associated with a path or a subpart of a path
+                        
+ProtectComputed = Boolean : if true, enables propagation along links 
+whose targets have been modified after creation
+
+PtimesDict = Dctionary used when ProtectComputed = True, where:
+-- the keys are paths in filesystem
+-- the values on a key P is the most recent time that the file or 
+directory at time P was successfully computed by the automatic 
+updating facility  
+                
+RETURNS:
+TargetRecs a numpy record array of containing list of links in
+LinkList that are activated, relative to the information provided 
+in the UpdateList.  Essentially these are:
+
+-- all those links (source,target) in LinkList[i[0] for i in UpdateList]  
+such that MtimesDict[target] is less than then T, where T is maximum of:
+        MtimesDict[source] 
+and
+        the maximum of 
+        
+        [i[1] for i such that LinkList['LinkSource'][i[0]] == source]
+
+-- plus those that are activated when ProtecteComputed is True                  
+                        
+Some Information is appended to each link that is activated, 
+including the &quot;maximal propagation time&quot; along the link -- which is:
+        -- T, in the case of a &quot;Uses&quot; link   
+        -- numpy.nan, in the case of &quot;CreatedBy&quot; link
+                
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="PropagateThroughLinkGraphWithTimes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">PropagateThroughLinkGraphWithTimes</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">Pruning</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">HoldTimes</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ProtectComputed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../System/MostRecentTrace.dot',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateThroughLinkGraphWithTimes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a Seed list of paths, and Linklist propagates downstream 
+through the LinkList from the Seeds, taking into account 
+timestamps along the way. 
+
+ARGUMENTS:
+Seed = List of paths to start with. 
+
+LinkList = numpy record array of data dependency Links.
+
+Simple = Boolean : if True, only looks at paths listed explicitly in Seed;
+if False, looks at all paths in Seed, as well as those in directories 
+contained in the filesystem below  paths in Seed
+
+ProtectComputed = Boolean : if True, progates through links 
+where target data files of links have been modified _after_ they 
+were last created by system update of the link, e.g. as if the data 
+had been corrupted after computation.  
+
+HoldTimes = Dictionary, where:
+-- keys are paths
+-- HoldTimes[Path] is a timestamp that the system is meant 
+to &quot;pretend&quot; is the mod time of Path, if Path comes up as a 
+source or target during the propagation process, 
+instead of computing the real mod time. 
+                
+RETURNS:
+        A = [L0,L1,L2 ...., LF]
+where A[i]  = Li is sublist of links in the LinkList, representing 
+those links activated at stage i in the downstream propagation 
+through the LinkList from the seed links in L0.  
+
+In words, this is a trace through the Directred Acyclic Graph 
+represented by the LinkList.   Note that the same link can appear 
+multiple times in different stages because it might be activated 
+first by itself (e.g. because its source is in Seed and its target is 
+older than its source) and then by virtue of downstream propagation 
+from some independently activated link upstream. 
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="PropagateThroughLinkGraph"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">PropagateThroughLinkGraph</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateThroughLinkGraph">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a Seed list of paths, and Linklist propagates downstream 
+through the LinkList from the Seeds. 
+
+ARGUMENTS:
+--Seed = List of paths to start with.   
+--LinkList = numpy record array of data dependency Links.
+                                        
+RETURNS:
+        A = [L0,L1,L2 ...., LF]
+where A[i]  = Li is sublist of links in the LinkList, 
+representing those links activated at stage i in the downstream 
+propagation through the LinkList from the seed links in L0.  
+        
+In words, this is a trace through the Directred Acyclic Graph 
+represented by the LinkList.   Note that the same link can appear
+multiple times in different stages because it might be activated 
+first by itself (e.g. because its source is in Seed and its target is 
+older than its source) and then by virtue of downstream 
+propagation from some independently activated link upstream. 
+                
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="PropagateSeed"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">PropagateSeed</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">N1</span>,
+        <span class="sig-arg">N2</span>,
+        <span class="sig-arg">N3</span>,
+        <span class="sig-arg">Special</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#PropagateSeed">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Does the maing propagation of a seed through a linklist.   
+A fairly general graph propagation function.  In words, 
+this is a (basically) a trace through the Directred Acyclic Graph 
+represented by interpreting (LinkList[N1],LinkList[N2]) as the 
+edges of a graph -- together with the implied paths by path inclusion.   
+        
+ARGUMENTS:
+--Seed = List of paths to start with. 
+--LinkList = numpy record array of data dependency Links.       
+--N1 = Column header in LinkList ; Representing the &quot;source&quot; column
+--N2 = Column header in LinkList ; Representing the &quot;target&quot; column
+                
+RETURNS:
+        A = [L0,L1,L2 ...., LF]
+where A[i]  = Li is sublist of links in the LinkList, 
+representing those links activated at stage i in the propagation along
+direction N1 to N2 through the LinkList from the seed links in L0.  
+                
+Note that the same link can appear multiple times in 
+different stages because it might be activated first by itself 
+(e.g. because its source is in Seed and its target is older than its source) 
+and then by virtue of downstream propagation from some 
+independently activated link upstream. 
+                
+If the graph ends up being cyclic, it prints an error message and
+returns an empty recarray with the same fields as LinkList.
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetConnected"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetConnected</span>(<span class="sig-arg">Seed</span>,
+        <span class="sig-arg">level</span>=<span class="sig-default">-1</span>,
+        <span class="sig-arg">Filter</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#GetConnected">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Convenience function printing out targets at specified level away from seed in
+link depedency network, for the LinkList loaded from live modules. 
+        
+ARGUMENTS:
+--Seed = List of paths to propagate away from.          
+--level = integer : level away from seed to find ; 
+        -K means K leves upstream, +K means K levels downstream. 
+
+RETURNS:
+--Python set object containing paths of dependencies, if any.  
+(If none a message is printed.)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="LoadLiveModules"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">LoadLiveModules</span>(<span class="sig-arg">LiveModuleFilters</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#LoadLiveModules">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Makes a a list of live modules in the Data Environment filesystem, to 
+  inspect for links.  Determined by reading contents from user specified 
+  configuration file.  (see comments in body of the code)</p>
+  <p>OVERALL: The strategy is going to be to get a list of regular 
+  expression filters to apply a raw candidate list of directories; then 
+  recursively list files in the directories that survive these filters; and
+  then return the .py files among this list.     The way that the files are
+  recursively searched can be done by user a user-specified search 
+  function, a python function in a module whose python 'dot path' is 
+  specified by setting the environment variable 
+  'DotPathToLiveModuleFilterFunction.'  If this is not a specified a 
+  default version is taken.</p>
+  <p>First, getting the list of filters: Either it's given (whence it's not
+  None); or if it is None, then parse a user-specified configuration file 
+  that lists filters. The user-specified file's path is given by an 
+  environment variable called 'LiveModuleFilterPath'. The format of the 
+  filters is:  a pair (D,F) where D is a directory to search in, and F = 
+  (r1,r2,....,NOT rn) is a list of regular expressions or regular 
+  expressions preceeded by 'NOT ' The format of the user-specified file is:
+  a list of lines, each of which species a (D,F) pair in the following 
+  way:</p>
+  <p>Path1 : r1, r2, NOT r3, r4, Path2 : r1, NOT r2 Path3</p>
+  <p>Files from Path1 survive if the match any of the regular expressions 
+  r1, r2, r4, ... but NONE of the expressions preceeded by a  'NOT ', e.g. 
+  r3. If the line contains no ':' but only contains a directory path, than 
+  the regular expression is assumed to be allow everything in the 
+  directory.</p>
+  <p>White space before and after the ':' in each line is ignored, as is 
+  white space before and after each comma separating the regular 
+  expression.</p>
+  <p>For instance the follow is valid:</p>
+  <p>../Operations/: ^../Operations/[^/]*$, ^../Operations/Dan_Operations/*
+  , NOT</p>
+  <p>^../Operations/Dan_Operations/ExamplesOfPCA*,NOT 
+  ^../Operations/Dan_Operations/Dan_SystemGraph*</p>
+  <p>../Users/DanYamins/</p>
+  <p>ARGUMENTS: --An optional list of Filters can be passed to this 
+  function, though it is uncommonly used.</p>
+  <p>RETURNS: --A python list containing paths of python modules.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="FilterForAutomaticUpdates"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">FilterForAutomaticUpdates</span>(<span class="sig-arg">LList</span>,
+        <span class="sig-arg">Exceptions</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">AutomaticUpdateFilters</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ReturnIndices</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#FilterForAutomaticUpdates">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Filters a link links removing links that are not meant to be 
+automatically updated when the system runs downstream 
+updating -- except allows &quot;exceptions&quot; to pass. 
+The strategy is to basically get the list of filters from a 
+user-specified configuration file whoe path is given by the 
+environment variable 'AutomaticUpdatesPath'.
+
+ARGUMENTS:
+--LList = LinkList as a numpy record array from which to filter. 
+--Excetions = List of paths of scripts that should not be filtered out, regardless. 
+--AutomaticUpdateFilters  : an optional list of filters can be passed in.  (but usually isn't)
+--ReturnIndices:  boolean which if true means that the function will return 
+the _indices_ in LinkList that are to be retained instead of the retained
+links themselves. 
+        
+RETURNS:
+If ReturnIndices = False:
+        A subarray of LList if 
+else:
+        A numpy array of indices of LList. 
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="DownstreamFiles"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">DownstreamFiles</span>(<span class="sig-arg">Sources</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../',)</span>,
+        <span class="sig-arg">Filtering</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.LinkManagement-pysrc.html#DownstreamFiles">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>A convenience function listing file downstream from a specified source
+  list in the LinkList dependencies in live modules.</p>
+  <p>ARGUMENTS: --Sources:  list of sources to propagate downstream from. 
+  --Filtering: boolean, which if set true retains only those targets that 
+  will be automatically updated.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

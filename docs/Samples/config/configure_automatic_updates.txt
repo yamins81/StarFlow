@@ -1,0 +1,24 @@
+#This is a configuration file for the system.  Each of the lines in this file is a regular expression used to filter the LinkList to determine which links to
+#automatically include in updates.   The regular expressions are filtering the python dotpath of the functionnames of the scripts that you want to run.  
+#Lines beginning with a hash mark (like this one) will be ignored. 
+#See documentation for the function System.LinkManagement.FilterForAutomaticUpdates for more information.  
+^Operations.[^.]*.[^.]*$
+^Operations.Dan_Operations.*
+NOT ^Operations.Dan_Operations.TestProtocolInstances*
+NOT ^Operations.Dan_Operations.USCensus*
+NOT ^Operations.Dan_Operations.RandomData.Celebrities
+NOT ^Operations.Dan_Operations.NPR_Puzzles.CriminalPuzzle.IsATypeOfCriminal
+NOT ^Operations.Dan_Operations.Calories_And_Weightloss.CalorieCounting.GetCalorieKingData*
+NOT Operations.Dan_Operations.RandomData.Monarchs*
+NOT Operations.Dan_Operations.RandomData.Words.*
+^Users.DanYamins*
+^Users.Elaine.Playbox.Sports*
+^Users.Elaine.Playbox.Madoff*
+NOT Users.Elaine.Playbox.Eucast.Eucast*
+Data.Dan_Data.RandomData.Words.Dictionary*
+Data.Dan_Data.RandomData.Words.Dictionary.DictionaryLookupInstances.*
+NOT Users.Elaine.Playbox.Sports.Retrosheet
+NOT Users.Elaine.Playbox.Sports.ESPN_NBA.espn_nba.ParseNBAPlayByPlays
+NOT Operations.Dan_Operations.Calories_And_Weightloss
+NOT Operations.Dan_Operations.Test2.pptest.ParallelWget
+#NOT ^Users.DanYamins.GoogleVisualizationAPI.IntegratedMap.GetZipCodeMaps.GetMapsZoom

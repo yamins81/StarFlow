@@ -1,0 +1,109 @@
+Data Environment Installation Guide:
+
+
+OSX:
+	1) Obtain software:
+		-- xcode tools:  Get whatever the latest version is at http://developer.apple.com/technology/xcode.html
+		-- macports: Go to http://www.macports.org/install.php and get the .dmg for the lastest version, and install it
+		-- python: Go to www.python.org and install version 2.5 (http://www.python.org/download/releases/2.5.4/)
+		-- ipython: Go to http://ipython.scipy.org/moin/Download and download and install latest version
+		-- numpy: http://numpy.scipy.org/  Download and install latest version.
+
+		Once you've installed macports:
+			-- add /opt/local/bin to your path so that macports commands are available
+			--  install svn from macports, e.g. do "sudo port install subversion"
+		
+		-- graphviz: go to http://www.graphviz.org/ and get the latest mac version
+		
+	
+	2) Get SVN archive
+		The svn archive is at https://svnrepos/sabetilab/trunk/
+		
+		Make a directory that you'll put the data environment in.
+		
+		Then do 
+			svn co https://svnrepos/sabetilab/trunk/  /path/to/data/environment/directory
+
+		This step might take a while (e.g. hours) but you should be seeing printout while it's happening.  
+		
+		When this step is done, there should at least be the directory structure:
+		
+		/path/to/Data/Environment/Directory/ ----
+																	   |
+																	   Temp/
+																	   System/
+														  			   Classes/
+																	   Operations/
+															
+		in the data environment directory.  There will probably also be some other directories. 
+		
+		
+	3) Build some tools:
+		One of the directories that will come with the svn archive is Tools/
+		Inside this directory are directories that contain a variety of tools that are needed.  
+		You'll have to go in some of these directories and build them for your system. 
+		These include:			
+			networkx
+			mechanize
+			epydoc
+		Just go in each of these directory and do the "python setup.py install" setup.
+
+
+	4) Setup
+	
+	There are some setup/config files you have to set up. 
+	
+		A) First, you need to create two files in the System directory.   These are: 'initialize', and 'initialize_GUI'. 
+			To make these files, copy the models for these files that are in the System/Docs directory.  Take these files and modify them to fit your system, putting them in the System directory. (That is, the files you make will have the paths 'System/initialize' and 'System/initialize_GUI')
+		
+		B) Next, you need to create a directory called 'config' in the System directory, and put a few config files in it.  
+			Again look in the System/Docs directory, and see the directory sample.config.   Open that directory.  In there are models for several things that you should put in a directory you make in System called "config".   Open each of these samples and use them to make the real versions, fitting them to your system.  
+	
+			By the end of this process you should have made a directory 'System/config', containing the files:
+				System/Config ---
+										   |
+										   configure_automatic_updates.txt
+										   configure_live_module_filters.txt
+										   SetupFunctions.py
+		
+		
+		C) Open your .profile or .bash_profile file, or whatever the configuration for your shell is, and make a Environment variable called PYTHONPATH, with value equal to the abosolute path to your data environment directory.    That is, for bash, you'll want to include the line:
+			EXPORT PYTHONPATH=/path/to/data/environment/directory
+	
+		D) Go the directory System/CGI-Executables.   In this directory, open all the .cgi files.   Then, make sure that the top line in each is:	
+				#!/path/to/your/python/executable
+			The point of this is that these cgi scripts will be used by apache for the Graphical Browser, and apache needs to know which python executable to use to run them. 
+	
+	5) Setting up Apache:
+		Follow instructions in the document 'HowToSetupApache' for OSX. 
+		
+	
+
+
+Windows:
+
+	1) Cygwin.   Go to http://www.cygwin.com/ and install cygwin. 
+		While you're doing the installation setup, make sure to get:
+			python
+			svn
+			apache2
+			numpy
+	
+		You might also want:
+			cygutils
+			emacs
+			gawk
+			gcc4
+			ghostscript
+			lapack
+			-- and many other things from http://cygwin.com/packages/
+	
+	2) Obtain:
+			-- ipython: Go to http://ipython.scipy.org/moin/Download and download and install, via the cygwin prompt, the latest version from source (for Linux)
+		
+			graphviz:	go to http://www.graphviz.org/ and get the latest windows version, and install it (this is not in your cygwin machine, just on the windows machine)
+	
+	3)-5):   just like steps 2-4 for the OSX install
+	
+	6) Apache:  Follow instructions in the document 'HowToSetupApache' for cygwin. 
+

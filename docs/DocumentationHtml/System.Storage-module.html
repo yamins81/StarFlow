@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.Storage</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;Storage
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.Storage-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module Storage</h1><p class="nomargin-top"><span class="codelink"><a href="System.Storage-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+===========
+Routines for storing and retrieving information about files and python objects. 
+===========
+
+In the Data Environment, which is devoted to understanding and managing dependency links, 
+routines throughout the system often require stored information about files, directories, 
+functions, and data structures.   This information may include:
+                
+1) Information that can't directly be determined by analyzing the file or directory:  
+for example, the file's last modification-time or create-time.    This information is 
+often necessary to determine when an object has changed, so as to know when to 
+trigger the re-running of a process that depends on the object.   This is the case
+with the function PropagateThroughLinkGraphWithTimes, in the LinkManagement 
+module, which needs to compare link target's mod times to link source's mod 
+times to know when to re-run a data-creation script. 
+
+or,             
+
+2) Information that is that _is_ possible to glean upon complex introspection but hard 
+to obtain otherwise: for example, the list of names of python functions that might be called 
+by another function during its run.  This information is useful to analyze an object to 
+determine what its dependencies are in the first place.   This is the case with the function 
+ComputeLinksFromOperations, which determines the data &quot;depends_on&quot; and &quot;creates&quot;, 
+and functional &quot;uses&quot;,  from a python function's code.  
+                
+This module provides a unified interface to obtain such information so that  it can be 
+called up wherever needed.   The key realizaion is that providing unified access to the
+relevant information about the objects boils down to having a unified method for 
+_storing_ and retrieving &quot;stylized versions&quot; of those objects,  versions that contain 
+somewhat detailed information about the objects' parts, as well as information about
+when those parts were last modified.   
+
+This is because:
+
+1) if you need to get information about when an object has changed, you'll need to have a 
+stored version that can be compared to the current version to detect chages, together 
+with timing information about each of those stored parts so that if the part _hasn't_ 
+changed you can tell what the last actual mod-time of the part was. 
+
+and     
+
+2) to provide easy access to complex introspected information, it makes sense to 
+compute that introspection only once per object per modification, and store the
+results of that introspection in a standardized format in a single place. 
+                
+The  &quot;data model&quot; behind our approach to doing this enables us to be as lazy as possible, 
+leaving as much to operating system as we can.  The basic idea is that every object 
+stored on disk in the Data Environment file system is one of two things:
+        1) A directory or a file inside a directory  -- whose properties are &quot;at the operating system level&quot; 
+                and which don't need to be made &quot;live&quot; to access
+or
+        2) an implied object __inside__ a file -- whose properties are &quot;more specific than
+        the operating system level&quot; and which require some form of &quot;being live&quot; to access
+                
+For instance, a python package consists of a directory containing python .py files, and
+in turn each py file is a module containing python objects.  Or a relational database, 
+which is at one level a filesystem, but which at a lower level consists of records. 
+
+Now, for information about things at the files and directories levels, we are able to 
+rely mostly on things provided by the operating system: it obviously already stores 
+the files themselves, and provides access to file and directory modification 
+information, through things like the 'stat' and 'diff' utilities.     However, for finer 
+detail, we need to supplement the operating system.   The basic strategy is:
+        -- for each of several &quot;Special Supported File Types&quot;, store information about the 
+        more detailed parts of the supported file type
+and then
+        -- provide an _extension_ of the stat and diff utilities that allows queries to specify 
+        both a file path, as well as a more detailed  part-name.
+
+For instance, the standard python implementation of the path mod-time function is 
+'getmtime' function in the the os.path module.  The function os.path.getmtime takes
+as argument a single path, and returns the time of last modification of that path.   
+Here, we extend that function to the FindMtime function which takes both a pathname 
+argument, as well as an &quot;object-name&quot; argument, and which returns the mod-time of 
+that specific object.  For the moment, we only have one &quot;Special Supported File Type&quot;:  
+python modules ; so the &quot;objectname&quot; argument boils down to a &quot;function-name&quot; 
+argument that allows one to find the mod-time for a given function in a module.   
+All other files are treated at the atomic level.  (In the future, other kinds of file parts
+could be stored, e.g. records in a database by integrating database query routines .... etc...)
+        
+
+</pre>
+
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="System.Storage.StoredModulePart-class.html" class="summary-name">StoredModulePart</a><br />
+      This class defines the storage for a module.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#FindMtime" class="summary-sig-name">FindMtime</a>(<span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">objectname</span>=<span class="summary-sig-default">''</span>,
+        <span class="summary-sig-arg">HoldTimes</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../System/StoredModules/',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../System/StoredModules/',)</span>)</span><br />
+      This is the main unified interface to path and path-part mod times that 
+is to be used throughout the system.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#FindMtime">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#ListFindMtimes" class="summary-sig-name">ListFindMtimes</a>(<span class="summary-sig-arg">FileParts</span>,
+        <span class="summary-sig-arg">HoldTimes</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Simple</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">Parallel</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../System/StoredModules/',)</span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../System/StoredModules/',)</span>)</span><br />
+      Given a list of files and objects within those files, computes mtimes for them.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#ListFindMtimes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="BlockUpdateModuleStorage"></a><span class="summary-sig-name">BlockUpdateModuleStorage</span>(<span class="summary-sig-arg">L</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#BlockUpdateModuleStorage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#GetStoredModule" class="summary-sig-name">GetStoredModule</a>(<span class="summary-sig-arg">path</span>)</span><br />
+      Returns stored module for the python module whose file is at 'path'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetStoredModule">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#GetStoredModuleTimes" class="summary-sig-name">GetStoredModuleTimes</a>(<span class="summary-sig-arg">path</span>)</span><br />
+      Returns stored module's mod times for the python module whose file is
+      at 'path'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetStoredModuleTimes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetNestedObject"></a><span class="summary-sig-name">GetNestedObject</span>(<span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">Members</span>)</span><br />
+      Technical dependency of ExtractParts</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetNestedObject">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetExtendedMembers"></a><span class="summary-sig-name">GetExtendedMembers</span>(<span class="summary-sig-arg">obj</span>,
+        <span class="summary-sig-arg">Static</span>)</span><br />
+      Technical dependency of ExtractParts</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetExtendedMembers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetExtendedExecedNames"></a><span class="summary-sig-name">GetExtendedExecedNames</span>(<span class="summary-sig-arg">Execed</span>,
+        <span class="summary-sig-arg">Static</span>)</span><br />
+      Technical dependency of ExtractParts</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetExtendedExecedNames">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#ExtractParts" class="summary-sig-name">ExtractParts</a>(<span class="summary-sig-arg">obj</span>,
+        <span class="summary-sig-arg">Execed</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Static</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Given a python object obj, extract it for storage.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#ExtractParts">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.Storage-module.html#UpdateModuleStorage" class="summary-sig-name">UpdateModuleStorage</a>(<span class="summary-sig-arg">path</span>)</span><br />
+      Updates the file storing the module at path 'path', as well
+as the file storing the mod-times for those parts.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#UpdateModuleStorage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ClassMethodDumps"></a><span class="summary-sig-name">ClassMethodDumps</span>(<span class="summary-sig-arg">obj</span>)</span><br />
+      Storage method for class methods.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#ClassMethodDumps">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="FunctionDumps"></a><span class="summary-sig-name">FunctionDumps</span>(<span class="summary-sig-arg">obj</span>)</span><br />
+      Storage method for functions.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#FunctionDumps">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="CodeEquals"></a><span class="summary-sig-name">CodeEquals</span>(<span class="summary-sig-arg">c1</span>,
+        <span class="summary-sig-arg">c2</span>)</span><br />
+      Equality testing for code objects.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#CodeEquals">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetStoredPathNames"></a><span class="summary-sig-name">GetStoredPathNames</span>(<span class="summary-sig-arg">path</span>)</span><br />
+      Determines path names from stored module and stored module times 
+      obects, from path name of the module to be stored.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.Storage-pysrc.html#GetStoredPathNames">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="FindMtime"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">FindMtime</span>(<span class="sig-arg">path</span>,
+        <span class="sig-arg">objectname</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">HoldTimes</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../System/StoredModules/',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../System/StoredModules/',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#FindMtime">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+This is the main unified interface to path and path-part mod times that 
+is to be used throughout the system.  
+
+ARGUMENTS:
+--path = path whose mod-time is to be assessed  
+--objectname = name of object within that path, whose mod-time is to be assessed. 
+--HoldTimes = Dictionary, where:
+        --keys are paths
+        --HoldTimes[Path] is a timestamp that the system is meant to &quot;pretend&quot; 
+        is the mod time of Path, if Path comes up as a source or target during the 
+        propagation process, instead of computing the real mod time. 
+-- Simple = Boolean : if True, only looks just at the modtime of path; if False, 
+and if path is a directory, it looks recursively through the mod times of files
+inside path and returns the maximum.  
+
+RETURNS:
+-- floating point number representing a mod-time, in seconds since the start of the  
+Unix Epoch.  (Jan 1, 1970 at 00:00:00 GMT). 
+        
+NB: For the moment, the object name parameter only does anything if the path
+is a python module, and if then only if the objectname names an object defined 
+in that python module.   The way this is determined is by a combination of
+&quot;live analysis&quot; -- e.g importing the python module and inspecting its contents 
+via introspection methods;  and &quot;static analysis&quot; which relies on analyzing 
+python code without importing the module but which does require building 
+the compiler parse tree for the code.  If either the importing step or the 
+compiler parse-tree step fails, the function just returns the mod-time of the 
+file that the module is in.  [All of this is sort of built haphazardly in to the 
+way the FindMtime function and its depedencies are written.  In the future, 
+to accommodate other &quot;Special File Types&quot;, the way this and associatd 
+functions are written would be to be made more modular.] 
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ListFindMtimes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ListFindMtimes</span>(<span class="sig-arg">FileParts</span>,
+        <span class="sig-arg">HoldTimes</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Simple</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">Parallel</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../System/StoredModules/',)</span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../System/StoredModules/',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#ListFindMtimes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a list of files and objects within those files, computes mtimes for them. 
+This is an optimization on top of FindMtimes, by inspecting a list of file/object pairs,
+then analyzing the uniquely mentioned files only once. 
+
+ARGUMENTS:
+--FileParts: a python list of pairs (FileName, ObjectName) each of which is to 
+be analyzed for mod-time.   If only a FileName is meant to provided, 
+e.g. no subpart is to be looked for, just the mod-tiem fo the whole file, 
+than ObjectName should be set to equal FileName.  
+        
+For instance to get the modtime of the function &quot;GetBasketBallTeams&quot;
+in the file:
+
+'../Users/Elaine/Playbox/Sports/ESPN_NBA/NBA_Teams.py' 
+
+you'd include in the list the pair:
+
+('../Users/Elaine/Playbox/Sports/ESPN_NBA/NBA_Teams.py',
+'Users.Elaine.Playbox.Sports.ESPN_NBA.NBA_Teams.GetBasketBallTeams')
+
+but to get the modtime of the file:
+
+'../Users/Elaine/Playbox/Sports/ESPN_NBA/NBATeamData.data', 
+
+you'd include the pair
+
+('../Users/Elaine/Playbox/Sports/ESPN_NBA/NBATeamData.data', '../Users/Elaine/Playbox/Sports/ESPN_NBA/NBATeamData.data')
+        
+--HoldTimes, Simple are the same as the correpsonding FindMtimes arguments
+--Parallel = boolean indicating whether the function should be executed in 
+parallel on multiple processors in a machine (if available)
+
+Returns:
+A dictionary, where:
+        --the keys are the unique object names (which are same as the
+        file names when no specific sub-object is to be given) 
+        --the value at a key is the same as would be there if 
+        FindMtims(FileName,ObjectName) were called.     
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetStoredModule"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetStoredModule</span>(<span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#GetStoredModule">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns stored module for the python module whose file is at 'path'. 
+  If the module storage update process fails, this function returns None. 
+  The format of the returned object is a dictionary where each key is the 
+  name of the module parts, and the value at the key is the instance of the
+  StoredModulePart class for that part.  (see below in StoredModulePart for
+  details)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetStoredModuleTimes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetStoredModuleTimes</span>(<span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#GetStoredModuleTimes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns stored module's mod times for the python module whose file is 
+  at 'path'. If the module storage update process fails, this function 
+  returns None. The format of the returned object is: a dictionary whose 
+  keys are the same as the keys of the stored module dctionary, and whose 
+  values on those keys are mod times for the parts.   (There's an extra key
+  called '__hash__' which stores a hash of the stored module dictionary to 
+  ensure data integrity upon update.)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ExtractParts"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ExtractParts</span>(<span class="sig-arg">obj</span>,
+        <span class="sig-arg">Execed</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Static</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#ExtractParts">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a python object obj, extract it for storage.   This is called by the function
+UpdateModuleStorage and the class StoredModulePart. 
+
+ARGUMENTS:
+--obj = the python object to get stored parts of --- as &quot;made live&quot; by having 
+        been imported in a module ultimately in UpdateModuleStorage.   
+--Execed = an _execfile'd__ version of the same object, as opposed to imported.  
+--Static = the static analysis version of the object. 
+        
+Returns:
+--Dictionary whose keys are the names of parts of the object and whose 
+values on each key are the stored versions of the part with that name.
+        
+NOTE:  The execfiled and static analysis objects supplement and 
+verify the information stored about the object. 
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="UpdateModuleStorage"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">UpdateModuleStorage</span>(<span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.Storage-pysrc.html#UpdateModuleStorage">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Updates the file storing the module at path 'path', as well
+as the file storing the mod-times for those parts.   
+
+ARGUMENT:
+-- path = the path of the module whose storage is to be updated 
+                
+RETURNS:
+-- Nothing.  But it updates the module storage.   To get at the 
+stored objects you use one of the two functions 
+(GetStoredModule or GetStoredModuleTines)
+                
+The basic format of storage is:  given a module file, to associate 
+two storage files with it:  
+        1) a file containing a pickling of a StoredModule dictionary 
+        containing stored versions of the parts of the module, 
+        at path StoredModulePath, and 
+        2) a file containing a pickling of a StoredModuleTimes dictionary
+        containing the Modtimes for each of the stored parts, 
+        at path StoredTimesPath.  
+
+The StoredModule dictionary's format is to associated to each part-name
+an instance of the StoredModulePart class:
+        StoredModule[ part-name ] =   StoredModulePart(part), 
+See comments in StoredModulePart class for details. 
+                
+The StoredModuleTimes format is a dictionary whose keys are the same
+as the keys of the StoredMdule dictionary, and whose values on those
+keys are mod times for the parts.   
+(There's an extra key called '__hash__' which stores a hash of the stored
+module dictionary to ensure data integrity upon update.) 
+        
+The reason that the StoredTimes file is stored separately from the 
+StoredModules file, instead of in one big dictionary is that this way, 
+the much smaller StoredTimes dictionary can be loaded for use in 
+evaluating functions like FindMtime, without having to lead the 
+whole module storage.  
+
+This function basically has two stages:
+
+1) First, determine whether the module's object storage is:
+        -- Update to date, in which case nothing has to be done
+        -- In OK format but may not be up to date, in which
+                case the module nees to be imported and analyzed, 
+                the results compared to the stored version
+        -- Non-existent or somehow contaminated or in the wrong format,
+                in which case it needs to be remade from scratch.                               
+                        
+2) Having determined which state the storage is in, and if the 
+module storage needs to be updated, act upon that.    
+The action consists of:
+        - pickle-loading the StoredModule already on disk if it exists, 
+                (as well as the stored module mod times, which is already 
+                unpickled in stage 1 of this function) 
+        -- computing a new version of the stored module,
+        -- for each part in the new Stored module, comparing it to the stored 
+                version already on disk, and if the part hasn't changed, retain the old mod time,
+                but if it has changed or is a new part not yet stored, set the stored 
+                mod time the mod time of the file the module is in. 
+                -- if the part has been removed, remove it from storage. 
+                
+Along the way, the function prints out small messages describing
+the modification state of parts, if any modifications appear to have been made.                         
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

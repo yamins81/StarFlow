@@ -1,0 +1,19 @@
+'''
+this is a script that is used by the data Environment to initialize a python interpreter session during automatic updating.  Do not modify it unless you know what you're doing.   
+
+'''
+
+import os,sys
+[Dir,loc] = os.path.split(os.getcwd())
+assert loc == 'Temp', 'Local Directory Must be Temp'
+
+__environment = os.environ
+__environment['SystemMode'] = 'Production'
+__environment['PROTECTION'] = 'ON'
+__environment['DataEnvironmentDirectory'] = Dir
+__environment['ProtocolInstancesDirectory'] = '../protocol_instances/'
+sys.path.insert(0,__environment['DataEnvironmentDirectory'])
+
+if 'OVERWRITEFLAG' not in dir():
+	execfile('../System/system_io_override.py')
+	OVERWRITEFLAG = 1

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.Web.DotData2Html</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        <a href="System.Web-module.html">Package&nbsp;Web</a> ::
+        Module&nbsp;DotData2Html
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.Web.DotData2Html-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="System.Web.DotData2Html-module.html">Module System.Web.DotData2Html</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">__future__</tt> <tt class="py-keyword">import</tt> <tt class="py-name">with_statement</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package Classes=Classes-module.html"><a title="Classes" class="py-name" href="#" onclick="return doclink('link-0', 'Classes', 'link-0');">Classes</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module Classes.DotData=Classes.DotData-module.html,Class Classes.DotData.DotData=Classes.DotData.DotData-class.html"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-1', 'DotData', 'link-1');">DotData</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">Operations</tt><tt class="py-op">.</tt><tt class="py-name">MiscUtil</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Str</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> <tt class="py-keyword">import</tt> <tt class="py-name">splitext</tt><tt class="py-op">,</tt> <tt class="py-name">basename</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt><tt class="py-op">,</tt> <tt class="py-name">cgi</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="DotData2Html"></a><div id="DotData2Html-def"><a name="L7"></a><tt class="py-lineno"> 7</tt> <a class="py-toggle" href="#" id="DotData2Html-toggle" onclick="return toggle('DotData2Html');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.Web.DotData2Html-module.html#DotData2Html">DotData2Html</a><tt class="py-op">(</tt> <tt class="py-param">dotDataName</tt><tt class="py-op">,</tt> <tt class="py-param">htmlFile</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DotData2Html-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="DotData2Html-expanded"><a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">        <tt class="py-docstring">"""Creates an html representation of a DotData"""</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">        <tt class="py-comment">#    print 'dotDataName=', dotDataName, ' htmlFile=', htmlFile</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"></tt>         </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">dotDataName</tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt> <tt class="py-string">'.data/'</tt> <tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">htmlFile</tt><tt class="py-op">.</tt><tt class="py-name">endswith</tt><tt class="py-op">(</tt> <tt class="py-string">'.html'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">         </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt class="py-name">dotData</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name"><a title="Classes" class="py-name" href="#" onclick="return doclink('link-2', 'Classes', 'link-0');">Classes</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-3', 'DotData', 'link-1');">DotData</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="Classes.DotData
+Classes.DotData.DotData" class="py-name" href="#" onclick="return doclink('link-4', 'DotData', 'link-1');">DotData</a></tt><tt class="py-op">(</tt> <tt class="py-name">Path</tt> <tt class="py-op">=</tt> <tt class="py-name">dotDataName</tt> <tt class="py-op">)</tt> <tt class="py-comment">#this statement loads the relevant DotData file</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">         </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">        <tt class="py-name">ROWS_PER_PAGE</tt> <tt class="py-op">=</tt> <tt class="py-number">1000</tt>  <tt class="py-comment">#this sets the number of records displayed per .html page (if the DotData has more than ROWS_PER_PAGE rows, it will be split into multiple sections on several .html pages</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">         </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">        <tt class="py-name">numSections</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt> <tt class="py-name">dotData</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method Classes.DotData.DotData.numRows()=Classes.DotData.DotData-class.html#numRows"><a title="Classes.DotData.DotData.numRows" class="py-name" href="#" onclick="return doclink('link-5', 'numRows', 'link-5');">numRows</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">/</tt> <tt class="py-name">ROWS_PER_PAGE</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt>   <tt class="py-comment">#computes the number of sections</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">         </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">        <tt class="py-name">section2file</tt> <tt class="py-op">=</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">sectionNum</tt><tt class="py-op">:</tt> <tt class="py-name">htmlFile</tt> <tt class="py-keyword">if</tt> <tt class="py-name">sectionNum</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">else</tt> <tt class="py-name">splitext</tt><tt class="py-op">(</tt><tt class="py-name">htmlFile</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> <tt class="py-name">sectionNum</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">splitext</tt><tt class="py-op">(</tt><tt class="py-name">htmlFile</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt>   <tt class="py-comment">#section2file(i) returns the name of the .html file corresponding to section number i</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">         </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">section</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt> <tt class="py-name">numSections</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt>   <tt class="py-comment">#for each section</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">         </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                <tt class="py-name">sectionHtmlFile</tt> <tt class="py-op">=</tt> <tt class="py-name">section2file</tt><tt class="py-op">(</tt> <tt class="py-name">section</tt> <tt class="py-op">)</tt>  <tt class="py-comment">#get the name of output file for the section</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                <tt class="py-name">fromRow</tt> <tt class="py-op">=</tt> <tt class="py-name">section</tt> <tt class="py-op">*</tt> <tt class="py-name">ROWS_PER_PAGE</tt>   <tt class="py-comment">#beginning record number for this section</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">                <tt class="py-name">toRow</tt> <tt class="py-op">=</tt> <tt class="py-name">min</tt><tt class="py-op">(</tt> <tt class="py-name">fromRow</tt> <tt class="py-op">+</tt> <tt class="py-name">ROWS_PER_PAGE</tt><tt class="py-op">,</tt> <tt class="py-name">dotData</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="Classes.DotData.DotData.numRows" class="py-name" href="#" onclick="return doclink('link-6', 'numRows', 'link-5');">numRows</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt>  <tt class="py-comment">#ending record number for this section</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                 </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">                <tt class="py-keyword">with</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt> <tt class="py-name">sectionHtmlFile</tt><tt class="py-op">,</tt> <tt class="py-string">'w'</tt> <tt class="py-op">)</tt> <tt class="py-keyword">as</tt> <tt class="py-name">f</tt><tt class="py-op">:</tt>     <tt class="py-comment">#open the output file for the section to fileobject 'f' and do: </tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method System.Utils.multicaster.write()=System.Utils.multicaster-class.html#write"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-7', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;html&gt;&lt;head&gt;&lt;title&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">dotDataName</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/title&gt;&lt;/head&gt;&lt;body&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-8', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;p&gt;DotData (page '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">section</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">' of '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> <tt class="py-name">numSections</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">', rows '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">fromRow</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">' - '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">toRow</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'): '</tt> <tt class="py-op">+</tt> <tt class="py-name">dotDataName</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/p&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                         </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-9', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;table border="1" cellspacing="0" cellpadding="4"&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-10', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;col span="'</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> <tt class="py-name">dotData</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method Classes.DotData.DotData.numCols()=Classes.DotData.DotData-class.html#numCols"><a title="Classes.DotData.DotData.numCols" class="py-name" href="#" onclick="return doclink('link-11', 'numCols', 'link-11');">numCols</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'" align="center"&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">                         </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-12', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;thead&gt;&lt;tr align="center"&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">heading</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dotData</tt><tt class="py-op">.</tt><tt class="py-name">dtype</tt><tt class="py-op">.</tt><tt class="py-name">names</tt><tt class="py-op">:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-13', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;th&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">cgi</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Function System.Web.text2html.escape()=System.Web.text2html-module.html#escape"><a title="System.Web.text2html.escape" class="py-name" href="#" onclick="return doclink('link-14', 'escape', 'link-14');">escape</a></tt><tt class="py-op">(</tt> <tt class="py-name">heading</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/th&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-15', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/tr&gt;&lt;/thead&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                                 </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-16', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;tbody&gt;\n'</tt> <tt class="py-op">)</tt>     </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">row</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt> <tt class="py-name">fromRow</tt><tt class="py-op">,</tt> <tt class="py-name">toRow</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">                                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-17', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;tr align="center"&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                                <tt class="py-keyword">for</tt> <tt class="py-name">val</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dotData</tt><tt class="py-op">[</tt> <tt class="py-name">row</tt> <tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">                                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-18', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;td&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">cgi</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="System.Web.text2html.escape" class="py-name" href="#" onclick="return doclink('link-19', 'escape', 'link-14');">escape</a></tt><tt class="py-op">(</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/td&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-20', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/tr&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-21', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/tbody&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                                         </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-22', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/table&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">         </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-23', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;p&gt;page '</tt> <tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">section</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-24', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">' &lt;a href="'</tt> <tt class="py-op">+</tt> <tt class="py-name">basename</tt><tt class="py-op">(</tt> <tt class="py-name">section2file</tt><tt class="py-op">(</tt> <tt class="py-name">section</tt><tt class="py-op">-</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'"&gt;prev&lt;/a&gt; '</tt> <tt class="py-op">)</tt>  </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">section</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">numSections</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-25', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">' &lt;a href="'</tt> <tt class="py-op">+</tt> <tt class="py-name">basename</tt><tt class="py-op">(</tt> <tt class="py-name">section2file</tt><tt class="py-op">(</tt> <tt class="py-name">section</tt><tt class="py-op">+</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'"&gt;next&lt;/a&gt; '</tt> <tt class="py-op">)</tt>  </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                        <tt class="py-keyword">for</tt> <tt class="py-name">page</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt> <tt class="py-name">numSections</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">                                <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-26', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-op">(</tt> <tt class="py-string">' &lt;a href="'</tt> <tt class="py-op">+</tt> <tt class="py-name">basename</tt><tt class="py-op">(</tt> <tt class="py-name">section2file</tt><tt class="py-op">(</tt> <tt class="py-name">page</tt> <tt class="py-op">)</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'"&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> <tt class="py-name">page</tt><tt class="py-op">+</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/a&gt;'</tt> <tt class="py-op">)</tt> <tt class="py-keyword">if</tt> <tt class="py-name">page</tt> <tt class="py-op">!=</tt> <tt class="py-name">section</tt> <tt class="py-keyword">else</tt> <tt class="py-string">' '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> <tt class="py-name">page</tt><tt class="py-op">+</tt><tt class="py-number">1</tt> <tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                         </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-27', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/p&gt;'</tt> <tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">                         </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">                        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="System.Utils.multicaster.write" class="py-name" href="#" onclick="return doclink('link-28', 'write', 'link-7');">write</a></tt><tt class="py-op">(</tt> <tt class="py-string">'&lt;/body&gt;&lt;/html&gt;\n'</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:17 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

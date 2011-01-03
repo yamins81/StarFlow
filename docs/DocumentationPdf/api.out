@@ -1,0 +1,95 @@
+\BOOKMARK [1][-]{section*.2}{Contents}{}
+\BOOKMARK [1][-]{section.1}{Package Classes}{}
+\BOOKMARK [2][-]{subsection.1.1}{Modules}{section.1}
+\BOOKMARK [1][-]{section.2}{Module Classes.DotData}{}
+\BOOKMARK [2][-]{subsection.2.1}{Functions}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Class DotData}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Methods}{subsection.2.2}
+\BOOKMARK [1][-]{section.3}{Package Operations.DotDataFunctions}{}
+\BOOKMARK [2][-]{subsection.3.1}{Modules}{section.3}
+\BOOKMARK [1][-]{section.4}{Module Operations.DotDataFunctions.AppendDotData}{}
+\BOOKMARK [2][-]{subsection.4.1}{Functions}{section.4}
+\BOOKMARK [1][-]{section.5}{Module Operations.DotDataFunctions.DictionaryOps}{}
+\BOOKMARK [2][-]{subsection.5.1}{Functions}{section.5}
+\BOOKMARK [1][-]{section.6}{Module Operations.DotDataFunctions.DotDataListFromDirectory}{}
+\BOOKMARK [2][-]{subsection.6.1}{Functions}{section.6}
+\BOOKMARK [1][-]{section.7}{Module Operations.DotDataFunctions.DotDataListFromSV}{}
+\BOOKMARK [2][-]{subsection.7.1}{Functions}{section.7}
+\BOOKMARK [1][-]{section.8}{Module Operations.DotDataFunctions.InferColoring}{}
+\BOOKMARK [2][-]{subsection.8.1}{Functions}{section.8}
+\BOOKMARK [1][-]{section.9}{Module Operations.DotDataFunctions.SaveColumnsInDotData}{}
+\BOOKMARK [2][-]{subsection.9.1}{Functions}{section.9}
+\BOOKMARK [1][-]{section.10}{Module Operations.DotDataFunctions.SaveDotData}{}
+\BOOKMARK [2][-]{subsection.10.1}{Functions}{section.10}
+\BOOKMARK [1][-]{section.11}{Module Operations.DotDataFunctions.SaveDotDataAsSV}{}
+\BOOKMARK [2][-]{subsection.11.1}{Functions}{section.11}
+\BOOKMARK [1][-]{section.12}{Module Operations.DotDataFunctions.datahstack}{}
+\BOOKMARK [2][-]{subsection.12.1}{Functions}{section.12}
+\BOOKMARK [1][-]{section.13}{Module Operations.DotDataFunctions.datavstack}{}
+\BOOKMARK [2][-]{subsection.13.1}{Functions}{section.13}
+\BOOKMARK [1][-]{section.14}{Package System}{}
+\BOOKMARK [2][-]{subsection.14.1}{Modules}{section.14}
+\BOOKMARK [1][-]{section.15}{Module System.Colors}{}
+\BOOKMARK [2][-]{subsection.15.1}{Functions}{section.15}
+\BOOKMARK [1][-]{section.16}{Module System.Gmail}{}
+\BOOKMARK [2][-]{subsection.16.1}{Functions}{section.16}
+\BOOKMARK [1][-]{section.17}{Module System.LinkManagement}{}
+\BOOKMARK [2][-]{subsection.17.1}{Functions}{section.17}
+\BOOKMARK [2][-]{subsection.17.2}{Variables}{section.17}
+\BOOKMARK [1][-]{section.18}{Module System.MetaData}{}
+\BOOKMARK [2][-]{subsection.18.1}{Functions}{section.18}
+\BOOKMARK [1][-]{section.19}{Module System.Protocols}{}
+\BOOKMARK [2][-]{subsection.19.1}{Functions}{section.19}
+\BOOKMARK [1][-]{section.20}{Module System.SVNOperations}{}
+\BOOKMARK [2][-]{subsection.20.1}{Functions}{section.20}
+\BOOKMARK [2][-]{subsection.20.2}{Variables}{section.20}
+\BOOKMARK [1][-]{section.21}{Module System.Scriptification}{}
+\BOOKMARK [2][-]{subsection.21.1}{Functions}{section.21}
+\BOOKMARK [1][-]{section.22}{Module System.StaticAnalysis}{}
+\BOOKMARK [2][-]{subsection.22.1}{Functions}{section.22}
+\BOOKMARK [1][-]{section.23}{Module System.Storage}{}
+\BOOKMARK [2][-]{subsection.23.1}{Functions}{section.23}
+\BOOKMARK [2][-]{subsection.23.2}{Class StoredModulePart}{section.23}
+\BOOKMARK [3][-]{subsubsection.23.2.1}{Methods}{subsection.23.2}
+\BOOKMARK [3][-]{subsubsection.23.2.2}{Class Variables}{subsection.23.2}
+\BOOKMARK [1][-]{section.24}{Module System.SystemGraphOperations}{}
+\BOOKMARK [2][-]{subsection.24.1}{Functions}{section.24}
+\BOOKMARK [2][-]{subsection.24.2}{Variables}{section.24}
+\BOOKMARK [1][-]{section.25}{Module System.Update}{}
+\BOOKMARK [2][-]{subsection.25.1}{Functions}{section.25}
+\BOOKMARK [2][-]{subsection.25.2}{Variables}{section.25}
+\BOOKMARK [1][-]{section.26}{Module System.Utils}{}
+\BOOKMARK [2][-]{subsection.26.1}{Functions}{section.26}
+\BOOKMARK [2][-]{subsection.26.2}{Class BadCheckError}{section.26}
+\BOOKMARK [3][-]{subsubsection.26.2.1}{Methods}{subsection.26.2}
+\BOOKMARK [2][-]{subsection.26.3}{Class multicaster}{section.26}
+\BOOKMARK [3][-]{subsubsection.26.3.1}{Methods}{subsection.26.3}
+\BOOKMARK [1][-]{section.27}{Package System.Web}{}
+\BOOKMARK [2][-]{subsection.27.1}{Modules}{section.27}
+\BOOKMARK [1][-]{section.28}{Module System.Web.DotData2Html}{}
+\BOOKMARK [2][-]{subsection.28.1}{Functions}{section.28}
+\BOOKMARK [1][-]{section.29}{Module System.Web.HTMLCreators}{}
+\BOOKMARK [2][-]{subsection.29.1}{Functions}{section.29}
+\BOOKMARK [1][-]{section.30}{Module System.Web.Tabular2Html}{}
+\BOOKMARK [2][-]{subsection.30.1}{Functions}{section.30}
+\BOOKMARK [2][-]{subsection.30.2}{Class NameTree}{section.30}
+\BOOKMARK [3][-]{subsubsection.30.2.1}{Methods}{subsection.30.2}
+\BOOKMARK [1][-]{section.31}{Module System.Web.Tabular2HtmlOld}{}
+\BOOKMARK [2][-]{subsection.31.1}{Functions}{section.31}
+\BOOKMARK [1][-]{section.32}{Module System.Web.WebRepresentations}{}
+\BOOKMARK [2][-]{subsection.32.1}{Functions}{section.32}
+\BOOKMARK [1][-]{section.33}{Module System.Web.py2html}{}
+\BOOKMARK [2][-]{subsection.33.1}{Functions}{section.33}
+\BOOKMARK [2][-]{subsection.33.2}{Variables}{section.33}
+\BOOKMARK [1][-]{section.34}{Module System.Web.text2html}{}
+\BOOKMARK [2][-]{subsection.34.1}{Functions}{section.34}
+\BOOKMARK [1][-]{section.35}{Package System.config}{}
+\BOOKMARK [2][-]{subsection.35.1}{Modules}{section.35}
+\BOOKMARK [1][-]{section.36}{Module System.config.SetupFunctions}{}
+\BOOKMARK [2][-]{subsection.36.1}{Functions}{section.36}
+\BOOKMARK [1][-]{section.37}{Module System.extraction}{}
+\BOOKMARK [2][-]{subsection.37.1}{Functions}{section.37}
+\BOOKMARK [1][-]{section.38}{Module System.system\137io\137override}{}
+\BOOKMARK [2][-]{subsection.38.1}{Functions}{section.38}
+\BOOKMARK [2][-]{subsection.38.2}{Variables}{section.38}
+\BOOKMARK [1][-]{section*.4}{Index}{}

@@ -1,0 +1,55 @@
+Data Environment QuickStart:
+
+
+1) Go to the Temp directory in the main data environment directory in a terminal, e.g.		
+
+			>> cd /path/to/data/environment/directory/Temp
+			
+2) Start ipython  (or python):
+
+			>> ipython
+			
+3) initialize the system:
+	
+			>> execfile('../System/initialize')
+			
+
+
+4) Make sure your Live Module Filters are set up properly:
+		
+			>> from System.LinkManagement import *    #unnecessary if ../System/LinkManagement.py is execfile'd in your initialize
+			>> LoadLiveModules()
+			
+	... and make sure you get the list of .py files you want to be "live"
+	
+	If this is wrong edit the file 'System/config/configure_live_module_filters.txt'  and try LoadLiveModules() again to make it right
+	
+	
+5) See what will update:
+
+			>> from System.Update import *					#unnecessary if ../System/Update.py is execfile'd in your initialize
+			>> FindOutWhatWillUpdate()
+			
+	If some updates should happen, you'll see the list of scripts that will be run to make these updates printed out in "rounds". 
+	If no updates, you'll see the message "No scripts to be called."
+
+	If things that you want to update are not updating, or things that you think should be updating are not, edit 'System/config/configure_automatic_updates.txt' and try FindOutWhatWillUpdate again to make it right.
+
+
+
+6) Once the updates are what you want to have happen,  do them:
+	
+			>> FullUpdate()
+			
+			
+	First, you'll see the same declaration of what will update that was made by FindOutWhatWillUpdate.    Then, you'll see that the scripts are being run in the order declared.  If scripts issue errors during their call (you'll see error messages printed out to the screen), fix the errors in your scripts and call FullUpdate() again.  Repeat this until all errrors have been fixed, so that calling FullUpdate again (or FindOutWhatWillUpdate) shows the 'No scripts will be called' message.  
+	
+	If you want to make sure that _particular_ files are up to date, as opposed to updating everything that needs updating, use the "MakeUpdated" command instead of FullUpdate.  See the documentation at the beginning of the System.Update module, about "upstream vs. downstream updating", for more information on this.
+
+
+	
+7) To look at your system in the Graphical browser, open a web browser (preferably firefox), and go to the main browswer page:
+
+		http://DataEnvironment/System/CGI-Executables/main_gui.cgi
+		
+	Once you're there, clicking around should be fairly self-explanatory.  (You might want to bookmark the main browser page for ease of access.)

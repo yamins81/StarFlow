@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.system_io_override</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;system_io_override
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.system_io_override-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module system_io_override</h1><p class="nomargin-top"><span class="codelink"><a href="System.system_io_override-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+
+Intercept system i/o functions and analyze stack that made i/o calls. 
+
+One of the main purposes of the Data Environment to understand 
+and manage data dependencies.  At a basic level, these data 
+dependencies involve reading and writing files to disk.  To this end, 
+it is useful to be able to determine exactly which files are being read 
+and written, realtime -- by during processes of individual users doing 
+exploratory data analysis as well as by automatic system updates.  
+One wants not only to know which i/o streams are being started, but
+also which high-level processes and functions are doing the reading and writing.    
+
+This module provides routines for:
+        1) intercepting i/o streams at a low level
+        2) analyzing the call stack above those streams
+        3) integrating the information from 1 and 2 to:
+                -- store data about which files were read/written, and 
+                therefore enable run-time determination of _undeclared_ 
+                data dependency links
+        and 
+                -- impose controls on which files can be written by which 
+                processes, thereby enabling the enforcement of _declared_ 
+                data dependency links. 
+        
+The idea behind the imposition of controls is not to give the Data Enviroment 
+an account security interface whereby Data Environment users can be 
+flexibly prevented by Data Environment administrators from doing things
+with files that don't belong to them. (Such things are probably better 
+administered at the operating system level by real user accounts.)  
+Instead, the idea is to allow the users to impose controls on themselves 
+so that they, and others using their data, can be assured that the 
+LinkLists that the Data Environment builds from the users' declarations
+are an accurate reflection of the way the data was actually produced 
+-- and have errors raised when dependency violations occur.  This allows 
+users to easily see where they've forgotten to declare dependencies properly, 
+and trivially know how to remedy the issue. 
+
+The majority of the routines in this file are the system i/o intercepts themselves.  
+The idea in each case is to implement for a standard i/o function, the
+following three-step &quot;redefinition&quot; procedure: 
+        1) take the standard __builtin__ I/O functions and save it to a &quot;hold name&quot; 
+                (e.g. by prefixing &quot;old_&quot; to the name)
+        2) redefine a new i/o function with PRECISELY the same interface as 
+                the old one, and whichn calls the function at the &quot;holding name&quot; after
+                first having passed the inputs and outputs through an I/O interception 
+                and check that uses information from the GetDependsCreates() call 
+                stack analyzer function. 
+        3) redefine the system's standard I/O name as the new i/o function.
+        
+Step 2) can either implement:
+        a) a &quot;control&quot; -- meaning that an i/o function that is called without being 
+                covered by a declared dependency will raise a &quot;BadCheckError&quot; that
+                prevents the I/O operation from occuring and prints information about the 
+                violation, 
+or 
+        b) a &quot;logging&quot; operation -- meaning that data about the i/o request, together 
+                with the stack inforamtion about where it was made and whether it was
+                consistent with declarations -- is stored in some standard format and place.
+-- and of course, it can do both.  
+
+The slightly complex 3-step redefinition procedure is used to prevent 
+problematic infinite recursions.  It also must be handled with care because,
+once these intercepts are activated, ALL calls to these system functions 
+will be passed through the intercepts.   This means that:
+        -- protections can't be set too widely,
+        -- interfaces of the functions must be preversed EXACTLY,
+so that programs indirected called by the user as dependencies to 
+other functions, and that require resources &quot;outside&quot; the system, are 
+not bizarrely restricted from performing their work. (This is especially 
+the case for automatic logging and other interactive features of enhanced 
+python shells like iPython, which I tend to want to use.) 
+
+</pre>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.system_io_override-module.html#IsntProtected" class="summary-sig-name">IsntProtected</a>(<span class="summary-sig-arg">r</span>)</span><br />
+      If the environment variable &quot;PROTECTION&quot; is set to 
+      &quot;ON&quot; (see comments in i/o GetDependsCreates), this function
+      looks to see whether an environment variable called 
+      &quot;ProtectedPathsListFile' has been set.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#IsntProtected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.system_io_override-module.html#GetDependsCreates" class="summary-sig-name">GetDependsCreates</a>()</span><br />
+      This function performs call stack analysis looking to capture and 
+aggregate the settings of the two protected key-word variables 
+&quot;depends_on' and &quot;creates&quot; that are present up the stack.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#GetDependsCreates">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_open"></a><span class="summary-sig-name">system_open</span>(<span class="summary-sig-arg">ToOpen</span>,
+        <span class="summary-sig-arg">Mode</span>=<span class="summary-sig-default">'r'</span>,
+        <span class="summary-sig-arg">bufsize</span>=<span class="summary-sig-default">1</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_open">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_copy"></a><span class="summary-sig-name">system_copy</span>(<span class="summary-sig-arg">tocopy</span>,
+        <span class="summary-sig-arg">destination</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_copy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_copy2"></a><span class="summary-sig-name">system_copy2</span>(<span class="summary-sig-arg">tocopy</span>,
+        <span class="summary-sig-arg">destination</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_copy2">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_copytree"></a><span class="summary-sig-name">system_copytree</span>(<span class="summary-sig-arg">tocopy</span>,
+        <span class="summary-sig-arg">destination</span>,
+        <span class="summary-sig-arg">symlinks</span>=<span class="summary-sig-default">False</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_copytree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_mkdir"></a><span class="summary-sig-name">system_mkdir</span>(<span class="summary-sig-arg">DirName</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0777</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_mkdir">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_makedirs"></a><span class="summary-sig-name">system_makedirs</span>(<span class="summary-sig-arg">DirName</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0777</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_makedirs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_rename"></a><span class="summary-sig-name">system_rename</span>(<span class="summary-sig-arg">old</span>,
+        <span class="summary-sig-arg">new</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_rename">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_remove"></a><span class="summary-sig-name">system_remove</span>(<span class="summary-sig-arg">ToDelete</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_remove">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_rmtree"></a><span class="summary-sig-name">system_rmtree</span>(<span class="summary-sig-arg">ToDelete</span>,
+        <span class="summary-sig-arg">ignore_errors</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">onerror</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_rmtree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_exists"></a><span class="summary-sig-name">system_exists</span>(<span class="summary-sig-arg">ToCheck</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_exists">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_listdir"></a><span class="summary-sig-name">system_listdir</span>(<span class="summary-sig-arg">ToList</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_listdir">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_isfile"></a><span class="summary-sig-name">system_isfile</span>(<span class="summary-sig-arg">ToCheck</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_isfile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_isdir"></a><span class="summary-sig-name">system_isdir</span>(<span class="summary-sig-arg">ToCheck</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_isdir">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_getmtime"></a><span class="summary-sig-name">system_getmtime</span>(<span class="summary-sig-arg">ToAssay</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_getmtime">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="system_getatime"></a><span class="summary-sig-name">system_getatime</span>(<span class="summary-sig-arg">ToAssay</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.system_io_override-pysrc.html#system_getatime">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_open"></a><span class="summary-name">old_open</span> = <code title="__builtin__.open">__builtin__.open</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_copy"></a><span class="summary-name">old_copy</span> = <code title="shutil.copy">shutil.copy</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_copy2"></a><span class="summary-name">old_copy2</span> = <code title="shutil.copy2">shutil.copy2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_copytree"></a><span class="summary-name">old_copytree</span> = <code title="shutil.copytree">shutil.copytree</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_mkdir"></a><span class="summary-name">old_mkdir</span> = <code title="os.mkdir">os.mkdir</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_makedirs"></a><span class="summary-name">old_makedirs</span> = <code title="os.makedirs">os.makedirs</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_rename"></a><span class="summary-name">old_rename</span> = <code title="os.rename">os.rename</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_remove"></a><span class="summary-name">old_remove</span> = <code title="os.remove">os.remove</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_rmtree"></a><span class="summary-name">old_rmtree</span> = <code title="shutil.rmtree">shutil.rmtree</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_exists"></a><span class="summary-name">old_exists</span> = <code title="os.path.exists">os.path.exists</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_listdir"></a><span class="summary-name">old_listdir</span> = <code title="os.listdir">os.listdir</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_isfile"></a><span class="summary-name">old_isfile</span> = <code title="os.path.isfile">os.path.isfile</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_isdir"></a><span class="summary-name">old_isdir</span> = <code title="os.path.isdir">os.path.isdir</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_mtime"></a><span class="summary-name">old_mtime</span> = <code title="os.path.getmtime">os.path.getmtime</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="old_atime"></a><span class="summary-name">old_atime</span> = <code title="os.path.getatime">os.path.getatime</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="IsntProtected"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">IsntProtected</span>(<span class="sig-arg">r</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.system_io_override-pysrc.html#IsntProtected">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>If the environment variable &quot;PROTECTION&quot; is set to 
+  &quot;ON&quot; (see comments in i/o GetDependsCreates), this function 
+  looks to see whether an environment variable called 
+  &quot;ProtectedPathsListFile' has been set. This is a path to a user 
+  configuration file which would list, in lines, the list of directories on
+  which the user wishes i/o protection to be enforced.   If no such path 
+  variable is set, the system looks uses DataEnvironmentDirectory as the 
+  default, e.g everything in the DataEnvironment would be protected if the 
+  PROTECTION variable is set at 'ON'.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetDependsCreates"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetDependsCreates</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.system_io_override-pysrc.html#GetDependsCreates">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+This function performs call stack analysis looking to capture and 
+aggregate the settings of the two protected key-word variables 
+&quot;depends_on' and &quot;creates&quot; that are present up the stack. 
+
+RETURNS:
+--[dlist,clist] where:
+If the &quot;PROTECTION&quot; variable is set to 'ON':
+        dlist is the aggregate tuple of depends_on values seen 
+        up the stack tree, and clist is the aggregate tuple of 
+        creates values. 
+        
+        If 'SystemMode' environment variable is set at 'Exploratory', 
+        it adds '../' to the dlist, (which will be interpreted to allow
+        unlimited read access) -- the idea being that at the user prompt, 
+        mostly the user will want to be able to at least read whatever 
+        files he/she wants, even he/she cannot then write back to those
+        paths.   
+        
+else:
+        clist and dlist are set to '../', which will be interpreted by system 
+        i/o intercepting functions that call GetDependsCreates to mean 
+        that unlimited read/write access is granted. 
+        
+'../Temp' is appended to clist and dlist in all cases, to allow the user 
+to read and write whatever is desired in working Temp directory. 
+        
+Probably a more flexible and less hard-coded way of allowing the
+user to set these read-write protections would be useful in the future.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

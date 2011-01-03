@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.SystemGraphOperations</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;SystemGraphOperations
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.SystemGraphOperations-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module SystemGraphOperations</h1><p class="nomargin-top"><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html">source&nbsp;code</a></span></p>
+<p>Rountines for constructing meta-data graphs describing the link 
+  structure local to a give path in the Data Enviroment.</p>
+  <p>The primary use of the graphs constructed by this module are in the 
+  Graphical Browser .</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#MakeLocalLinkList" class="summary-sig-name">MakeLocalLinkList</a>(<span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">depends_on</span>=<span class="summary-sig-default">('../System/StoredLinks/StoredImpliedLinks','../System/StoredL<code class="variable-ellipsis">...</code></span>,
+        <span class="summary-sig-arg">creates</span>=<span class="summary-sig-default">('../System/MetaData',)</span>)</span><br />
+      Given, Path, a path string describing a location in the Data Environment, 
+get the 2-neighborhood graph of the linklist local to that path.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLocalLinkList">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#MakeLocalLinkGraph" class="summary-sig-name">MakeLocalLinkGraph</a>(<span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">Mode</span>=<span class="summary-sig-default">'ColDir'</span>,
+        <span class="summary-sig-arg">ShowUses</span>=<span class="summary-sig-default">'No'</span>,
+        <span class="summary-sig-arg">ShowImplied</span>=<span class="summary-sig-default">'No'</span>)</span><br />
+      Takes a local link list as made by MakeLocalLinkList and turns it a 
+graph .svg file.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLocalLinkGraph">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#MakeLinkListHtml" class="summary-sig-name">MakeLinkListHtml</a>(<span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">ClusterTags</span>,
+        <span class="summary-sig-arg">inpath</span>,
+        <span class="summary-sig-arg">outpath</span>,
+        <span class="summary-sig-arg">Mode</span>,
+        <span class="summary-sig-arg">ShowUses</span>,
+        <span class="summary-sig-arg">ShowImplied</span>)</span><br />
+      takes a data dependency linklist and a list of cluster tags, and 
+outputs an html representation of the linklist file (basically as
+a clickable html table)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLinkListHtml">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#LabeledGraphFromLinks" class="summary-sig-name">LabeledGraphFromLinks</a>(<span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">ClusterTags</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Mode</span>=<span class="summary-sig-default">'ColDir'</span>,
+        <span class="summary-sig-arg">ShowUses</span>=<span class="summary-sig-default">'No'</span>,
+        <span class="summary-sig-arg">ShowImplied</span>=<span class="summary-sig-default">'No'</span>)</span><br />
+      Produces a graphical representation for use in producing a
+.dot file representation of a Linklist&gt;</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#LabeledGraphFromLinks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EdgePropertiesSelector"></a><span class="summary-sig-name">EdgePropertiesSelector</span>(<span class="summary-sig-arg">e</span>,
+        <span class="summary-sig-arg">EdgeInfo</span>)</span><br />
+      Technical dependency used in LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#EdgePropertiesSelector">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EdgeTypeDeterminer"></a><span class="summary-sig-name">EdgeTypeDeterminer</span>(<span class="summary-sig-arg">e</span>,
+        <span class="summary-sig-arg">EdgeInfo</span>)</span><br />
+      Technical dependency used in LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#EdgeTypeDeterminer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="NodePropertiesSelector"></a><span class="summary-sig-name">NodePropertiesSelector</span>(<span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">ClusterDict</span>,
+        <span class="summary-sig-arg">NodeInfo</span>,
+        <span class="summary-sig-arg">Mode</span>,
+        <span class="summary-sig-arg">ShowUses</span>,
+        <span class="summary-sig-arg">ShowImplied</span>)</span><br />
+      Technical dependency used in LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#NodePropertiesSelector">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="NodeTypeDeterminer"></a><span class="summary-sig-name">NodeTypeDeterminer</span>(<span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">NodeInfo</span>,
+        <span class="summary-sig-arg">Mode</span>,
+        <span class="summary-sig-arg">ShowUses</span>,
+        <span class="summary-sig-arg">ShowImplied</span>)</span><br />
+      Technical dependency used in LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#NodeTypeDeterminer">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DeleteLinkGraphs"></a><span class="summary-sig-name">DeleteLinkGraphs</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#DeleteLinkGraphs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DeleteLocalLinkLists"></a><span class="summary-sig-name">DeleteLocalLinkLists</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#DeleteLocalLinkLists">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="inverse"></a><span class="summary-sig-name">inverse</span>(<span class="summary-sig-arg">S</span>)</span><br />
+      inverts permutation described a numpy array</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#inverse">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetEQ"></a><span class="summary-sig-name">GetEQ</span>(<span class="summary-sig-arg">X</span>,
+        <span class="summary-sig-arg">Y</span>,
+        <span class="summary-sig-arg">taglist</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#GetEQ">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ProcessTwoDicts"></a><span class="summary-sig-name">ProcessTwoDicts</span>(<span class="summary-sig-arg">A</span>,
+        <span class="summary-sig-arg">B</span>)</span><br />
+      Technical dependency used in GetClusterTagDict</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#ProcessTwoDicts">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MaximalCP"></a><span class="summary-sig-name">MaximalCP</span>(<span class="summary-sig-arg">P</span>)</span><br />
+      Technical dependency used in LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MaximalCP">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SPathAlong"></a><span class="summary-sig-name">SPathAlong</span>(<span class="summary-sig-arg">p1</span>,
+        <span class="summary-sig-arg">p2</span>)</span><br />
+      Technical dependency used in GetClusterTagDict</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#SPathAlong">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#GetClusterTagDict" class="summary-sig-name">GetClusterTagDict</a>(<span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">LinkList</span>,
+        <span class="summary-sig-arg">Mode</span>)</span><br />
+      Given a  LinkList and a mode for collapsing the Linklist, 
+produce a dictionary of node cluster tags.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#GetClusterTagDict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MetaPathDir"></a><span class="summary-sig-name">MetaPathDir</span>(<span class="summary-sig-arg">Path</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MetaPathDir">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#WriteOutGraphDot" class="summary-sig-name">WriteOutGraphDot</a>(<span class="summary-sig-arg">G</span>,
+        <span class="summary-sig-arg">outpath</span>)</span><br />
+      Writes out graph in the [N,E,Nattrs,Eattrs] format to a .dot file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#WriteOutGraphDot">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="LabelFunc"></a><span class="summary-sig-name">LabelFunc</span>(<span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">Path</span>,
+        <span class="summary-sig-arg">Other</span>,
+        <span class="summary-sig-arg">IsCluster</span>)</span><br />
+      Technical dependency of LabeledGraphFromLinks</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#LabelFunc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="IsProtocolPath"></a><span class="summary-sig-name">IsProtocolPath</span>(<span class="summary-sig-arg">s</span>)</span><br />
+      Technical dependency of LabelFunc</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#IsProtocolPath">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MostCommonValue"></a><span class="summary-sig-name">MostCommonValue</span>(<span class="summary-sig-arg">D</span>)</span><br />
+      Given numpy array D, determines most common value D</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MostCommonValue">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SystemGraphOperations-module.html#OutsideFile" class="summary-sig-name">OutsideFile</a>(<span class="summary-sig-arg">path</span>)</span><br />
+      Determines for purposes of graph coloring whether a file is an 
+      &quot;outside&quot; file -- right now, the only kind of 
+      &quot;outside&quot; file that is recognized are web files.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#OutsideFile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="GraphIsTooLarge"></a><span class="summary-name">GraphIsTooLarge</span> = <code title="500">500</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="MakeLocalLinkList"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">MakeLocalLinkList</span>(<span class="sig-arg">Path</span>,
+        <span class="sig-arg">depends_on</span>=<span class="sig-default">('../System/StoredLinks/StoredImpliedLinks','../System/StoredL<code class="variable-ellipsis">...</code></span>,
+        <span class="sig-arg">creates</span>=<span class="sig-default">('../System/MetaData',)</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLocalLinkList">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given, Path, a path string describing a location in the Data Environment, 
+get the 2-neighborhood graph of the linklist local to that path.
+
+It uses the linklist loaded from the Live Modules. 
+
+This function outputs the result, as a numpy sub- record array of 
+the Linklist, to a pickled file whose path is given by:
+
+        MetaPathDir(Path) + 'LocalLinkList.pickle'
+
+This path is in in the meta-data directory associated with Path.
+
+It also outputs the file MetaPathDir(Path) + 'LiveModuleList.pickle', 
+which is used to cache this computation for future recomputations of it. 
+
+RETURNS:
+        LinkPath = path where the locallink file was created
+        (i.e. MetaPathDir(Path) + 'LocalLinkList.pickle')
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="MakeLocalLinkGraph"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">MakeLocalLinkGraph</span>(<span class="sig-arg">Path</span>,
+        <span class="sig-arg">Mode</span>=<span class="sig-default">'ColDir'</span>,
+        <span class="sig-arg">ShowUses</span>=<span class="sig-default">'No'</span>,
+        <span class="sig-arg">ShowImplied</span>=<span class="sig-default">'No'</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLocalLinkGraph">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Takes a local link list as made by MakeLocalLinkList and turns it a 
+graph .svg file.  (also creates an html-ized version of the local linkgraph list.
+
+The basic strategy of this functions is:
+        1) load the local link list created in a numpy pickle file 
+                at the path Linkpath
+        2) Cluster the nodes based on the mode:  
+                -- if Mode = 'ColDir' then collapse nodes within directories
+                -- if Mode = 'ColPro' the collapse nodes based on their being part of 
+                protocols
+                -- if Mode = 'All' then do no collapsing
+        3) Create an html reprsentation of the link graph (with the collapsed
+                clusters notated in it)
+        4) Create a graph with the collapsed nodes as an object of the form 
+                
+                G = [Nodes,Edges, NodeAttributes,EdgeAttributes]
+        
+        5) convert the G object into .dot and then .svg files.
+        
+
+ARGUMENTS:
+--Path : path to make graph of local link list for
+--Mode : string, which &quot;graph quotienting&quot; mode to use
+--ShowUses : boolean, whether to include uses links or not
+--ShowImplied : boolean, whether to include implied links or not
+
+RETURNS:        
+[message,metapath,G,metapathhtml], where:
+                
+        message is an error message, if any (blank '' char if no error message)
+        metapath = path where .svg file has been created
+        
+        G = [N,E,NAttrs,EAttrs]
+        
+        where N and E is a list of the graph nodes and edges,
+        as a python list, and NAttrs and EAttrs are corresponding
+        lists of node and edge attributes (for .dot graph format)
+        
+        metapathhtml = path where an html representation of the link 
+        list has been stored
+                        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="MakeLinkListHtml"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">MakeLinkListHtml</span>(<span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">ClusterTags</span>,
+        <span class="sig-arg">inpath</span>,
+        <span class="sig-arg">outpath</span>,
+        <span class="sig-arg">Mode</span>,
+        <span class="sig-arg">ShowUses</span>,
+        <span class="sig-arg">ShowImplied</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#MakeLinkListHtml">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+takes a data dependency linklist and a list of cluster tags, and 
+outputs an html representation of the linklist file (basically as
+a clickable html table) 
+
+ARGUMENTS:
+--LinkList = the linklist to reresent, a numpy record array
+--ClusterTags = dictionary of clusters (output for example of
+        the GetClusterTagDict function)
+--inpath = path that the LinkList is a representation of
+--outpath = place to store the resulting Html file
+--Mode = Name of the cluster collapse mode
+--ShowUses, ShowImplied are as in MakeLocalLinkGraph
+        
+returns:
+        nothing
+                
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="LabeledGraphFromLinks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">LabeledGraphFromLinks</span>(<span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">Path</span>,
+        <span class="sig-arg">ClusterTags</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Mode</span>=<span class="sig-default">'ColDir'</span>,
+        <span class="sig-arg">ShowUses</span>=<span class="sig-default">'No'</span>,
+        <span class="sig-arg">ShowImplied</span>=<span class="sig-default">'No'</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#LabeledGraphFromLinks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Produces a graphical representation for use in producing a
+.dot file representation of a Linklist&gt;
+
+ARGUMENTS: as is MakeLocalLinkGraph
+
+Returns:
+        object G = [Nodes,Edges,NodeAttrs,EdgeAttrs]
+where
+        Nodes is a python list of node names
+        Edges is a python list of pairs of node names, representing node edges
+        NodeAttrs is a dictionary of node attributes where:
+                -- the keys are node names
+                -- the value on a key 'n' is a dictionary of .dot format 
+                key-value attribute pairs for node 'n', e.g. 
+                {'color':'green','shape':'box', .... } 
+        EdgeAttrs is a dictionary of edge  attributes, where:
+                -- the keys are edge pairs
+                -- the value on a key 'e' is a dictionary of .dot format 
+                key-values attribute pairs for edge 'e', e.g. 
+                {'color':'green','shape':'box', .... } 
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetClusterTagDict"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetClusterTagDict</span>(<span class="sig-arg">Path</span>,
+        <span class="sig-arg">LinkList</span>,
+        <span class="sig-arg">Mode</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#GetClusterTagDict">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Given a  LinkList and a mode for collapsing the Linklist, 
+produce a dictionary of node cluster tags. 
+
+ARGUMENTS:
+        Path -- path that the LinkList corresponds to
+        LinkList -- list of Links as a numy record array
+        Mode -- Mode by which to cluster the link nodes
+        
+RETURNS:
+        ClusterDict, a dictionary in which:
+        -- the keys are (some of the) link sources or targets in the 
+                LinkList (e.g. potential nodes in the graph of the linklist)
+        -- value on a key is a &quot;cluster name &quot; which represents a set 
+        of nodes that will collapsed together
+        
+The &quot;mode&quot; determines which collapsing algorithm should be used.  
+        
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="WriteOutGraphDot"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">WriteOutGraphDot</span>(<span class="sig-arg">G</span>,
+        <span class="sig-arg">outpath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#WriteOutGraphDot">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Writes out graph in the [N,E,Nattrs,Eattrs] format to a .dot file
+
+ARGUMENTS:
+
+object G = [Nodes,Edges,NodeAttrs,EdgeAttrs], where
+        Nodes is a python list of node names
+        Edges is a python list of pairs of node names, representing node edges
+        NodeAttrs is a dictionary of node attributes where:
+                -- the keys are node names
+                -- the value on a key 'n' is a dictionary of .dot format 
+                key-value attribute pairs for node 'n', e.g.
+                {'color':'green','shape':'box', .... } 
+        EdgeAttrs is a dictionary of edge  attributes, where:
+                -- the keys are edge pairs
+                -- the value on a key 'e' is a dictionary of .dot format 
+                key-values attribute pairs for edge 'e', e.g. 
+                {'color':'green','shape':'box', .... } 
+
+        
+outpath -- path where .dot will be put
+        
+RETURNS:
+        nothing
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="OutsideFile"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">OutsideFile</span>(<span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SystemGraphOperations-pysrc.html#OutsideFile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Determines for purposes of graph coloring whether a file is an 
+  &quot;outside&quot; file -- right now, the only kind of 
+  &quot;outside&quot; file that is recognized are web files. Perhaps direct
+  connections to servers and databases should be added here for various 
+  formats eventually.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.SVNOperations</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;SVNOperations
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.SVNOperations-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module SVNOperations</h1><p class="nomargin-top"><span class="codelink"><a href="System.SVNOperations-pysrc.html">source&nbsp;code</a></span></p>
+<p>Routines for running the &quot;flat&quot; SVN archive that allows 
+  storage of files w/o .svn directories.</p>
+  <p>The basic idea is that:  files that the user wants to put in SVN are 
+  copied, with a naming convention, to a single large flat SVNArchive 
+  directory. Then, files in this directory are actually the ones put under 
+  SVN control.</p>
+  <p>This module provides convenience functions for managing this process, 
+  including CheckIn(), Update(), and Status().</p>
+  <p>Each of these functions has 3 basic steps:</p>
+  <p>1) before doing anything, the archive is &quot;Equalized&quot;, 
+  meaning that -- at least for the directories the user has specified in a 
+  configuration file -- the achive is made to contain the exact same 
+  contents as the user's real directories. The user's file system is always
+  treated with priority -- whatever the contents there, that is what the 
+  archive is made to reflect.</p>
+  <p>2) then the SVN action occurs, be it Check In or Update, or 
+  Status.</p>
+  <p>3) the the users' real file system is Equalized with the archive, to 
+  get any new or modified files or delete those that have been removed in 
+  the SVN repository.</p>
+  <p>To use these routines the environment variable 'SVNArchivePath' should
+  be set -- this reflects the location of the SVNArchive.</p>
+  <p>Each of them takes an optional SVNPath argument, which can be used in 
+  place of the users' specified confiuration file.</p>
+
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SVNOperations-module.html#CheckIn" class="summary-sig-name">CheckIn</a>(<span class="summary-sig-arg">SVNPaths</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Run checkin on the the &quot;flat&quot; SVN archive from user 
+      specified directories.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#CheckIn">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SVNOperations-module.html#Update" class="summary-sig-name">Update</a>(<span class="summary-sig-arg">SVNPaths</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Run update on the the &quot;flat&quot; SVN archive from user 
+      specified directories.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#Update">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SVNOperations-module.html#Status" class="summary-sig-name">Status</a>(<span class="summary-sig-arg">SVNPaths</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Run svn status on the the &quot;flat&quot; SVN archive from user 
+      specified directories.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#Status">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EqualizeArchive"></a><span class="summary-sig-name">EqualizeArchive</span>(<span class="summary-sig-arg">Files</span>,
+        <span class="summary-sig-arg">SVNPaths</span>,
+        <span class="summary-sig-arg">ArchivePath</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Equalizes archive to reflect exactly identical contents to the users'
+      filesystem outside the archive.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#EqualizeArchive">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EqualizeRealFiles"></a><span class="summary-sig-name">EqualizeRealFiles</span>(<span class="summary-sig-arg">Files</span>,
+        <span class="summary-sig-arg">SVNPaths</span>,
+        <span class="summary-sig-arg">ArchivePath</span>)</span><br />
+      Equalizes users real filesystem to reflect contents of SVN archive.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#EqualizeRealFiles">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="System.SVNOperations-module.html#ProcessSVNPaths" class="summary-sig-name">ProcessSVNPaths</a>(<span class="summary-sig-arg">SVNPaths</span>)</span><br />
+      Given list of paths, returns a list of files in these paths to copy 
+      to and from the SVN archive.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#ProcessSVNPaths">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="AddAll"></a><span class="summary-sig-name">AddAll</span>(<span class="summary-sig-arg">ArchivePath</span>=<span class="summary-sig-default">None</span>)</span><br />
+      calls a simple command line awk script that svn adds all non-added 
+      files in a directory</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#AddAll">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DeleteMissing"></a><span class="summary-sig-name">DeleteMissing</span>(<span class="summary-sig-arg">ArchivePath</span>)</span><br />
+      calls a simple command line awk script to svn del all missing fles in
+      a directory USE WITH CARE!!!!</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#DeleteMissing">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="RealName"></a><span class="summary-sig-name">RealName</span>(<span class="summary-sig-arg">apath</span>,
+        <span class="summary-sig-arg">ArchivePath</span>=<span class="summary-sig-default">None</span>)</span><br />
+      converts an archive file path to the corresponding path that the 
+      'real file' would have</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#RealName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SVNArchiveName"></a><span class="summary-sig-name">SVNArchiveName</span>(<span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">ArchivePath</span>=<span class="summary-sig-default">None</span>)</span><br />
+      converts a 'real file&quot; path to the corresponding path that copy 
+      in the SVN archive should have</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="System.SVNOperations-pysrc.html#SVNArchiveName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DefaultSVNArchivePath"></a><span class="summary-name">DefaultSVNArchivePath</span> = <code title="'../SVNArchiveArea/'">'../SVNArchiveArea/'</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="CheckIn"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">CheckIn</span>(<span class="sig-arg">SVNPaths</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SVNOperations-pysrc.html#CheckIn">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Run checkin on the the &quot;flat&quot; SVN archive from user 
+  specified directories.</p>
+  <p>ARGUMENT: --SVNPaths = list of directory paths to look in.  Normally 
+  this argumnt is not given, and instead the files are generated by a 
+  user-specified configuration file. See commens for the function 
+  &quot;ProcessSVNPaths&quot;</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="Update"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Update</span>(<span class="sig-arg">SVNPaths</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SVNOperations-pysrc.html#Update">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Run update on the the &quot;flat&quot; SVN archive from user specified
+  directories.</p>
+  <p>ARGUMENT: --SVNPaths = list of directory paths to look in.  Normally 
+  this argumnt is not given, and instead the files are generated by a 
+  user-specified configuration file. See commens for the function 
+  &quot;ProcessSVNPaths&quot;</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="Status"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Status</span>(<span class="sig-arg">SVNPaths</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SVNOperations-pysrc.html#Status">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Run svn status on the the &quot;flat&quot; SVN archive from user 
+  specified directories.</p>
+  <p>ARGUMENT: -- SVNPaths = list of directory paths to look in.  Normally 
+  this argumnt is not given, and instead the files are generated by a 
+  user-specified configuration file. See comments for the function 
+  &quot;ProcessSVNPaths&quot;</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ProcessSVNPaths"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ProcessSVNPaths</span>(<span class="sig-arg">SVNPaths</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="System.SVNOperations-pysrc.html#ProcessSVNPaths">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Given list of paths, returns a list of files in these paths to copy to
+  and from the SVN archive.</p>
+  <p>ARGUMENT: -- SVNPaths = a list of paths, or None</p>
+  <p>If SVNPaths = None, the function looks for an enviroment variable 
+  called PathToSVNInfo, which specifies the path to a user-specified file 
+  containing a list of directories to use as SVN paths.  (One directory per
+  line)</p>
+  <p>Once SVNPaths is determined, the files in those directories are 
+  determined. This can either be done by the default, which is simply to 
+  get recursively all files in teh directories, or by some user-specified 
+  function.  To make the latter work, you specify the environment variable 
+  'DotPathToSVNFilterFunction' which should be a python dot path to a 
+  python function. This function must take the argument SVNPaths (which may
+  be None), and must return [Files,SVNPaths].</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:16 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

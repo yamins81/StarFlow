@@ -1,0 +1,95 @@
+\contentsline {section}{Contents}{1}{section*.2}
+\contentsline {section}{\numberline {1}Package Classes}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Modules}{4}{subsection.1.1}
+\contentsline {section}{\numberline {2}Module Classes.DotData}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Functions}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Class DotData}{7}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Methods}{9}{subsubsection.2.2.1}
+\contentsline {section}{\numberline {3}Package Operations.DotDataFunctions}{15}{section.3}
+\contentsline {subsection}{\numberline {3.1}Modules}{15}{subsection.3.1}
+\contentsline {section}{\numberline {4}Module Operations.DotDataFunctions.AppendDotData}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Functions}{16}{subsection.4.1}
+\contentsline {section}{\numberline {5}Module Operations.DotDataFunctions.DictionaryOps}{17}{section.5}
+\contentsline {subsection}{\numberline {5.1}Functions}{17}{subsection.5.1}
+\contentsline {section}{\numberline {6}Module Operations.DotDataFunctions.DotDataListFromDirectory}{18}{section.6}
+\contentsline {subsection}{\numberline {6.1}Functions}{18}{subsection.6.1}
+\contentsline {section}{\numberline {7}Module Operations.DotDataFunctions.DotDataListFromSV}{19}{section.7}
+\contentsline {subsection}{\numberline {7.1}Functions}{19}{subsection.7.1}
+\contentsline {section}{\numberline {8}Module Operations.DotDataFunctions.InferColoring}{20}{section.8}
+\contentsline {subsection}{\numberline {8.1}Functions}{20}{subsection.8.1}
+\contentsline {section}{\numberline {9}Module Operations.DotDataFunctions.SaveColumnsInDotData}{21}{section.9}
+\contentsline {subsection}{\numberline {9.1}Functions}{21}{subsection.9.1}
+\contentsline {section}{\numberline {10}Module Operations.DotDataFunctions.SaveDotData}{22}{section.10}
+\contentsline {subsection}{\numberline {10.1}Functions}{22}{subsection.10.1}
+\contentsline {section}{\numberline {11}Module Operations.DotDataFunctions.SaveDotDataAsSV}{23}{section.11}
+\contentsline {subsection}{\numberline {11.1}Functions}{23}{subsection.11.1}
+\contentsline {section}{\numberline {12}Module Operations.DotDataFunctions.datahstack}{24}{section.12}
+\contentsline {subsection}{\numberline {12.1}Functions}{24}{subsection.12.1}
+\contentsline {section}{\numberline {13}Module Operations.DotDataFunctions.datavstack}{25}{section.13}
+\contentsline {subsection}{\numberline {13.1}Functions}{25}{subsection.13.1}
+\contentsline {section}{\numberline {14}Package System}{26}{section.14}
+\contentsline {subsection}{\numberline {14.1}Modules}{26}{subsection.14.1}
+\contentsline {section}{\numberline {15}Module System.Colors}{27}{section.15}
+\contentsline {subsection}{\numberline {15.1}Functions}{27}{subsection.15.1}
+\contentsline {section}{\numberline {16}Module System.Gmail}{28}{section.16}
+\contentsline {subsection}{\numberline {16.1}Functions}{28}{subsection.16.1}
+\contentsline {section}{\numberline {17}Module System.LinkManagement}{29}{section.17}
+\contentsline {subsection}{\numberline {17.1}Functions}{29}{subsection.17.1}
+\contentsline {subsection}{\numberline {17.2}Variables}{38}{subsection.17.2}
+\contentsline {section}{\numberline {18}Module System.MetaData}{40}{section.18}
+\contentsline {subsection}{\numberline {18.1}Functions}{40}{subsection.18.1}
+\contentsline {section}{\numberline {19}Module System.Protocols}{42}{section.19}
+\contentsline {subsection}{\numberline {19.1}Functions}{42}{subsection.19.1}
+\contentsline {section}{\numberline {20}Module System.SVNOperations}{45}{section.20}
+\contentsline {subsection}{\numberline {20.1}Functions}{45}{subsection.20.1}
+\contentsline {subsection}{\numberline {20.2}Variables}{46}{subsection.20.2}
+\contentsline {section}{\numberline {21}Module System.Scriptification}{47}{section.21}
+\contentsline {subsection}{\numberline {21.1}Functions}{47}{subsection.21.1}
+\contentsline {section}{\numberline {22}Module System.StaticAnalysis}{48}{section.22}
+\contentsline {subsection}{\numberline {22.1}Functions}{48}{subsection.22.1}
+\contentsline {section}{\numberline {23}Module System.Storage}{50}{section.23}
+\contentsline {subsection}{\numberline {23.1}Functions}{52}{subsection.23.1}
+\contentsline {subsection}{\numberline {23.2}Class StoredModulePart}{56}{subsection.23.2}
+\contentsline {subsubsection}{\numberline {23.2.1}Methods}{56}{subsubsection.23.2.1}
+\contentsline {subsubsection}{\numberline {23.2.2}Class Variables}{57}{subsubsection.23.2.2}
+\contentsline {section}{\numberline {24}Module System.SystemGraphOperations}{58}{section.24}
+\contentsline {subsection}{\numberline {24.1}Functions}{58}{subsection.24.1}
+\contentsline {subsection}{\numberline {24.2}Variables}{63}{subsection.24.2}
+\contentsline {section}{\numberline {25}Module System.Update}{64}{section.25}
+\contentsline {subsection}{\numberline {25.1}Functions}{66}{subsection.25.1}
+\contentsline {subsection}{\numberline {25.2}Variables}{68}{subsection.25.2}
+\contentsline {section}{\numberline {26}Module System.Utils}{69}{section.26}
+\contentsline {subsection}{\numberline {26.1}Functions}{69}{subsection.26.1}
+\contentsline {subsection}{\numberline {26.2}Class BadCheckError}{79}{subsection.26.2}
+\contentsline {subsubsection}{\numberline {26.2.1}Methods}{80}{subsubsection.26.2.1}
+\contentsline {subsection}{\numberline {26.3}Class multicaster}{80}{subsection.26.3}
+\contentsline {subsubsection}{\numberline {26.3.1}Methods}{80}{subsubsection.26.3.1}
+\contentsline {section}{\numberline {27}Package System.Web}{81}{section.27}
+\contentsline {subsection}{\numberline {27.1}Modules}{81}{subsection.27.1}
+\contentsline {section}{\numberline {28}Module System.Web.DotData2Html}{82}{section.28}
+\contentsline {subsection}{\numberline {28.1}Functions}{82}{subsection.28.1}
+\contentsline {section}{\numberline {29}Module System.Web.HTMLCreators}{83}{section.29}
+\contentsline {subsection}{\numberline {29.1}Functions}{83}{subsection.29.1}
+\contentsline {section}{\numberline {30}Module System.Web.Tabular2Html}{84}{section.30}
+\contentsline {subsection}{\numberline {30.1}Functions}{84}{subsection.30.1}
+\contentsline {subsection}{\numberline {30.2}Class NameTree}{84}{subsection.30.2}
+\contentsline {subsubsection}{\numberline {30.2.1}Methods}{84}{subsubsection.30.2.1}
+\contentsline {section}{\numberline {31}Module System.Web.Tabular2HtmlOld}{85}{section.31}
+\contentsline {subsection}{\numberline {31.1}Functions}{85}{subsection.31.1}
+\contentsline {section}{\numberline {32}Module System.Web.WebRepresentations}{86}{section.32}
+\contentsline {subsection}{\numberline {32.1}Functions}{86}{subsection.32.1}
+\contentsline {section}{\numberline {33}Module System.Web.py2html}{87}{section.33}
+\contentsline {subsection}{\numberline {33.1}Functions}{87}{subsection.33.1}
+\contentsline {subsection}{\numberline {33.2}Variables}{87}{subsection.33.2}
+\contentsline {section}{\numberline {34}Module System.Web.text2html}{88}{section.34}
+\contentsline {subsection}{\numberline {34.1}Functions}{88}{subsection.34.1}
+\contentsline {section}{\numberline {35}Package System.config}{89}{section.35}
+\contentsline {subsection}{\numberline {35.1}Modules}{89}{subsection.35.1}
+\contentsline {section}{\numberline {36}Module System.config.SetupFunctions}{90}{section.36}
+\contentsline {subsection}{\numberline {36.1}Functions}{90}{subsection.36.1}
+\contentsline {section}{\numberline {37}Module System.extraction}{91}{section.37}
+\contentsline {subsection}{\numberline {37.1}Functions}{91}{subsection.37.1}
+\contentsline {section}{\numberline {38}Module System.system\_io\_override}{93}{section.38}
+\contentsline {subsection}{\numberline {38.1}Functions}{94}{subsection.38.1}
+\contentsline {subsection}{\numberline {38.2}Variables}{96}{subsection.38.2}
+\contentsline {section}{Index}{97}{section*.4}

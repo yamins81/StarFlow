@@ -1,0 +1,6 @@
+#This is a configuration file for the system.  Each of the lines contains specially formatted expressions used to determine which directories the system searches to find python modules to analyze and include in the system updating.  See manual for more detailed information. 
+#Lines beginning with a hash mark (like this one) will be ignored.
+../Operations/: ^../Operations/[^/]*$, ^../Operations/Dan_Operations/*, NOT ^../Operations/Dan_Operations/ExamplesOfPCA*, NOT ^../Operations/Dan_Operations/Dan_SystemGraph*
+../Users/DanYamins/
+../Data/Dan_Data/RandomData/Words/Dictionary/
+../Users/Elaine/

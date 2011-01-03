@@ -1,0 +1,39 @@
+'''
+this is a script that initializes the data environment for exploratory user use.  E.g -- It is meant to be run by the user at the beginning of any interactive python interpreter session where you want to use Data Environment tools.  It is meant to be configured for each instance of a Data Environment.   Most of the contains of this particular example of the initializer is my personal settings, things that I find convenient. 
+'''
+
+#Print a welcome message -- optional :) 
+print '\nNow entering the Great Zendo of Analysis.\n'   
+
+
+#set some environment variables
+import os
+__environment = os.environ
+__environment['SystemMode'] = 'Exploratory'
+__environment['PROTECTION'] = 'ON'
+__environment['DataEnvironmentDirectory'] = '/Users/danielyamins/NewDataEnvironment/'
+__environment['AutomaticUpdatesPath'] = '../System/config/configure_automatic_updates.txt'
+__environment['LiveModuleFilterPath'] = '../System/config/configure_live_module_filters.txt'
+__environment['DotPathToLiveModuleFilterFunction'] = 'System.config.SetupFunctions.GetLiveModules'
+
+#modify the pythonpath to ensure that commands from this data environment are used
+import sys
+sys.path.insert(0,__environment['DataEnvironmentDirectory'])
+
+#Intercept the python file i/o operations and replace them with the checked versions as described in ../System/system_io_override.py
+if 'OVERWRITEFLAG' not in dir():
+	execfile('../System/system_io_override.py')
+	OVERWRITEFLAG = 1
+#NOTE: In some interactive python interpreters, e.g. IPython, running the system i/o override more than once in an single interpreter session causes problems.   The #OVERWRITEFLAG seen above is used to determine whether the override has been run; if not (e.g. when the OVERWRITEFLAG is NOT present as a variable) the override can be run; otherwise, not. 
+
+#execfile some system files in the interpreter so commands are immediately available -- this is totally optional. 
+FilesToLoadOnStartup = ['../System/LinkManagement.py','../System/Update.py','../System/MetaData.py','../System/Storage.py']
+for __file in FilesToLoadOnStartup:
+	print 'Loading', __file, '...'
+	try:
+		execfile(__file)
+	except:
+		print 'There seems to have been an error loading', __file
+	
+	
+print '\n... done loading.  May the Organization be with as you journey through the Land of Data.' 

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>System.extraction</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="System-module.html">Package&nbsp;System</a> ::
+        Module&nbsp;extraction
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="System.extraction-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="System.extraction-module.html">Module System.extraction</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package System=System-module.html"><a title="System" class="py-name" href="#" onclick="return doclink('link-0', 'System', 'link-0');">System</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module System.LinkManagement=System.LinkManagement-module.html"><a title="System.LinkManagement" class="py-name" href="#" onclick="return doclink('link-1', 'LinkManagement', 'link-1');">LinkManagement</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function System.LinkManagement.PropagateUpThroughLinkGraph()=System.LinkManagement-module.html#PropagateUpThroughLinkGraph"><a title="System.LinkManagement.PropagateUpThroughLinkGraph" class="py-name" href="#" onclick="return doclink('link-2', 'PropagateUpThroughLinkGraph', 'link-2');">PropagateUpThroughLinkGraph</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function System.LinkManagement.LinksFromOperations()=System.LinkManagement-module.html#LinksFromOperations"><a title="System.LinkManagement.LinksFromOperations" class="py-name" href="#" onclick="return doclink('link-3', 'LinksFromOperations', 'link-3');">LinksFromOperations</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name"><a title="System" class="py-name" href="#" onclick="return doclink('link-4', 'System', 'link-0');">System</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module System.Utils=System.Utils-module.html"><a title="System.Utils" class="py-name" href="#" onclick="return doclink('link-5', 'Utils', 'link-5');">Utils</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">numpy</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"> </tt>
+<a name="Extract"></a><div id="Extract-def"><a name="L5"></a><tt class="py-lineno">  5</tt> <a class="py-toggle" href="#" id="Extract-toggle" onclick="return toggle('Extract');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.extraction-module.html#Extract">Extract</a><tt class="py-op">(</tt><tt class="py-param">Seed</tt><tt class="py-op">,</tt><tt class="py-param">ToName</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Extract-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Extract-expanded"><a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">        Given a seed path (or list of paths), extracts out all raw data in that path, </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">        as well as scripts necessary to produce downstream computed data from that raw data.   </tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">        The extracted object is just a single "top-level directory" containing files and </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">        directories copied from the file system; the directory substructure within the </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">        top-level directory replicates the directory structure of the original files. </tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">        Seed = path or list of paths given as a string, or comma-separated list of path strings, </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">        or python list of strings.  E.g.:</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">                                '../Data/Dan_Data/RandomData/' </tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">                or              '../Data/Dan_Data/RandomData/,../Data/Dan_Data/NPR_Puzzle_Solutions/'</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">                or              ['../Data/Dan_Data/RandomData/', '../Data/Dan_Data/NPR_Puzzle_Solutions/']</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">        ToName = Name of top-level directory where extracted files will be copied.   </tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">        This function creates the path ToName if it doesn't exist, or overwrites it if it does. </tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">                </tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-name">FilesToCopy</tt><tt class="py-op">,</tt><tt class="py-name">AllRelevantFilesExist</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name" targets="Function System.extraction.Raw()=System.extraction-module.html#Raw"><a title="System.extraction.Raw" class="py-name" href="#" onclick="return doclink('link-6', 'Raw', 'link-6');">Raw</a></tt><tt class="py-op">(</tt><tt class="py-name">Seed</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">         </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">        <tt class="py-comment">#System looks to see if all raw data files indicated by links in LinkList actually exist, and gives option to stop extract if not.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">AllRelevantFilesExist</tt><tt class="py-op">:</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">                <tt class="py-name">go_on</tt> <tt class="py-op">=</tt> <tt class="py-name">input</tt><tt class="py-op">(</tt><tt class="py-string">'Extract anyway?'</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">                <tt class="py-name">go_on</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">                 </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">go_on</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">                <tt id="link-7" class="py-name" targets="Function System.extraction.CopyOut()=System.extraction-module.html#CopyOut"><a title="System.extraction.CopyOut" class="py-name" href="#" onclick="return doclink('link-7', 'CopyOut', 'link-7');">CopyOut</a></tt><tt class="py-op">(</tt><tt class="py-name">FilesToCopy</tt><tt class="py-op">,</tt><tt class="py-name">ToName</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">'Aborting.'</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">         </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">         </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="Integrate"></a><div id="Integrate-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="Integrate-toggle" onclick="return toggle('Integrate');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.extraction-module.html#Integrate">Integrate</a><tt class="py-op">(</tt><tt class="py-param">FolderToIntegrate</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Integrate-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Integrate-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">        Suppose one has done an extraction (e.g., applied the Extract function) of some</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">        files in one data environment, and then taken that extracted directory and put it</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">        in the Temp directory of a new, different data environment.  This function is</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">        meant to integrate the extraction into the new file system so that it mirros the</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">        placement of the files in the original data environment.</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">        The top-level extracted directory is assumed to be in the "Temp" directory of</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">        the new data environment. This top-level directory contains a replica of a</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        subportion of the original file system from which the extraction was done (see</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">        comments to Extract function). The Integrate function merely copies files from</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">        the extraction directory to the corresponding place in the filesystem. As it does</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">        so, it asks whether to continue if it determines that the path to which it would</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">        copy already exists in the new data environment.</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">        FolderToIntegrate = path name of top-level extraction directory. Required to be</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">        in "Temp".</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">         </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-name">FolderToIntegrate</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name" targets="Function System.Utils.Backslash()=System.Utils-module.html#Backslash"><a title="System.Utils.Backslash" class="py-name" href="#" onclick="return doclink('link-8', 'Backslash', 'link-8');">Backslash</a></tt><tt class="py-op">(</tt><tt class="py-name">FolderToIntegrate</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">         </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">r</tt> <tt class="py-keyword">in</tt> <tt id="link-9" class="py-name" targets="Function System.Utils.listdir()=System.Utils-module.html#listdir"><a title="System.Utils.listdir" class="py-name" href="#" onclick="return doclink('link-9', 'listdir', 'link-9');">listdir</a></tt><tt class="py-op">(</tt><tt class="py-name">FolderToIntegrate</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                <tt id="link-10" class="py-name" targets="Function System.extraction.CopyIn()=System.extraction-module.html#CopyIn"><a title="System.extraction.CopyIn" class="py-name" href="#" onclick="return doclink('link-10', 'CopyIn', 'link-10');">CopyIn</a></tt><tt class="py-op">(</tt><tt class="py-name">FolderToIntegrate</tt> <tt class="py-op">+</tt> <tt class="py-name">r</tt><tt class="py-op">,</tt> <tt class="py-string">'../'</tt> <tt class="py-op">+</tt> <tt class="py-name">r</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="Raw"></a><div id="Raw-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="Raw-toggle" onclick="return toggle('Raw');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.extraction-module.html#Raw">Raw</a><tt class="py-op">(</tt><tt class="py-param">Seed</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Raw-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Raw-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        Given a seed path (or list of paths), determines a list of all raw (non-computed) </tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        data files in that path,</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">        as well as scripts necessary to produce downstream computed data from that </tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">        raw data.  </tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">        Seed = path or list of paths given as a string, or comma-separated list of path strings, </tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">        or python list of strings.  E.g.:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">                        '../Data/Dan_Data/RandomData/' </tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">        or              '../Data/Dan_Data/RandomData/,../Data/Dan_Data/NPR_Puzzle_Solutions/'</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">        or              ['../Data/Dan_Data/RandomData/', '../Data/Dan_Data/NPR_Puzzle_Solutions/']</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring">        Returns: [A,B] where </tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-docstring">        --A = list of path names in the data environment; this list contains all raw </tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-docstring">        (non-computed) data files required to produce the computed data files in Seed</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring">        paths, as well as the paths of all scripts that need to be run to produce the </tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">        computed files.   </tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        --B = boolean which is True when all paths listed in A actually exist in the file system. </tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">         </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">         </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">Seed</tt><tt class="py-op">,</tt><tt class="py-name">str</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                <tt class="py-name">Seed</tt> <tt class="py-op">=</tt> <tt class="py-name">Seed</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">','</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">         </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">AllOpFiles</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">r</tt> <tt class="py-keyword">for</tt> <tt class="py-name">r</tt> <tt class="py-keyword">in</tt> <tt id="link-11" class="py-name" targets="Function System.Utils.RecursiveFileList()=System.Utils-module.html#RecursiveFileList"><a title="System.Utils.RecursiveFileList" class="py-name" href="#" onclick="return doclink('link-11', 'RecursiveFileList', 'link-11');">RecursiveFileList</a></tt><tt class="py-op">(</tt><tt class="py-string">'../Operations/'</tt><tt class="py-op">)</tt> <tt class="py-keyword">if</tt> <tt class="py-name">r</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'.'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'py'</tt><tt class="py-op">]</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-name">LinkList</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="System.LinkManagement.LinksFromOperations" class="py-name" href="#" onclick="return doclink('link-12', 'LinksFromOperations', 'link-3');">LinksFromOperations</a></tt><tt class="py-op">(</tt><tt class="py-name">AllOpFiles</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-name">P</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="System.LinkManagement.PropagateUpThroughLinkGraph" class="py-name" href="#" onclick="return doclink('link-13', 'PropagateUpThroughLinkGraph', 'link-2');">PropagateUpThroughLinkGraph</a></tt><tt class="py-op">(</tt><tt class="py-name">Seed</tt><tt class="py-op">,</tt><tt class="py-name">LinkList</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">         </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">TargetFiles</tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name" targets="Function System.Utils.Union()=System.Utils-module.html#Union"><a title="System.Utils.Union" class="py-name" href="#" onclick="return doclink('link-14', 'Union', 'link-14');">Union</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-string">'TargetFile'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">P</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">CreateTargetFiles</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="System.Utils.Union" class="py-name" href="#" onclick="return doclink('link-15', 'Union', 'link-14');">Union</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-string">'LinkType'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'CreatedBy'</tt><tt class="py-op">)</tt> <tt class="py-op">|</tt> <tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-string">'LinkType'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'CreatedFrom'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-string">'TargetFile'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">P</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">SourceFiles</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="System.Utils.Union" class="py-name" href="#" onclick="return doclink('link-16', 'Union', 'link-14');">Union</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-string">'SourceFile'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">P</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">ScriptFiles</tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="System.Utils.Union" class="py-name" href="#" onclick="return doclink('link-17', 'Union', 'link-14');">Union</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">[</tt><tt class="py-string">'UpdateScriptFile'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">P</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">         </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">AllFiles</tt> <tt class="py-op">=</tt> <tt class="py-name">TargetFiles</tt><tt class="py-op">.</tt><tt class="py-name">union</tt><tt class="py-op">(</tt><tt class="py-name">SourceFiles</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">union</tt><tt class="py-op">(</tt><tt class="py-name">ScriptFiles</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">union</tt><tt class="py-op">(</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">Seed</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">UntargetedFiles</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">l</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">AllFiles</tt> <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">any</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-18" class="py-name" targets="Function System.Utils.PathAlong()=System.Utils-module.html#PathAlong"><a title="System.Utils.PathAlong" class="py-name" href="#" onclick="return doclink('link-18', 'PathAlong', 'link-18');">PathAlong</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">,</tt><tt class="py-name">k</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">CreateTargetFiles</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">TargetedFiles</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">l</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">AllFiles</tt> <tt class="py-keyword">if</tt> <tt class="py-name">any</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-19" class="py-name"><a title="System.Utils.PathAlong" class="py-name" href="#" onclick="return doclink('link-19', 'PathAlong', 'link-18');">PathAlong</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">,</tt><tt class="py-name">k</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">k</tt> <tt class="py-keyword">in</tt> <tt class="py-name">CreateTargetFiles</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">         </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">PE</tt> <tt class="py-op">=</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-20" class="py-name" targets="Function System.Utils.PathExists()=System.Utils-module.html#PathExists"><a title="System.Utils.PathExists" class="py-name" href="#" onclick="return doclink('link-20', 'PathExists', 'link-20');">PathExists</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">UntargetedFiles</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">Unt</tt> <tt class="py-op">=</tt> <tt class="py-name">numpy</tt><tt class="py-op">.</tt><tt class="py-name">array</tt><tt class="py-op">(</tt><tt class="py-name">UntargetedFiles</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-name">status</tt> <tt class="py-op">=</tt> <tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-name">PE</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">Unt</tt><tt class="py-op">[</tt><tt class="py-name">PE</tt> <tt class="py-op">==</tt> <tt class="py-name">False</tt><tt class="py-op">]</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">status</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">'The files '</tt> <tt class="py-op">+</tt> <tt class="py-string">','</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">Unt</tt><tt class="py-op">[</tt><tt class="py-name">PE</tt> <tt class="py-op">==</tt> <tt class="py-name">False</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">tolist</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">' appear to be necessary for the indicated package but do not exist.'</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-name">BigFileList</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="System.Utils.RecursiveFileList" class="py-name" href="#" onclick="return doclink('link-21', 'RecursiveFileList', 'link-11');">RecursiveFileList</a></tt><tt class="py-op">(</tt><tt class="py-name">UntargetedFiles</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">BadFileList</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="System.Utils.RecursiveFileList" class="py-name" href="#" onclick="return doclink('link-22', 'RecursiveFileList', 'link-11');">RecursiveFileList</a></tt><tt class="py-op">(</tt><tt class="py-name">TargetedFiles</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">FilesToCopy</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">BigFileList</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">difference</tt><tt class="py-op">(</tt><tt class="py-name">BadFileList</tt><tt class="py-op">)</tt>   </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">FilesToCopy</tt><tt class="py-op">,</tt><tt class="py-name">status</tt> </tt>
+</div><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"> </tt>
+<a name="CopyOut"></a><div id="CopyOut-def"><a name="L125"></a><tt class="py-lineno">125</tt> <a class="py-toggle" href="#" id="CopyOut-toggle" onclick="return toggle('CopyOut');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.extraction-module.html#CopyOut">CopyOut</a><tt class="py-op">(</tt><tt class="py-param">FilesToCopy</tt><tt class="py-op">,</tt><tt class="py-param">ToName</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CopyOut-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CopyOut-expanded"><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-docstring">        Copies out files from one location to a "top-level target directory" </tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">        within the Temp Directory of the Data Environment, preserving the original </tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-docstring">        internal directory structure. </tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring">        FilesToCopy  = List of files to copy, given as a python list of path names. </tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">        ToName = name of top-level directory to which the files in FilesToCopy will be </tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">        copied.   The top-level directory is given as a relative path, and will be placed in </tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">        the Temp directory of the data environment. </tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring">        If ToName does it exist, this function creates it.  If it does exist, it will overwrite </tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-docstring">        it. </tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">        As files are copied into the ToName directory, original internal director</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        structure is replicated, e.g. if a file File.txt has path ../A/File.txt relative to </tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        Temp, then (if it doesn't yet exist in ToName), an empty directory called </tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">        ToName/A will be created, and the File.txt will compied to it. </tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">ToName</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="System.Utils.Backslash" class="py-name" href="#" onclick="return doclink('link-23', 'Backslash', 'link-8');">Backslash</a></tt><tt class="py-op">(</tt><tt class="py-name">ToName</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'copying'</tt><tt class="py-op">,</tt> <tt class="py-name">FilesToCopy</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'Making directory Temp/'</tt> <tt class="py-op">+</tt> <tt class="py-name">ToName</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt id="link-24" class="py-name" targets="Function System.Utils.MakeDir()=System.Utils-module.html#MakeDir"><a title="System.Utils.MakeDir" class="py-name" href="#" onclick="return doclink('link-24', 'MakeDir', 'link-24');">MakeDir</a></tt><tt class="py-op">(</tt><tt class="py-name">ToName</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">         </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">path</tt> <tt class="py-keyword">in</tt> <tt class="py-name">FilesToCopy</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                <tt class="py-name">pathlist</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">j</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">pathlist</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-25" class="py-name"><a title="System.Utils.PathExists" class="py-name" href="#" onclick="return doclink('link-25', 'PathExists', 'link-20');">PathExists</a></tt><tt class="py-op">(</tt><tt class="py-name">ToName</tt> <tt class="py-op">+</tt> <tt class="py-string">'/'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathlist</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                                <tt id="link-26" class="py-name"><a title="System.Utils.MakeDir" class="py-name" href="#" onclick="return doclink('link-26', 'MakeDir', 'link-24');">MakeDir</a></tt><tt class="py-op">(</tt><tt class="py-name">ToName</tt> <tt class="py-op">+</tt> <tt class="py-string">'/'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathlist</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                <tt id="link-27" class="py-name" targets="Function System.Utils.strongcopy()=System.Utils-module.html#strongcopy"><a title="System.Utils.strongcopy" class="py-name" href="#" onclick="return doclink('link-27', 'strongcopy', 'link-27');">strongcopy</a></tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt><tt class="py-name">ToName</tt> <tt class="py-op">+</tt> <tt class="py-string">'/'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">pathlist</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">         </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="CopyIn"></a><div id="CopyIn-def"><a name="L160"></a><tt class="py-lineno">160</tt> <a class="py-toggle" href="#" id="CopyIn-toggle" onclick="return toggle('CopyIn');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="System.extraction-module.html#CopyIn">CopyIn</a><tt class="py-op">(</tt><tt class="py-param">ToCopy</tt><tt class="py-op">,</tt><tt class="py-param">Target</tt><tt class="py-op">,</tt> <tt class="py-param">overwrite</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CopyIn-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CopyIn-expanded"><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-docstring">        ToCopy = a path name. </tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-docstring">        Target = a path name</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-docstring">        overwrite = Boolean</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">        This function copies the contents of ToCopy to Target, preserving whatever file </tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-docstring">        structure is in ToCopy</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-docstring">        (e.g. just the file if it is a file, and the directories in it if it is a directory.)  </tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">        If Target does not exist, it creates it.   If it already exists, CopyIn overwrites </tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring">        Target if overwrite argument is True; </tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">        if overwrite argument is False, the function aborts. </tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">                </tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-28" class="py-name" targets="Function System.Utils.IsFile()=System.Utils-module.html#IsFile"><a title="System.Utils.IsFile" class="py-name" href="#" onclick="return doclink('link-28', 'IsFile', 'link-28');">IsFile</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-29" class="py-name"><a title="System.Utils.PathExists" class="py-name" href="#" onclick="return doclink('link-29', 'PathExists', 'link-20');">PathExists</a></tt><tt class="py-op">(</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">overwrite</tt><tt class="py-op">:</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">                                <tt class="py-keyword">print</tt> <tt class="py-name">Target</tt><tt class="py-op">,</tt> <tt class="py-string">'already exists, not copying.'</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">                                <tt class="py-keyword">print</tt> <tt class="py-name">Target</tt><tt class="py-op">,</tt> <tt class="py-string">'already exists, overwriting.'</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">                                <tt id="link-30" class="py-name"><a title="System.Utils.strongcopy" class="py-name" href="#" onclick="return doclink('link-30', 'strongcopy', 'link-27');">strongcopy</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">,</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">                        <tt id="link-31" class="py-name"><a title="System.Utils.strongcopy" class="py-name" href="#" onclick="return doclink('link-31', 'strongcopy', 'link-27');">strongcopy</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">,</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt id="link-32" class="py-name" targets="Function System.Utils.IsDir()=System.Utils-module.html#IsDir"><a title="System.Utils.IsDir" class="py-name" href="#" onclick="return doclink('link-32', 'IsDir', 'link-32');">IsDir</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">                <tt class="py-name">ToCopy</tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="System.Utils.Backslash" class="py-name" href="#" onclick="return doclink('link-33', 'Backslash', 'link-8');">Backslash</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">                <tt class="py-name">Target</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name"><a title="System.Utils.Backslash" class="py-name" href="#" onclick="return doclink('link-34', 'Backslash', 'link-8');">Backslash</a></tt><tt class="py-op">(</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-35" class="py-name"><a title="System.Utils.PathExists" class="py-name" href="#" onclick="return doclink('link-35', 'PathExists', 'link-20');">PathExists</a></tt><tt class="py-op">(</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">                        <tt id="link-36" class="py-name"><a title="System.Utils.strongcopy" class="py-name" href="#" onclick="return doclink('link-36', 'strongcopy', 'link-27');">strongcopy</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">,</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt id="link-37" class="py-name"><a title="System.Utils.IsDir" class="py-name" href="#" onclick="return doclink('link-37', 'IsDir', 'link-32');">IsDir</a></tt><tt class="py-op">(</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">                                <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt id="link-38" class="py-name"><a title="System.Utils.listdir" class="py-name" href="#" onclick="return doclink('link-38', 'listdir', 'link-9');">listdir</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">                                        <tt id="link-39" class="py-name"><a title="System.extraction.CopyIn" class="py-name" href="#" onclick="return doclink('link-39', 'CopyIn', 'link-10');">CopyIn</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt> <tt class="py-op">+</tt> <tt class="py-name">l</tt><tt class="py-op">,</tt> <tt class="py-name">Target</tt> <tt class="py-op">+</tt> <tt class="py-name">l</tt><tt class="py-op">)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">                                <tt class="py-keyword">if</tt> <tt class="py-name">overwrite</tt><tt class="py-op">:</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">                                        <tt class="py-keyword">print</tt> <tt class="py-name">Target</tt><tt class="py-op">,</tt> <tt class="py-string">'already exists, but is not directory, overwriting.'</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">                                        <tt id="link-40" class="py-name"><a title="System.Utils.strongcopy" class="py-name" href="#" onclick="return doclink('link-40', 'strongcopy', 'link-27');">strongcopy</a></tt><tt class="py-op">(</tt><tt class="py-name">ToCopy</tt><tt class="py-op">,</tt><tt class="py-name">Target</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">                                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">                                        <tt class="py-keyword">print</tt> <tt class="py-name">Target</tt><tt class="py-op">,</tt> <tt class="py-string">'already exists and is not directory, not writing to it.'</tt> </tt>
+</div><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >DataEnvironment</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 31 17:17:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

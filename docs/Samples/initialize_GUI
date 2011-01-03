@@ -1,0 +1,15 @@
+#this is a configuration file that is used to initialize the graphical browser.   The way the browser works is that it is a comprised by a series of pages served from python cgi scripts by a Apache server running locally.   Now, each time a request is made to a cgi script by the browser (e.g. because you clicked on some link pointing to one of the cgi scripts), the apache servers run a python interpreter to execute the script. This file is execfiled at the top of most of the cgi scripts that comprise the browser,  to provide information that enable to proper execution of the rest of the script.  (It basically replicates the initialization done in the Data Environment itself.)
+
+import sys, os
+__environment = os.environ
+__environment['SystemMode'] = 'Exploratory'
+__environment['DataEnvironmentDirectory'] = '/Users/danielyamins/NewDataEnvironment/'
+__environment['AutomaticUpdatesPath'] = '../System/config/configure_automatic_updates.txt'
+__environment['LiveModuleFilterPath'] = '../System/config/configure_live_module_filters.txt'
+__environment['PATH'] = '/opt/subversion/bin:/Library/Frameworks/Python.framework/Versions/Current/bin:/sw/bin:/sw/sbin:' + __environment['PATH'] + ':/usr/X11/bin:/usr/X11R6/bin'
+__environment['HOME'] = '/Users/danielyamins'
+__environment['Editor'] = 'edit'
+__environment['DotPathToLiveModuleFilterFunction'] = 'System.config.SetupFunctions.GetLiveModules'
+__environment['PROTECTION'] = 'ON'
+
+sys.path.append(__environment['DataEnvironmentDirectory'])

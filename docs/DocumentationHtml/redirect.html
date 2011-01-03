@@ -1,0 +1,38 @@
+<html><head><title>Epydoc Redirect Page</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+var pages = ["Operations.DotDataFunctions.DotDataListFromDirectory-m", "Operations.DotDataFunctions.SaveColumnsInDotData-m", "Operations.DotDataFunctions.DotDataListFromSV-m", "Operations.DotDataFunctions.SaveDotDataAsSV-m", "Operations.DotDataFunctions.AppendDotData-m", "Operations.DotDataFunctions.DictionaryOps-m", "Operations.DotDataFunctions.InferColoring-m", "Operations.DotDataFunctions.SaveDotData-m", "Operations.DotDataFunctions.datahstack-m", "Operations.DotDataFunctions.datavstack-m", "System.Web.Tabular2Html.NameTree-c", "System.Storage.StoredModulePart-c", "System.Web.WebRepresentations-m", "System.SystemGraphOperations-m", "System.config.SetupFunctions-m", "Operations.DotDataFunctions-m", "System.Web.Tabular2HtmlOld-m", "System.Utils.BadCheckError-c", "System.system_io_override-m", "System.Utils.multicaster-c", "System.Web.DotData2Html-m", "System.Web.HTMLCreators-m", "System.Web.Tabular2Html-m", "Classes.DotData.DotData-c", "System.Scriptification-m", "System.LinkManagement-m", "System.StaticAnalysis-m", "System.SVNOperations-m", "System.Web.text2html-m", "System.Web.py2html-m", "System.extraction-m", "System.Protocols-m", "Classes.DotData-m", "System.MetaData-m", "System.Storage-m", "System.Colors-m", "System.Update-m", "System.config-m", "System.Gmail-m", "System.Utils-m", "System.Web-m", "Classes-m", "System-m"];
+var dottedName = get_anchor();
+if (dottedName) {
+    var target = redirect_url(dottedName);
+    if (target) window.location.replace(target);
+}
+// -->
+</script>
+
+<h3>Epydoc Auto-redirect page</h3>
+
+<p>When javascript is enabled, this page will redirect URLs of
+the form <tt>redirect.html#<i>dotted.name</i></tt> to the
+documentation for the object with the given fully-qualified
+dotted name.</p>
+<p><a id="message"> &nbsp; </a></p>
+
+<script type="text/javascript">
+<!--
+if (dottedName) {
+    var msg = document.getElementById("message");
+    msg.innerHTML = "No documentation found for <tt>"+
+                    dottedName+"</tt>";
+}
+// -->
+</script>
+
+</body>
+</html>

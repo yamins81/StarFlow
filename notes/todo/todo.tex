@@ -1,0 +1,173 @@
+\documentclass[11pt]{article} 
+
+\oddsidemargin 0.0in 
+\evensidemargin
+\oddsidemargin 
+\setlength{\textwidth}{6.5in} 
+\setlength{\textheight}{9.0in} 
+\setlength{\topmargin}{-0.5in} 
+\setlength{\headheight}{0.0in} 
+\setlength{\headsep}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.5in}
+
+\newcommand{\noi}{\noindent}
+
+
+\begin{document} 
+
+\title{StarFlow To Do}
+\maketitle
+
+\section{Top-priority things to do}
+
+\subsection{Testing}
+Errors in the graph propagation algorithms. Carefully designed unit testing and scenario testing. 
+
+\subsection{Extend the design of the LinkList}
+Independent of how the LinkList is stored, its design needs to be extended to support runtime 
+analysis links, \verb|Call()| links, links for different languages.  
+
+\begin{itemize}
+
+	\item{Need to store information about what language a script is written in (or maybe this is 
+	just inferred by file extension, and possibly also what is called to execute the script, e.g.
+	\verb|PYTHON_PATH|).}
+	
+	\item{Need to store parameters passed to a function, e.g. during runtime.  This relates to how
+	parameters are passed to functions in protocol instances, and should be handled the same way.
+	(Aside:  this doesn't work for parameters that are functions, and I have possibly seen this
+	fail for nontrivial data structures like a 2d \verb|numpy.ndarray|.  What are our limitations?)}
+	
+	\item{Possibly store the actual command that is executed.  This would be redundant information
+	but possibly useful.}
+	
+\end{itemize}
+
+\subsection{Refactor so Python-specific functions are modular wrt the rest of the code}
+
+\begin{itemize}
+
+	\item{\textbf{LinkManagement.py} Separate Python-specific link extraction, module finding, etc. 
+	from graph propagation operations.}
+	
+	\item{\textbf{Update.py} Parameterize language-specific information (e.g. \verb|PYTHON_PATH|).}
+
+	\item{\textbf{Storage.py} Modularize general file storage with respect to Python-specific module 
+	storage. In the general case probably would want to have different places for StoredModules for 
+	different languages?}
+
+	\item{\textbf{StaticAnalysis.py} Obviously, these routines are for Python scripts, and belong in 
+	a place for Python-specific stuff.  My understanding is that these functions meet our needs for 
+	static analysis, and could be a useful stand-alone package for others to use.  Should we make 
+	this a little package?  Figure out if changes should be made to the API to be more generally 
+	useful.}
+
+	\item{\textbf{MetaData.py} Metadata collection from Python returns during runtime should be 
+	separated from general metadata management.  Our management of metadata (for files and Python 
+	scripts) should function as, and perhaps be offered as, a stand-alone package (with a GUI
+	browser/API).}
+	
+	\item{\verb|system_io_override.py| is Python-specific and does stuff that would be leveraged
+	for extracting dependencies during runtime analysis.}
+
+\end{itemize}
+
+\subsection{Optimize propagation algorithms, possibly extend the graph querying API}
+
+\begin{itemize}
+
+	\item{Investigate graph databases as a solution for storing and querying the LinkList, in 
+	particular caching for graph propagation algorithms. Figure out how this would connect to 
+	runtime analysis and protocols.  Implementing a graph database solution would optimally allow
+	us to rewrite graph propagation and querying in }
+	
+	\item{How do mercurial, git store revision history?  Connecting to a version control system
+	could mean querying and using its provenance, or directly extending its provenance model.}
+	
+	\item{Think about if we should add algorithms for additional queries.  If we implement a graph
+	database solution, this could be done by exposing its query language in our API.}
+	
+\end{itemize}
+
+\subsection{Dependency extraction during runtime analysis; Call() and local pickling}
+
+Extend \verb|system_io_override.py| to add dependencies extracted during runtime to the LinkList.
+If it makes sense, we should take advantage of work by IncPy. 
+
+
+\subsection{Object-oriented support for protocols}
+
+First do the \verb|@protocol| decorator.  
+Use \verb|inspect.getmodule|, and then probably use \verb|__import__|.
+
+\noi It would be great if this had a better API.  Some potential ideas:  
+An abstract protocol is an instance of a the \verb|protocol| class.  The abstract steps in the 
+protocol should be available somehow, e.g. as attributes of a protocol.  Protocol instances are
+instantiated from an abstract protocol, and these are some other data object, e.g. the 
+\verb|pipeline| class? It would be great if this was an in-memory object with some decent 
+functionality that let you easily look within and across specific pipeline instances.
+By looking at the \verb|@protocol| decorators when you create a pipeline instance, this object 
+could be produced with \verb|depends_on| and \verb|creates| annotations.  It could basically be a 
+LinkList for the protocol.  
+
+
+\subsection{Sphinx documentation}
+Necessary if we are giving a talk / doing a release.
+	
+
+\section{Other stuff to do}
+
+\subsection{Connection to version control, and connection to data archiving}
+
+The connection to version control is interesting, but we should evaluate whether we think it is
+worth our time.  We obviously want to play well with version control, and we may want to think about
+how to unify an existing version control system with a data storage solution.  Operations like
+DE extraction / integration could be integrated with version control ideas like forking / merging.
+Think about LinkList and code revision history.  Also this is interesting to PASS, PANDA, etc.
+
+\subsection{DEServe}
+
+
+\section{Things that should be plug-ins (think about this more carefully)}
+\begin{itemize}
+	\item{Anything that depends on the ``choice of scripting language''}
+	\item{Diff / hash checkers, including file-specific diff-checkers?}
+	\item{Parallelization}
+	\item{Metadata and browser stuff}
+	\item{Version system}
+	\item{One of the slowest things is LoadLiveModules, could let users define...}
+\end{itemize}
+
+\section{Other comments / questions}
+
+\subsection{Supporting other languages}
+Where is the interactive prompt?  How are protocols handled?
+	
+\subsection{Metadata}
+Our handling of metadata is good and flexibly meets our needs.  
+Further improvements / extensions will be in the form of GUI support.
+
+
+\section{Stuff that Justin is doing}
+
+\begin{itemize}
+	\item{Write \verb|setup.py| [DONE]}
+	\item{Rename \verb|System| to \verb|starflow| and move docs outside of \verb|starflow| [DONE]}
+	\item{Place initialize in a new module, \verb|starflow.interactive|, so that the user types \\
+	\verb|from starflow.interactive import *| \\
+	instead of \verb|execfile(`../starflow/initialize')| [DONE]}
+	\item{Liberate having to run from Temp [next week]}
+	\item{Move DE-specific config files to .starflow and figure out what happens when a DE is 
+	registered (\verb|PerMachineSetup.py|, \verb|configure_live_module_filters.txt|, \\
+	\verb|configure_automatic_updates.txt|, \verb|SetupFunctions.py|)}
+	\item{Overall .starflow for global configs and possibly registration of each DE 
+	(PerMachineSetup)}
+	\item{Write out cached stuff to .starflow (StoredLinks, StoredModules, Tmp, MetaData, Archive)}
+	\item{Shell API; API for DE registration and registration certificate for each DE}
+	\item{PEP-8}
+\end{itemize}
+
+The GUI browser / API (flesh this out).
+	
+\end{document}
