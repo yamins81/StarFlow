@@ -448,9 +448,10 @@ def get_argdict(func, args, deflinedict={}):
     argdict = dict(list(enumerate(posargs)))
     argdict.update(kwargs)
     
-    for (k,d) in zip(Kwargs,Defaults):
-        if k not in argdict:
-            argdict[k] = d
+    if Kwargs:
+        for (k,d) in zip(Kwargs,Defaults):
+            if k not in argdict:
+                argdict[k] = d
 
     if 'depends_on' not in deflinedict.keys() and '__dependor__' in func.func_dict.keys():
         deflinedict['depends_on'] = func.__dependor__(argdict)
