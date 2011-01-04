@@ -5,6 +5,7 @@ Manager for StarFlow data environments
 import os
 import sys
 import cPickle as pickle
+import traceback
 
 from starflow.config import DataEnvironmentConfig, StarFlowConfig
 from starflow import managers
