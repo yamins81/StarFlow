@@ -462,7 +462,7 @@ def get_argdict(func, args, deflinedict={}):
     if '__objector__' in func.func_dict.keys():
         livedict = func.__objector__(argdict)
         assert isinstance(livedict,dict) and livedict <= argdict, '__objector__ decoration must return subdictionary of input dictionary'       
-    livedict.update(dict([(var,obj) for (var,obj) in argdict.items() if (isinstance(obj,types.FunctionType) or isinstance(obj,types.BuiltinFunctionType) or isinstance(obj,types.ClassType)) and var not in livedict.keys()]))
+    livedict.update(dict([(var,obj) for (var,obj) in argdict.items() if (isinstance(obj,types.FunctionType) or isinstance(obj,types.BuiltinFunctionType) or isinstance(obj,types.ClassType) or isinstance(obj,types.TypeType)) and var not in livedict.keys()]))
         
     return [argdict, deflinedict, livedict]
 
