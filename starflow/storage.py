@@ -251,7 +251,7 @@ def BlockUpdateModuleStorage(L):
         
 
 
-def GetStoredModule(path):
+def GetStoredModule(path,Force=False):
     '''
     Returns stored module for the python module whose file is at 'path'.   
     If the module storage update process fails, this function returns None. 
@@ -260,7 +260,7 @@ def GetStoredModule(path):
     StoredModulePart class for that part.  (see below in StoredModulePart for details)
     '''
 
-    UpdateModuleStorage(path)
+    UpdateModuleStorage(path,Force=Force)
     [StoredModulePath,StoredModuleTimesPath]  = GetStoredPathNames(path)
     try:
         return cPickle.load(open(StoredModulePath,'rb'))
@@ -300,8 +300,10 @@ def GetNestedObject(name,Members):
     else:
         for mname in Members.keys():
             if is_string_like(name) and name.startswith(mname + '.') and isinstance(Members[mname],types.ModuleType):
-                return GetNestedObject(name[len(mname)+1:],dict(inspect.getmembers(Members[mname])))
-    
+                o = GetNestedObject(name[len(mname)+1:],dict(inspect.getmembers(Members[mname])))
+                return o
+
+              
     
 def GetExtendedMembers(obj,Static):
     '''
@@ -312,7 +314,7 @@ def GetExtendedMembers(obj,Static):
         Members = obj
     else:
         Members = dict(inspect.getmembers(obj))
-    
+        
     for k in Static.keys():
         obj = GetNestedObject(k,Members)
         if obj != None:
@@ -369,6 +371,7 @@ def ExtractParts(obj,Execed=None,Static=None,ScopeName=None):
         Allowed = Members.keys()
     else:
         Allowed = GetExtendedExecedNames(Execed,Static)
+   
     AllowedNames = set(Members.keys()).intersection(Allowed)
 
     Parts = dict([(k,StoredModulePart(Members[k],ScopeName=ScopeName,Static = Static[k] if k in Static.keys() else None)) for k in AllowedNames])
@@ -377,7 +380,7 @@ def ExtractParts(obj,Execed=None,Static=None,ScopeName=None):
             
         
         
-def UpdateModuleStorage(path,creates = WORKING_DE.relative_root_dir):  
+def UpdateModuleStorage(path,creates = WORKING_DE.relative_root_dir,Force = False):  
     '''
     Updates the file storing the module at path 'path', as well
     as the file storing the mod-times for those parts.   
@@ -473,12 +476,12 @@ def UpdateModuleStorage(path,creates = WORKING_DE.relative_root_dir):
                         if hashlib.sha1(open(StoredModulePath,'rb').read()).digest() != Hashmark:
                             Remake = True
         
-            if Remake or  os.path.getmtime(path) > os.path.getmtime(StoredTimesPath):
+            if Force or Remake or  os.path.getmtime(path) > os.path.getmtime(StoredTimesPath):
             
                 if Remake:
                     StoredTimes = {}
                     StoredModule = {}
-                elif os.path.getmtime(path) > os.path.getmtime(StoredTimesPath):    
+                elif Force or os.path.getmtime(path) > os.path.getmtime(StoredTimesPath):    
             
                     StoredModule = cPickle.load(open(StoredModulePath,'rb'))
                     if set(StoredTimes.keys()) != set(['__hash__']).union(set(StoredModule.keys())):
@@ -489,11 +492,13 @@ def UpdateModuleStorage(path,creates = WORKING_DE.relative_root_dir):
                     
                 try:     
                     AddInitsAbove(path)
-                    exec('import ' + ModuleName + ' as Module') 
-                    print reload(Module)
+                    Module = __import__(ModuleName,fromlist=[ModuleName]) 
+                    #exec('import ' + ModuleName + ' as Module')
+                    reload(Module)
                     L = {}
                     execfile(path,L)
                     Static = starflow.staticanalysis.GetFullUses(path)
+
                 except:
                     print 'The Module', ModuleName, 'isn\'t compiling, nothing stored.  Specifically:'
                     print traceback.print_exc()

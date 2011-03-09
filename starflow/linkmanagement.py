@@ -294,7 +294,7 @@ def GutsComputeLinks(FileList):
             for op in StoredModule.keys():   #for each function  or class defined in the stored module: 
                 if StoredModule[op].descr == 'Internal Function' or  StoredModule[op].descr == 'Internal Class':    
                     opn = StoredModule[op].reconstitute()   #reconstitute the object, 
-                    opname = ModuleName + '.' + op        
+                    opname = ModuleName + '.' + op     
                     if StoredModule[op].descr == 'Internal Function':    # if its a function, strip out depends_on and creates  and uses notations  and produce links from them
                         DependsOn = MakeT(GetStoredDefaultVal(opn,'depends_on',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__depends_on__',NoVal = ()))
                         Creates = MakeT(GetStoredDefaultVal(opn,'creates',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__creates__',NoVal = ()))
@@ -752,7 +752,7 @@ def PropagateUpThroughLinkGraph(Seed,LinkList,depends_on = WORKING_DE.relative_r
         Like PropagateThroughLinkGraph, but goes upstream from Seed instead of downstream.
     '''
     
-    return PropagateSeed(Seed,LinkList,'LinkTarget','LinkSource','TargetFile','CreatedBy')  
+    return PropagateSeed(Seed,LinkList,'LinkTarget','LinkSource','LinkTarget','CreatedBy')  
     
     
         

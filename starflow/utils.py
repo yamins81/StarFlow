@@ -421,6 +421,26 @@ def append_decorated_attribute(f, attr_name, attr_val):
 def add_decorated_attribute(f, attr_name, attr_val):
     setattr(f, attr_name, attr_val)
     return f
+    
+def get_argd(args):
+
+    if isinstance(args,list):
+        assert len(args) == 2 and isinstance(args[0],tuple) and isinstance(args[1],dict)
+        posargs = args[0]
+        kwargs = args[1]
+    elif isinstance(args,tuple):
+        posargs = args
+        kwargs = {}
+    else:
+        assert isinstance(args,dict)
+        kwargs = args
+        posargs = ()
+
+    argdict = dict(list(enumerate(posargs)))
+    argdict.update(kwargs)
+    
+    return argdict
+
 
 def get_argdict(func, args, deflinedict={}):
 

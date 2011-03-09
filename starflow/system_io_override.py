@@ -249,11 +249,28 @@ def io_override(DE):
     
     def system_makedirs(DirName,mode=0777):
         CreatesList = GetDependsCreates()[1]
-        if IsntProtected(DirName) or any([PathAlong(DirName,r) for r in CreatesList]):
+        if IsntProtected(DirName) or any([PathAlong(DirName,r) or PathAlong(r,DirName) for r in CreatesList]):
             old_makedirs(DirName,mode)   
         else:
             raise BadCheckError(funcname(),None,DirName,[],CreatesList)
     os.makedirs = system_makedirs
+
+    def old_makedirs2(DirName,mode=0777):
+        if not old_exists(DirName):
+            DirName = DirName.rstrip('/')
+            [cont,loc] = os.path.split(DirName)
+            if not old_exists(cont):
+                old_makedirs(cont)
+            old_mkdir(DirName)
+    
+    def system_makedirs2(DirName,mode=0777):
+        CreatesList = GetDependsCreates()[1]
+        if IsntProtected(DirName) or any([PathAlong(DirName,r) or PathAlong(r,DirName) for r in CreatesList]):
+            old_makedirs2(DirName,mode)   
+        else:
+            raise BadCheckError(funcname(),None,DirName,[],CreatesList)
+    os.makedirs2 = system_makedirs2
+    
     
     
     old_rename = os.rename
