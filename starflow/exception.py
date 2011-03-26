@@ -141,9 +141,16 @@ class NameAlreadyInRegistryError(RegistryError):
         or use the remove command." % name
 
 class ProtocolError(BaseException):
-    """Base class for protocol elated errors"""
+    """Base class for protocol-related errors"""
+
+class ProtocolPickleError(ProtocolError):
+    def __init__(self,argname,argval):
+        self.msg = """Argument %s with value %s cannot be used as a protocol argument because:
+                         A) it can't be stringified properly, 
+                         B) it is not a function or class method, and 
+                         C) it cannot be pickled.""" % (argname,argval)
    
-class CannotInferProtocolTarget(ProtocolError):
+class CannotInferProtocolTargetError(ProtocolError):
     def __init__(self, pathlist,namelist):
         self.msg = "Cannot infer protocol __creates__ target anywhere along this stack: %s." % \
         '; '.join([a + ': ' + b for (a,b) in zip(pathlist,namelist)])

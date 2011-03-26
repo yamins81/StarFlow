@@ -80,7 +80,6 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
     '''
 
     if outfilename is None:
- 
         outfilename = get_outfile(instance_id)
 
 
@@ -98,6 +97,8 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
     D = WORKING_DE.root_dir
     
     ProtocolName = callermodule()[len(D):].rstrip('.py').replace('/','.').lstrip('.') + '.' + caller()
+    
+    uses_args = False
     
     for i in range(len(OpList)):
         OpTagDict = {}
@@ -133,11 +134,43 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
         else:
             op_importline = ''
             
-
+        pickledict = {}
         for (k,v) in argdict.items():
             if not isinstance(v,str) or k not in LiveDict.keys():
-                argdict[k] = repr(v)
+                rep = repr(v)
+                try:
+                    is_equal = (eval(rep) == v)
+                except:
+                    is_equal = False
                 
+                if is_equal:
+                    argdict[k] = repr(v)
+                else:
+                    uses_args = True
+                    import cPickle
+                    vname = get_vname(k)
+                    picklefile = get_argfile(stepname,k,instance_id)
+                    picklefh = open(picklefile,'w')
+                    try:    
+                        cPickle.dump(v,picklefh)
+                    except:
+                        picklefh.close()
+                        os.remove(picklefh)
+                        raise exception.ProtocolPickleError(k,v)
+                    else:
+                        picklefh.close()
+                                       
+                    pickledict[k] = (vname,picklefile)
+                    argdict[k] = vname
+                    deps = deflinedict.get('depends_on')
+                    if deps:
+                        if is_string_like(deps):
+                            deflinedict['depends_on'] = (deps,picklefile)
+                        else:
+                            deflinedict['depends_on'] = deps + (picklefile,)
+                    else:
+                        deflinedict['depends_on'] = picklefile
+                             
         intvals = [k for k in argdict.keys() if isinstance(k,int)]
         intvals.sort()
         posargs = tuple([argdict[k] for k in intvals])
@@ -147,6 +180,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
 
         ArgList = list(posargs) + [k + '=' + v for (k,v) in kwargs.items()]
         ArgString = '(' + ','.join(ArgList) + ')'
+        picklelines = '\n'.join(['\t' + vname + ' = cPickle.loads(open("' + picklefile + '").read())' for (vname,picklefile) in pickledict.values()])
         callline = '\tOpReturn = ' + func.__module__ + '.' + func.__name__ + ArgString
         returndefline = '\tReturnDict = {} ; ReturnDict["OpReturn"] = OpReturn\n\tif isinstance(OpReturn,dict) and "MetaData" in OpReturn.keys():\n\t\tReturnDict["MetaData"] = OpReturn["MetaData"]\n\tReturnDict["ProtocolMetaData"] = {}'
         metadatadeflines = []
@@ -157,7 +191,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
                 metadatadeflines += ['\tReturnDict["ProtocolMetaData"]["' + createlist[j] + '"] = "This file is an instance of the output of step ' + StepTag + ' in protocol ' + ProtocolName + '."']
         metadatalines = '\n'.join(metadatadeflines)
         returnline = '\treturn ReturnDict'
-        oplines = oplines + [defline + '\n' + op_importline + '\n' + callline + '\n' + returndefline + '\n' + metadatalines + '\n' + returnline]
+        oplines.append( '\n'.join([defline, op_importline, picklelines, callline, returndefline, metadatalines, returnline]))
         
         Fullstepname = outfilename.lstrip('../').rstrip('.py').replace('/','.') + '.' + stepname
         OpTagDict[Fullstepname] = 'Protocol\ ' + ProtocolName + ',\ ' + StepTag + ':\\nApply ' + func.__name__
@@ -169,6 +203,9 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
                             
         TagDicts[Fullstepname]  = OpTagDict
 
+    if uses_args:
+        ModulesToImport.append('cPickle')
+        
     importline = 'import ' + ','.join(uniqify(ModulesToImport))
     
     optext = importline + '\n\n\n' + '\n\n\n'.join(oplines)
@@ -190,7 +227,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
             OpMetaData['description'] = 'This operation is an instance of protocol ' + ProtocolName + '.'
             AttachMetaData(OpMetaData,OperationName = Fullstepname)
 
-def get_outfile(instance_id=None):
+def get_instances_directory():
     k = 2
     pathlist = []
     namelist = []
@@ -198,7 +235,7 @@ def get_outfile(instance_id=None):
         try:
             F = sys._getframe(k)
         except ValueError:
-            raise exception.CannotInferProtocolTarget(pathlist,namelist)
+            raise exception.CannotInferProtocolTargetError(pathlist,namelist)
         else:
             path = F.f_code.co_filename
             pathlist.append(path)
@@ -208,11 +245,13 @@ def get_outfile(instance_id=None):
             if hasattr(func,'__creates__'):
                 break
             else:
-                k += 1
-   
+                k += 1 
     instances_directory = func.__creates__[0]
     if not IsDir(instances_directory):  
         MakeDirs(instances_directory)   
+    return instances_directory
+
+def get_instance_id(instances_directory, instance_id):
     if instance_id == None:
         existing_ids = [f.split('.py')[0].split('_')[-1] for f in listdir(instances_directory)]
         existing_ids = [int(i) for i in existing_ids if i.isdigit()]
@@ -220,10 +259,73 @@ def get_outfile(instance_id=None):
             instance_id = max(existing_ids) + 1
         else:
             instance_id = 0
-    outfilename = instances_directory + 'instance_' + str(instance_id) + '.py'
+            
+    return instance_id
+
+def get_argfile(stepname,argname,instance_id):
+    instances_dir = get_instances_directory()   
+    instance_id = get_instance_id(instances_dir,instance_id)
+    return os.path.join(instances_dir,'instance_' + str(instance_id) + '_argument_' + str(argname) + '.pickle')
+
+        
+def get_outfile(instance_id):
+    instances_directory = get_instances_directory()
+    instance_id = get_instance_id(instances_directory,instance_id)
+    outfilename = os.path.join(instances_directory , 'instance_' + str(instance_id) + '.py')
     
     print("Inferred filename for target to be", outfilename)
     return outfilename
+
+def get_vname(argname):
+    if isinstance(argname,int):
+        return '__value__' + str(argname)
+    else:
+        return argname
+
+def get_argdict(func, args, deflinedict={}):
+
+    if isinstance(args,list):
+        assert len(args) == 2 and isinstance(args[0],tuple) and isinstance(args[1],dict)
+        posargs = args[0]
+        kwargs = args[1]
+    elif isinstance(args,tuple):
+        posargs = args
+        kwargs = {}
+    else:
+        assert isinstance(args,dict)
+        kwargs = args
+        posargs = ()
+
+    Info = inspect.getargspec(func)
+    Args = Info[0]
+    Defaults = Info[3]
+    NumPosArgs = len(Args) - (len(Defaults) if Defaults else 0)
+    Kwargs = Args[NumPosArgs:]
+
+    assert len(posargs) == NumPosArgs or (len(posargs) > NumPosArgs and Info[1])
+    assert set(kwargs.keys()) <= set(Kwargs) or (Info[2] and all([isinstance(k,str) for k in kwargs.keys()]))
+
+    argdict = dict(list(enumerate(posargs)))
+    argdict.update(kwargs)
+    
+    if Kwargs:
+        for (k,d) in zip(Kwargs,Defaults):
+            if k not in argdict:
+                argdict[k] = d
+
+    if 'depends_on' not in deflinedict.keys() and '__dependor__' in func.func_dict.keys():
+        deflinedict['depends_on'] = func.__dependor__(argdict)
+    if 'creates' not in deflinedict.keys() and '__creator__' in func.func_dict.keys():
+        deflinedict['creates'] = func.__creator__(argdict)
+        
+    livedict = {}
+    if '__objector__' in func.func_dict.keys():
+        livedict = func.__objector__(argdict)
+        assert isinstance(livedict,dict) and livedict <= argdict, '__objector__ decoration must return subdictionary of input dictionary'       
+    livedict.update(dict([(var,obj) for (var,obj) in argdict.items() if (isinstance(obj,types.FunctionType) or isinstance(obj,types.BuiltinFunctionType) or isinstance(obj,types.ClassType) or isinstance(obj,types.TypeType)) and var not in livedict.keys()]))
+        
+    return [argdict, deflinedict, livedict]
+
                                 
 def OpListUniqify(OpList):
     '''

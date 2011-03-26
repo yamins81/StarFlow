@@ -441,51 +441,6 @@ def get_argd(args):
     
     return argdict
 
-
-def get_argdict(func, args, deflinedict={}):
-
-    if isinstance(args,list):
-        assert len(args) == 2 and isinstance(args[0],tuple) and isinstance(args[1],dict)
-        posargs = args[0]
-        kwargs = args[1]
-    elif isinstance(args,tuple):
-        posargs = args
-        kwargs = {}
-    else:
-        assert isinstance(args,dict)
-        kwargs = args
-        posargs = ()
-
-    Info = inspect.getargspec(func)
-    Args = Info[0]
-    Defaults = Info[3]
-    NumPosArgs = len(Args) - (len(Defaults) if Defaults else 0)
-    Kwargs = Args[NumPosArgs:]
-
-    assert len(posargs) == NumPosArgs or (len(posargs) > NumPosArgs and Info[1])
-    assert set(kwargs.keys()) <= set(Kwargs) or (Info[2] and all([isinstance(k,str) for k in kwargs.keys()]))
-
-    argdict = dict(list(enumerate(posargs)))
-    argdict.update(kwargs)
-    
-    if Kwargs:
-        for (k,d) in zip(Kwargs,Defaults):
-            if k not in argdict:
-                argdict[k] = d
-
-    if 'depends_on' not in deflinedict.keys() and '__dependor__' in func.func_dict.keys():
-        deflinedict['depends_on'] = func.__dependor__(argdict)
-    if 'creates' not in deflinedict.keys() and '__creator__' in func.func_dict.keys():
-        deflinedict['creates'] = func.__creator__(argdict)
-        
-    livedict = {}
-    if '__objector__' in func.func_dict.keys():
-        livedict = func.__objector__(argdict)
-        assert isinstance(livedict,dict) and livedict <= argdict, '__objector__ decoration must return subdictionary of input dictionary'       
-    livedict.update(dict([(var,obj) for (var,obj) in argdict.items() if (isinstance(obj,types.FunctionType) or isinstance(obj,types.BuiltinFunctionType) or isinstance(obj,types.ClassType) or isinstance(obj,types.TypeType)) and var not in livedict.keys()]))
-        
-    return [argdict, deflinedict, livedict]
-
 @activate(None,lambda x : x[0])
 def MakeDir(DirName,creates = ()):
     '''
