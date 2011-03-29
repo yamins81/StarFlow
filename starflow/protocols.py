@@ -265,7 +265,7 @@ def get_instance_id(instances_directory, instance_id):
 def get_argfile(stepname,argname,instance_id):
     instances_dir = get_instances_directory()   
     instance_id = get_instance_id(instances_dir,instance_id)
-    return os.path.join(instances_dir,'instance_' + str(instance_id) + '_argument_' + str(argname) + '.pickle')
+    return os.path.join(instances_dir,'instance_' + str(instance_id) + '_' + stepname + '_argument_' + str(argname) + '.pickle')
 
         
 def get_outfile(instance_id):
