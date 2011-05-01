@@ -155,7 +155,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
                         cPickle.dump(v,picklefh)
                     except:
                         picklefh.close()
-                        os.remove(picklefh)
+                        os.remove(picklefile)
                         raise exception.ProtocolPickleError(k,v)
                     else:
                         picklefh.close()

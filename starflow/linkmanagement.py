@@ -305,6 +305,7 @@ def GutsComputeLinks(FileList):
                         
                     else:
                         SpecifiedUses = []
+                        IsFast = False
                     ComputedUses = StoredModule[op].static    #get system-computed Uses links determined by static analysis  on the funciton -- which is included in the StoredModule 
                     Uses = SpecifiedUses + (ComputedUses[0] if ComputedUses != None else [])  #add the system-computed Uses to the user-declared ones
                     OpPaths = [['../' + '/'.join(a[0].split('.')[:j]) + '.py' for j in range( 1, len(a[0].split('.'))) if IsFile('../' + '/'.join(a[0].split('.')[:j]) + '.py')] for a in Uses]
