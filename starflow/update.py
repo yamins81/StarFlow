@@ -96,7 +96,6 @@ updating.
 
 '''
 
-from __future__ import with_statement
 import os
 import time
 import sys
@@ -535,7 +534,8 @@ def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,
     F = open(TempMetaFile,'w')
     TempMetaData = {'NCS':NewlyCreatedScripts,'OriginalTimes':OriginalTimes,'ExitType':ExitType,'IsDifferent':IsDifferent}
     pickle.dump(TempMetaData,F) 
-        
+    F.close()
+    
     if CallMode == 'DRMAA':
         EmailResults(EmailWhenDone,'Call to ' + j + ', run ' + SsName ,TempSOIS)
         
