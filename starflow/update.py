@@ -373,7 +373,7 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         argstr = "from starflow.production import *; import starflow.update as U ; U.DoOp(" + ",".join([repr(x) for x in [i,j,SsName,SsTemp,SsRTStore,CreateDict[j],IsFastDict[j],CallMode,TouchList,DepListJ[j].tolist(), EmailWhenDone]]) + ")"
                         jt.args = ["-c",argstr]
                         jt.joinFiles = True
-                        jt.jobEnvironment = dict([(k,os.environ[k]) for k in ['PYTHONPATH','PATH']])
+                        jt.jobEnvironment = dict([(k,os.environ[k]) for k in ['PYTHONPATH','PATH'] if k in os.environ])
                         TempSOIS = os.path.join(SsTemp , RUNSTDOUTINSESSION + '_' + j)
                         jt.outputPath = ':' + TempSOIS
                         jt.jobName = j
