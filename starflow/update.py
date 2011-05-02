@@ -390,7 +390,7 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         print 'Job', j, 'returned.'
                         ResourceUsageDict[j] = retval.resourceUsage 
                 
-                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j],Session)
+                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j])
                         
                         #TODO:  make resource usage reflect child jobs if any
                     
@@ -470,7 +470,7 @@ def DoOp(i,j,SsName,SsTemp,SsRTStore,CreatesList,IsFast,CallMode,TouchList,DepLi
         FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast)
 
 
-def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast,Session):
+def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast):
     TempMetaFile = os.path.join(SsTemp , TEMPMETAFILE + '_' + j)
     if PathExists(TempMetaFile):
         MetaData = pickle.load(open(TempMetaFile,'r'))
@@ -480,12 +480,9 @@ def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast,Session):
             print('... but found child jobs', child_jobs, 'so now waiting for those...')
             ExitStatus = MetaData['ExitStatus']
             
-            for cj in child_jobs:
-                retval = Session.wait(cj,drmaa.Session.TIMEOUT_WAIT_FOREVER)
-                child_exitStatus = retval.exitStatus
-                print('child job', cj, 'returned with exit status',child_exitStatus)
-                if child_exitStatus != 0:
-                    ExitStatus = -1
+            statuses = wait_and_get_statuses(child_jobs)
+            if not all([ces == 0 for ces in statuses]):
+                ExitStatus = -1
             
             FinishUp(j,ExitStatus,MetaData['RunOutput'],
                                 child_jobs,
@@ -501,6 +498,44 @@ def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast,Session):
                                 SsName,SsRTStore,IsFast)
 
 
+import BeautifulSoup
+import re
+SGE_STATUS_INTERVAL = 5
+SGE_EXIT_STATUS_PATTERN = re.compile('exit_status[\s]*([\d])')
+
+def wait_get_get_statuses(joblist):
+
+    f = tempfile.NamedTemporaryFile(delete=False)
+    name = f.name
+    f.close()
+    
+    jobset =  set(joblist)
+    
+    statuses = []
+    while True:
+        os.system('qstat -xml > ' + name)
+        Soup = BeautifuSoup.BeautifulStoneSoup(open(name))
+        running_jobs = [str(x.contents[0]) for x in Soup.findAll('jb_job_number')]
+        if jobset.intersection(running_jobs):
+            time.sleep(SGE_STATUS_INTERVAL)
+        else:
+            break
+    
+    
+    for job in jobset:
+        os.system('qacct -j ' + job + ' > ' + name)
+        s = open(name).read()      
+        try:
+            res = SGE_EXIT_STATUS_PATTERN.search(s)
+            child_exitStatus = int(res.groups()[0])
+            statuses.append(child_exitStatus)
+        except:
+            raise exception.QacctParsingError(job,name)
+        else:
+            pass
+    
+    os.remove(name)
+    return statuses
 
 def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast):
 

@@ -155,3 +155,7 @@ class CannotInferProtocolTargetError(ProtocolError):
         self.msg = "Cannot infer protocol __creates__ target anywhere along this stack: %s." % \
         '; '.join([a + ': ' + b for (a,b) in zip(pathlist,namelist)])
             
+            
+class QacctParsingError(Exception):
+    def __init__(self,job,name):
+        self.msg = "Can't parse exit status from " + repr(name) + " for job " + repr(job) + "."
