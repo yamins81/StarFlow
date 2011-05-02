@@ -136,6 +136,12 @@ TEMPMETAFILE='METATEMP'                         # metadata (e.g. resource-usage)
                                                 # used by the updater
 ARCHIVE_DIR = WORKING_DE.archive_dir
 
+try:
+    import drmaa
+except ImportError:
+    print("DRMAA not available")
+else:
+    print("DRMAA loaded")
 
 def SetupRun(creates=(WORKING_DE.relative_archive_dir,WORKING_DE.relative_tmp_dir)):
 
@@ -361,7 +367,6 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         ResourceUsageDict[j] = {}
                 
                 elif CallMode == 'DRMAA':
-                    import drmaa
                     Session = drmaa.Session()
                     Session.initialize()
                     
