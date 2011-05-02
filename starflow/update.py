@@ -485,7 +485,6 @@ def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast):
                 ExitStatus = -1
             
             FinishUp(j,ExitStatus,MetaData['RunOutput'],
-                                child_jobs,
                                 MetaData['Before'],
                                 MetaData['After'],
                                 MetaData['Creates'],
@@ -495,7 +494,8 @@ def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast):
                                 MetaData['TempSOIS'],
                                 TempMetaFile,
                                 EmailWhenDone,
-                                SsName,SsRTStore,IsFast)
+                                SsName,SsRTStore,IsFast,
+                                child_jobs = child_jobs)
 
 
 import BeautifulSoup
@@ -542,7 +542,7 @@ def wait_and_get_statuses(joblist):
     os.remove(name)
     return statuses
 
-def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast):
+def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast,child_jobs = None):
 
     Targets = uniqify(Creates + DepListj)
 
@@ -578,6 +578,8 @@ def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,
     MakeRuntimeMetaData(j,Creates,OriginalTimes,OrigDirInfo,RunOutput,ExitType,ExitStatus,Before,After,IsDifferent,TempSOIS)
     F = open(TempMetaFile,'w')
     TempMetaData = {'NCS':NewlyCreatedScripts,'OriginalTimes':OriginalTimes,'ExitType':ExitType,'IsDifferent':IsDifferent}
+    if child_jobs:
+        TempMetaData['child_jobs'] = child_jobs
     pickle.dump(TempMetaData,F) 
     F.close()
     
