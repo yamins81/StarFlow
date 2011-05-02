@@ -579,10 +579,13 @@ def FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,
     MakeRuntimeMetaData(j,Creates,OriginalTimes,OrigDirInfo,RunOutput,ExitType,ExitStatus,Before,After,IsDifferent,TempSOIS)
     F = open(TempMetaFile,'w')
     TempMetaData = {'NCS':NewlyCreatedScripts,'OriginalTimes':OriginalTimes,'ExitType':ExitType,'IsDifferent':IsDifferent}
+    
     if child_jobs:
         TempMetaData['child_jobs'] = child_jobs
     pickle.dump(TempMetaData,F) 
     F.close()
+    
+    print("FINISH UP",TempMetaFile,TempMetaData)
     
     if CallMode == 'DRMAA':
         EmailResults(EmailWhenDone,'Call to ' + j + ', run ' + SsName ,TempSOIS)
