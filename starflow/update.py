@@ -492,12 +492,10 @@ def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast,CallMode):
                                 MetaData['OriginalTimes'],
                                 MetaData['OrigDirInfo'],
                                 MetaData['TempSOIS'],
-                                CallMode,
-                                TempMetaFile,
+                                TempMetaFile,CallMode,
                                 EmailWhenDone,
                                 SsName,SsRTStore,IsFast,
                                 child_jobs = child_jobs)
-
 
 import BeautifulSoup
 import re
