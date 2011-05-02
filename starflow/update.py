@@ -385,7 +385,7 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         print 'Job', j, 'returned.'
                         ResourceUsageDict[j] = retval.resourceUsage 
                 
-                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j])
+                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j],Session)
                         
                         #TODO:  make resource usage reflect child jobs if any
                     
@@ -465,7 +465,7 @@ def DoOp(i,j,SsName,SsTemp,SsRTStore,CreatesList,IsFast,CallMode,TouchList,DepLi
         FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast)
 
 
-def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast):
+def HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast,Session):
     TempMetaFile = os.path.join(SsTemp , TEMPMETAFILE + '_' + j)
     if PathExists(TempMetaFile):
         MetaData = pickle.load(open(TempMetaFile,'r'))
