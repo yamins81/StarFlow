@@ -515,7 +515,7 @@ def wait_and_get_statuses(joblist):
     statuses = []
     while True:
         os.system('qstat -xml > ' + name)
-        Soup = BeautifuSoup.BeautifulStoneSoup(open(name))
+        Soup = BeautifulSoup.BeautifulStoneSoup(open(name))
         running_jobs = [str(x.contents[0]) for x in Soup.findAll('jb_job_number')]
         if jobset.intersection(running_jobs):
             time.sleep(SGE_STATUS_INTERVAL)
