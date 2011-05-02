@@ -503,6 +503,7 @@ import re
 SGE_STATUS_INTERVAL = 5
 SGE_EXIT_STATUS_PATTERN = re.compile('exit_status[\s]*([\d])')
 import tempfile
+from starflow import exception
 
 def wait_and_get_statuses(joblist):
 
@@ -520,6 +521,7 @@ def wait_and_get_statuses(joblist):
         if jobset.intersection(running_jobs):
             time.sleep(SGE_STATUS_INTERVAL)
         else:
+            time.sleep(SGE_STATUS_INTERVAL)
             break
     
     
