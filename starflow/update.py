@@ -521,11 +521,13 @@ def wait_and_get_statuses(joblist):
         if jobset.intersection(running_jobs):
             time.sleep(SGE_STATUS_INTERVAL)
         else:
-            time.sleep(SGE_STATUS_INTERVAL)
             break
     
     
     for job in jobset:
+        e = os.system('qacct -j ' + job + ' > ' + name)
+        if e != 0:
+            time.sleep(20)
         os.system('qacct -j ' + job + ' > ' + name)
         s = open(name).read()      
         try:
