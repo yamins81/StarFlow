@@ -385,7 +385,7 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         print 'Job', j, 'returned.'
                         ResourceUsageDict[j] = retval.resourceUsage 
                 
-                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFast)
+                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j])
                         
                         #TODO:  make resource usage reflect child jobs if any
                     
