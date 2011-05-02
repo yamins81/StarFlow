@@ -502,8 +502,9 @@ import BeautifulSoup
 import re
 SGE_STATUS_INTERVAL = 5
 SGE_EXIT_STATUS_PATTERN = re.compile('exit_status[\s]*([\d])')
+import tempfile
 
-def wait_get_get_statuses(joblist):
+def wait_and_get_statuses(joblist):
 
     f = tempfile.NamedTemporaryFile(delete=False)
     name = f.name
