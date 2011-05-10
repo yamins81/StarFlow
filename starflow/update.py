@@ -644,7 +644,7 @@ def RevertToOldFiles(Creates,SsRTStore,IsFast,OriginalDirInfo):
         for g in OriginalDirInfo.keys():
             os.utime(g,(FindAtime(g),OriginalDirInfo[g][0]))    
 
-def MoveOutGarbage(Creates,SsRTStore):
+def MoveOutGarbage(Creates,SsRTStore,creates = WORKING_DE.relative_root_dir):
     for f in Creates: 
         if PathExists(f):
             temp_name = redirect(f,SsRTStore) 
