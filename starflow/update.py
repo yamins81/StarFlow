@@ -460,6 +460,7 @@ def DoOp(i,j,SsName,SsTemp,SsRTStore,CreatesList,IsFast,CallMode,TouchList,DepLi
         if not child_jobs:
             FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast)        
         else:
+            print('cj detected',child_jobs,'.recording pending') 
             RecordPendingStatus(ExitStatus,RunOutput,child_jobs,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile)
     
     else:   
