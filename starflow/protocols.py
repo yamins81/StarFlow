@@ -182,7 +182,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
         ArgString = '(' + ','.join(ArgList) + ')'
         picklelines = '\n'.join(['\t' + vname + ' = cPickle.loads(open("' + picklefile + '").read())' for (vname,picklefile) in pickledict.values()])
         callline = '\tOpReturn = ' + func.__module__ + '.' + func.__name__ + ArgString
-        returndefline = '\tReturnDict = OpReturn\n\tif isinstance(OpReturn,dict) and "MetaData" in OpReturn.keys():\n\t\tReturnDict["MetaData"] = OpReturn["MetaData"]\n\tReturnDict["ProtocolMetaData"] = {}'
+        returndefline = '\tReturnDict = OpReturn\n\tReturnDict["__protocol_metadata__"] = {}'
         metadatadeflines = []
         StepTag = deflinedict['StepTag'] if 'StepTag' in deflinedict.keys() else stepname
         if 'creates' in deflinedict.keys():
