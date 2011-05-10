@@ -456,11 +456,10 @@ def DoOp(i,j,SsName,SsTemp,SsRTStore,CreatesList,IsFast,CallMode,TouchList,DepLi
         After = time.time()
         os.utime(ModDirName,(OldATime,OldMTime))
         RunOutput = pickle.load(open(TempOutput,'r')) if PathExists(TempOutput) else None   
-        child_jobs = isinstance(RunOutput,dict) and RunOutput.get('child_jobs')    
+        child_jobs = isinstance(RunOutput,dict) and RunOutput.get('child_jobs') 
         if not child_jobs:
             FinishUp(j,ExitStatus,RunOutput,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile,CallMode,EmailWhenDone,SsName,SsRTStore,IsFast)        
         else:
-            print('cj detected',child_jobs,'.recording pending') 
             RecordPendingStatus(ExitStatus,RunOutput,child_jobs,Before,After,Creates,DepListj,OriginalTimes,OrigDirInfo,TempSOIS,TempMetaFile)
     
     else:   

@@ -182,13 +182,13 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
         ArgString = '(' + ','.join(ArgList) + ')'
         picklelines = '\n'.join(['\t' + vname + ' = cPickle.loads(open("' + picklefile + '").read())' for (vname,picklefile) in pickledict.values()])
         callline = '\tOpReturn = ' + func.__module__ + '.' + func.__name__ + ArgString
-        returndefline = '\tReturnDict = {} ; ReturnDict["OpReturn"] = OpReturn\n\tif isinstance(OpReturn,dict) and "MetaData" in OpReturn.keys():\n\t\tReturnDict["MetaData"] = OpReturn["MetaData"]\n\tReturnDict["ProtocolMetaData"] = {}'
+        returndefline = '\tReturnDict = OpReturn\n\tif isinstance(OpReturn,dict) and "MetaData" in OpReturn.keys():\n\t\tReturnDict["MetaData"] = OpReturn["MetaData"]\n\tReturnDict["ProtocolMetaData"] = {}'
         metadatadeflines = []
         StepTag = deflinedict['StepTag'] if 'StepTag' in deflinedict.keys() else stepname
         if 'creates' in deflinedict.keys():
             createlist = MakeT(deflinedict['creates'])
             for j in range(len(createlist)):
-                metadatadeflines += ['\tReturnDict["ProtocolMetaData"]["' + createlist[j] + '"] = "This file is an instance of the output of step ' + StepTag + ' in protocol ' + ProtocolName + '."']
+                metadatadeflines += ['\tReturnDict["__protocol_metadata__"]["' + createlist[j] + '"] = "This file is an instance of the output of step ' + StepTag + ' in protocol ' + ProtocolName + '."']
         metadatalines = '\n'.join(metadatadeflines)
         returnline = '\treturn ReturnDict'
         oplines.append( '\n'.join([defline, op_importline, picklelines, callline, returndefline, metadatalines, returnline]))
