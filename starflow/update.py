@@ -365,6 +365,7 @@ def UpdateLinks(ActivatedLinkListSequence, Seed, AU = None, Exceptions = None,
                         
                         DoOp(i,j,SsName,SsTemp,SsRTStore,CreateDict[j],IsFastDict[j],CallMode,TouchList,DepListJ[j].tolist(), EmailWhenDone)
                         ResourceUsageDict[j] = {}
+                        HandleChildJobs(j,SsTemp,EmailWhenDone,SsName,SsRTStore,IsFastDict[j],CallMode)
                 
                 elif CallMode == 'DRMAA':
                     Session = drmaa.Session()
