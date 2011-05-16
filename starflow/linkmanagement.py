@@ -297,15 +297,15 @@ def GutsComputeLinks(FileList):
                     opname = ModuleName + '.' + op     
                     if StoredModule[op].descr == 'Internal Function':    # if its a function, strip out depends_on and creates  and uses notations  and produce links from them
                         DependsOn = MakeT(GetStoredDefaultVal(opn,'depends_on',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__depends_on__',NoVal = ()))
-                        Creates = MakeT(GetStoredDefaultVal(opn,'creates',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__creates__',NoVal = ()))
-                        IsFast = GetStoredDefaultVal(opn,'Fast',NoVal = 0)
+                        Creates = MakeT(GetStoredDefaultVal(opn,'creates',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__creates__',NoVal = ())) 
+                        IsFast = GetStoredDefaultVal(opn,'IsFast',NoVal = 0) or GetStoredAttributes(opn,'__is_fast__',NoVal = 0) 
                         LinkList += [('CreatedBy',opname,opfile,b,b,opname,opfile,IsFast) for b in Creates]
                         LinkList += [('DependsOn',a,a,opname,opfile,'None',opfile,IsFast) for a in DependsOn]
                         SpecifiedUses = [(u,'../' + '/'.join(u.split('.')[:-1]) + '.py') if isinstance(u,str) else u for u in MakeT(GetStoredDefaultVal(opn,'uses',NoVal = ())) + MakeT(GetStoredAttributes(opn,'__uses__',NoVal = ()))]
                         
                     else:
                         SpecifiedUses = []
-                        IsFast = False
+                        IsFast = 0
                     ComputedUses = StoredModule[op].static    #get system-computed Uses links determined by static analysis  on the funciton -- which is included in the StoredModule 
                     Uses = SpecifiedUses + (ComputedUses[0] if ComputedUses != None else [])  #add the system-computed Uses to the user-declared ones
                     OpPaths = [['../' + '/'.join(a[0].split('.')[:j]) + '.py' for j in range( 1, len(a[0].split('.'))) if IsFile('../' + '/'.join(a[0].split('.')[:j]) + '.py')] for a in Uses]

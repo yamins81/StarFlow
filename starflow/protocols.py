@@ -22,7 +22,7 @@ from starflow import de
 DE_MANAGER = de.DataEnvironmentManager()
 WORKING_DE = DE_MANAGER.working_de
 
-def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = True, instance_id = None):
+def actualize(OpThing, outfilename = None, outfiledir = None, WriteMetaData = True, importsOnTop = True, instance_id = None):
 
     '''
     Function which implements the basic protocol concept.  
@@ -80,7 +80,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
     '''
 
     if outfilename is None:
-        outfilename = get_outfile(instance_id)
+        outfilename = get_outfile(instance_id,outfiledir)
 
 
     if isinstance(OpThing,dict):
@@ -149,17 +149,28 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
                     uses_args = True
                     import cPickle
                     vname = get_vname(k)
-                    picklefile = get_argfile(stepname,k,instance_id)
-                    picklefh = open(picklefile,'w')
-                    try:    
-                        cPickle.dump(v,picklefh)
-                    except:
-                        picklefh.close()
-                        os.remove(picklefile)
-                        raise exception.ProtocolPickleError(k,v)
-                    else:
-                        picklefh.close()
-                                       
+                    picklefile = get_argfile(stepname,k,instance_id,outfiledir)
+                    remake = True
+                    if os.path.exists(picklefile):
+                        try:
+                            existing_v = cPickle.loads(open(picklefile).read())
+                        except:
+                            print('unpickling error for ', picklefile)
+                        else:
+                            if v  == existing_v:
+                                remake = False
+                    
+                    if remake:
+                        picklefh = open(picklefile,'w')
+                        try:    
+                            cPickle.dump(v,picklefh)
+                        except:
+                            picklefh.close()
+                            os.remove(picklefile)
+                            raise exception.ProtocolPickleError(k,v)
+                        else:
+                            picklefh.close()
+                                           
                     pickledict[k] = (vname,picklefile)
                     argdict[k] = vname
                     deps = deflinedict.get('depends_on')
@@ -175,8 +186,8 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
         intvals.sort()
         posargs = tuple([argdict[k] for k in intvals])
         kwargs = dict([(k,v) for (k,v) in argdict.items() if not isinstance(k,int)])
-        
-        defline = 'def ' + stepname + '(' + ','.join([key + '=' + repr(deflinedict[key]) for key in deflinedict.keys()]) + '):'
+
+        defline = 'def ' + stepname + '(' + ','.join([key + '=' + repr(deflinedict[key]) for key in deflinedict]) + '):'
 
         ArgList = list(posargs) + [k + '=' + v for (k,v) in kwargs.items()]
         ArgString = '(' + ','.join(ArgList) + ')'
@@ -227,7 +238,7 @@ def actualize(OpThing, outfilename = None, WriteMetaData = True, importsOnTop = 
             OpMetaData['description'] = 'This operation is an instance of protocol ' + ProtocolName + '.'
             AttachMetaData(OpMetaData,OperationName = Fullstepname)
 
-def get_instances_directory():
+def infer_instances_directory():
     k = 2
     pathlist = []
     namelist = []
@@ -262,14 +273,14 @@ def get_instance_id(instances_directory, instance_id):
             
     return instance_id
 
-def get_argfile(stepname,argname,instance_id):
-    instances_dir = get_instances_directory()   
+def get_argfile(stepname,argname,instance_id,outfiledir):
+    instances_dir = outfiledir or infer_instances_directory()   
     instance_id = get_instance_id(instances_dir,instance_id)
     return os.path.join(instances_dir,'instance_' + str(instance_id) + '_' + stepname + '_argument_' + str(argname) + '.pickle')
 
         
-def get_outfile(instance_id):
-    instances_directory = get_instances_directory()
+def get_outfile(instance_id,outfiledir):
+    instances_directory = outfiledir or infer_instances_directory()
     instance_id = get_instance_id(instances_directory,instance_id)
     outfilename = os.path.join(instances_directory , 'instance_' + str(instance_id) + '.py')
     
@@ -352,5 +363,8 @@ def protocol_creates_directory(f):
     assert relative_path.endswith('.py'), 'Path must end with .py'
     generated_code_dir = WORKING_DE.relative_generated_code_dir
     
-    return append_decorated_attribute(f, '__creates__', os.path.join(generated_code_dir,relative_path[:-3] ,  name + '/' ))
+    #return append_decorated_attribute(f, '__creates__', os.path.join(generated_code_dir,relative_path[:-3] ,  name + '/' ))
+    f = append_decorated_attribute(f, '__creates__', os.path.join(generated_code_dir,relative_path[:-3] ,  name + '/' ))
+    return add_decorated_attribute(f, '__is_fast__', 1)
+    
 
