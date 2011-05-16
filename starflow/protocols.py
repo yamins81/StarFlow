@@ -79,6 +79,9 @@ def actualize(OpThing, outfilename = None, outfiledir = None, WriteMetaData = Tr
         NOTHING
     '''
 
+    outfiledir = outfiledir or infer_instances_directory()
+    prepare_instance_dir(outfiledir)
+    
     if outfilename is None:
         outfilename = get_outfile(instance_id,outfiledir)
 
@@ -261,6 +264,14 @@ def infer_instances_directory():
     if not IsDir(instances_directory):  
         MakeDirs(instances_directory)   
     return instances_directory
+
+def prepare_instance_dir(instances_directory):
+    x = listdir(instances_directory)
+    for y in x:
+        if y.endswith(('.py','.pyc')):
+            to_delete = os.path.join(instances_directory,y)
+            print('deleting',to_delete)
+            os.remove(to_delete)
 
 def get_instance_id(instances_directory, instance_id):
     if instance_id == None:
