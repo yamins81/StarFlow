@@ -4,6 +4,7 @@ SGE_STATUS_INTERVAL = 5
 SGE_EXIT_STATUS_PATTERN = re.compile('exit_status[\s]*([\d])')
 import tempfile
 from starflow import exception
+import os
 
 def wait_and_get_statuses(joblist):
 
