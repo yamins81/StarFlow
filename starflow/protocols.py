@@ -85,7 +85,6 @@ def actualize(OpThing, outfilename = None, outfiledir = None, WriteMetaData = Tr
     if outfilename is None:
         outfilename = get_outfile(instance_id,outfiledir)
 
-
     if isinstance(OpThing,dict):
         OpList = [[s] + list(OpThing[s]) for s in OpThing.keys()]
     else:
@@ -266,6 +265,8 @@ def infer_instances_directory():
     return instances_directory
 
 def prepare_instance_dir(instances_directory):
+    if not os.path.exists(instances_directory):
+        os.makedirs(instances_directory)
     x = listdir(instances_directory)
     for y in x:
         if y.endswith(('.py','.pyc')):
