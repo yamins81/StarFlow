@@ -529,7 +529,7 @@ def MakeT(r):
     If input 'r' is a comma-delimited string, return tuple split on 
     commas, else return tuple(r)
     '''
-    return tuple(r.split(',')) if isinstance(r,str) else tuple(r)   
+    return () if r is None else (tuple(r.split(',')) if isinstance(r,str) else tuple(r) )
 
 
 def getKalong(LL1,LL2,k):

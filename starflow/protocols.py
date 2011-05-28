@@ -379,3 +379,28 @@ def protocol_creates_directory(f):
     return add_decorated_attribute(f, '__is_fast__', 1)
     
 
+def Applies(op,args=(),kwargs=None):
+    if kwargs is None:
+        kwargs = {}
+    
+    argdict = get_argd([args,kwargs])
+
+    def appfunc(f):
+        f = add_decorated_attribute(f,'__depends_on__',op.__dependor__(argdict))
+        f = add_decorated_attribute(f,'__creates__',op.__creator__(argdict))
+        f = add_decorated_attribute(f,'__apply_op__',op)
+        f = add_decorated_attribute(f,'__apply_args__',[args,kwargs])
+        return f
+
+    return appfunc
+    
+
+def Apply():
+    fr = sys._getframe(1)
+    name = fr.f_code.co_name
+    globals = fr.f_globals
+    func = globals[name]
+    op = func.__apply_op__
+    [args,kwargs] = func.__apply_args__
+    op(*args,**kwargs)
+    
